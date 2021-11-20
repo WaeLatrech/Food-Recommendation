@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head> 
-    <title>Your Advancer- Products </title>
+    <title>Food Recommendation - Brands </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" th:href="@{../../css/bootstrap.css}">
@@ -24,7 +24,7 @@
 						<a class="navbar-brand d-flex" href="/user/home"> 
 							<div class="icon d-flex align-items-center justify-content-center">
 								<img src="../../static/images/logoooo.png" alt="logo" style="width:40px;">
-							</div>Your Advancer
+							</div><b>Food Recommendation</b> 
 						</a>
 					</div>
 					<div class="col-3 d-flex justify-content-end align-items-center">
@@ -43,41 +43,44 @@
 		
 		<section class="menu-wrap flex-md-column-reverse d-md-flex">
 			<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-		    	<div class="container">
-		     	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-		        	<span class="fa fa-bars"></span> Menu
-		      	</button>
-		        <div class="req-button order-lg-last">
-		      		<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add product</a>
-	        	</div>
-	        	<!-- statiqueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee  -->
-		        <div class="dropdown order-lg-last ml-4 dark-text">
-			        <a  id="dropdownMenuButton" data-toggle="dropdown" class= " dark-text" aria-haspopup="true" aria-expanded="false">
-			          <i class="fa fa-user-circle-o"  style="font-size: 20px;" aria-hidden="true" ></i> welcome , <i th:value="${user.username}"  th:text="${user.username}"></i>     <i class="fa fa-chevron-down" aria-hidden="true"></i>   
-			        </a>
-	          		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			           <a class="dropdown-item" href="/logout"> <i class="fa fa-sign-out" ></i> Logout </a>
-			           <a class="dropdown-item" href="/user/Account">  <i class="fa fa-refresh"></i> Account</a>
-	           		</div>
-         		</div>
-		      	<div class="collapse navbar-collapse" id="ftco-nav">
-			        <ul class="navbar-nav mr-auto">
-			        	<li class="nav-item"><a href="/user/home" class="nav-link">Home</a></li>
-			        	<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-						<li class="nav-item dropdown">
-			        	<a href="/Products" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our products</a>
-			        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-				           <a    class="dropdown-item" th:href="@{/Products/{title}(title=${category.Title})}" th:each="category : ${categories}" th:value="${category.Title}"  th:text="${category.Title}"></a>
-		           		</div>
-			        	</li>			        	
-			        	<li class="nav-item"><a href="/user/Contact" class="nav-link">Contact</a></li>
-				     <li class="nav-item" th:switch="${user.Role}">
-                     <a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
-                    </li>
-				     </ul>
-		      	</div>
-		    </div>
-		  </nav>
+			<div class="container">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="fa fa-bars"></span> Menu
+				</button>
+				<div class="req-button order-lg-last">
+					<a href="">
+						<span class="fa fa-upload" aria-hidden="true"></span> Add product
+					</a>
+				</div>
+				
+				<div class="dropdown order-lg-last ml-4 dark-text">
+					<a id="dropdownMenuButton" data-toggle="dropdown" class=" dark-text" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-user-circle-o" style="font-size: 20px;" aria-hidden="true"></i> welcome , 
+						
+						<i class="fa fa-chevron-down" aria-hidden="true"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="/logout"> 
+							<i class="fa fa-sign-out"></i> Logout
+						</a> 
+						<a class="dropdown-item" href="/user/Account"> 
+							<i class="fa fa-refresh"></i>Account
+						</a>
+					</div>
+				</div>
+				<div class="collapse navbar-collapse" id="ftco-nav">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active"><a href="/user/home" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="/user/home/#about" class="nav-link">About</a></li>
+						<li class="nav-item "><a href="" class="nav-link">Brands</a></li>
+						<li class="nav-item"><a href="/user/contact" class="nav-link">Contact</a></li>
+						<li class="nav-item" >
+							<a class="nav-link" href="/admin/home"> Admin Page</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 	    <!-- END nav -->
 	    
 		    <div class="hero-wrap hero-wrap-2" style="background-image: url('../../static/images/fix-bad-reviews.jpg');" data-stellar-background-ratio="0.5">
@@ -86,7 +89,7 @@
 		        	<div class="row no-gutters slider-text align-items-end">
 		          		<div class="col-md-9 ftco-animate pb-5"> 
 		          			<p class="breadcrumbs mb-2"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>OUR Products <i class="fa fa-chevron-right"></i></span></p>
-	                		<h1 class="mb-0 bread">Our Products</h1>
+	                		<h1 class="mb-0 bread">Brands</h1>
 		          		</div>
 		        	</div>
 		      </div>
@@ -97,7 +100,7 @@
       		<div class="container-fluid">
                 <div class=" row justify-content-center mb-5">
                     <div class="col-md-8 text-center heading-section ftco-animate">
-                          <h2 class="mb-4">Our Products</h2>
+                          <h2 class="mb-4">Brands</h2>
                     </div>
                 </div>
         		<div class="row">
@@ -234,7 +237,7 @@
 	                <h4>BALTI Nour</h4>
 	                <h4>MAATOUG Mohamed zouhaier</h4>
 	                <h4>DJEBALI Boutheina</h4>
-	                <h4>MANSOUR Ibtihel</h4>
+	                
 	                
 	                  
 	            </div>

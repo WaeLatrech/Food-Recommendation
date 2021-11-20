@@ -1,6 +1,6 @@
 package app.food.recommendation.endpoints;
 
-import java.util.Collection;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
