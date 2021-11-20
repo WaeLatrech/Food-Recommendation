@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Your Advancer- Products list </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+        <link rel="stylesheet" href="../css/animate.css">
+        
+        <link rel="stylesheet" href="../css/owl.carousel.min.css">
+        <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="../css/magnific-popup.css">
+
+        <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="../css/jquery.timepicker.css">
+
+        <link rel="stylesheet" href="../css/flaticon.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style type="text/css">
+			span {
+			        display: inline-block;
+			        width: 200px;
+			        text-align: left;
+			    }
+		</style>
+    </head>
+    <body>
+    <div align="center" class="container-fluid table-responsive">
+    	<hr>								
+		<h2 class="mb-4"> Product List </h2>
+		<hr>
+		<table border="1" class="table">
+			<tr class="thead-light">
+			
+				<th>ID</th>
+				<th>Image</th>
+				<th>Name</th>
+				<th>Brand</th>
+				<th>Category</th>
+				<th>Date Of creation</th>
+				<th>Description</th>
+				<th>Rate</th>
+				<th >Delete</th>
+				<th >Edit</th>
+				
+	
+			</tr>
+			<tr th:each ="product : ${products}" >
+
+				<td th:utext="${product.idp}"  ></td>
+				<td>
+					<img alt="" th:src="*{'data:img/png;base64,'+{product.img}}" style="width: 100px;height: 100px;">
+				</td>
+				<td th:utext="${product.nom}"  ></td>
+				<td th:utext="${product.marque}" ></td>
+				<td th:utext="${product.catname}" ></td>
+				<td th:utext="${product.dateofcreation}" ></td>
+				<td th:utext="${product.description}" ></td>
+				<td th:utext="${product.rate}" ></td>
+				<td>
+					<a th:href="@{/admin/delproduct/{id}(id=${product.idp})}" aria-hidden="true" class="btn btn-danger mt">Delete</a>
+				</td>
+				<td> 
+					<a th:href="@{/admin/updproduct/{id}(id=${product.idp})}"   aria-hidden="true" class="btn btn-info mt">edit</a>
+				</td>
+			</tr>
+		</table>
+		
+	</div>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+    </body>
+</html>

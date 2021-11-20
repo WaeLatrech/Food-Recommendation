@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Admin - Add User</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+        <link rel="stylesheet" href="../css/animate.css">
+        
+        <link rel="stylesheet" href="../css/owl.carousel.min.css">
+        <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="../css/magnific-popup.css">
+
+        <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="../css/jquery.timepicker.css">
+
+        <link rel="stylesheet" href="../css/flaticon.css">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+    	<section class="ftco-section bg-light" >
+            <div class="container">
+              	<div class="row justify-content-center">
+               	 	<div class="col-md-8">
+                  		<div class="wrapper">
+                    		<div class="row no-gutters">
+    							<div align="center" class="contact-wrap  ">
+                    				<h3 class="mb-4">Add User</h3>
+									<form method="POST" th:action="@{/admin/adduser}" th:object="${user}" id="contactForm" class="contactForm" name="fsignup" onsubmit="return valider()" enctype="multipart/form-data">
+										<div class="row">
+                        					<div class="col-md-12">
+                          						<div class="form-group">
+                        							<input type="text" class="form-control" name="username" id="username" th:field="*{username}" placeholder="Username">
+                          						</div>
+                        					</div>
+                         					<div class="col-md-6"> 
+                          						<div class="form-group">
+                            						<input type="password" class="form-control" name="password" id="password" th:field="*{password}" placeholder="Password">
+                          						</div>
+                        					</div>
+                           					<div class="col-md-6"> 
+                          						<div class="form-group">
+                            						<input type="password" class="form-control" name="confirm_password" id="confirm_password"  placeholder="confirm password" onkeyup="check_pass()"><br/>
+                            						<span id="message"></span>
+                          						</div>
+                        					</div>
+                        					<div class="col-md-12"> 
+                          						<div class="form-group">
+                            						<input type="email" class="form-control" name="email" id="email" th:field="*{email}" placeholder="Email">
+                          						</div>
+                        					</div>
+                        					<div class="col-md-12">
+                          						<div class="form-group">
+                           							<input type="text" class="form-control" name="phone" id="phone" th:field="*{phone}" placeholder="Phone">
+                          						</div>
+                        					</div>
+                        					<div class="col-md-12">
+                          						<div class="form-group">
+                        							<input type="date" name="birthDate" id="birthDate"  th:field="*{birthDate}" > 		
+                          						</div>
+                         					</div>
+                         					 <div class="col-md-12"> 
+	                    					  <div class="custom-file mb-3" >  
+						                         <div class="form-group">
+						                            <input type="file" name="file" class="custom-file-input"  id="validatedCustomFile" required>
+						                         </div>
+						                         <label class="custom-file-label" for="validatedCustomFile">Add user picture...</label>
+						                      </div>  
+						                      </div>
+					                        <div class="col-md-12">
+					                          <div class="form-group">
+					                            <input type="submit" name="submit" id="submit" value="Sign up" class="btn btn-primary sign-up">
+					                            <div class="submitting"></div>
+					                          </div>
+					                        </div>
+                      					</div>
+                    				</form>
+                  				</div>
+                  			</div>
+                  		</div>
+                  	</div>
+				</div>
+			</div>
+		</section>
+        <script src="../js/passwd.js"></script>
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="../js/popper.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/jquery.easing.1.3.js"></script>
+        <script src="../js/jquery.waypoints.min.js"></script>
+        <script src="../js/jquery.stellar.min.js"></script>
+        <script src="../js/jquery.animateNumber.min.js"></script>
+        <script src="../js/bootstrap-datepicker.js"></script>
+        <script src="../js/jquery.timepicker.min.js"></script>
+        <script src="../js/owl.carousel.min.js"></script>
+        <script src="../js/jquery.magnific-popup.min.js"></script>
+        <script src="../js/scrollax.min.js"></script>
+        <script src="../https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+        <script src="../js/google-map.js"></script>
+        <script src="../js/main.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
+  		<script src ="js/bootstrap.js"></script> 
+    </body>
+</html>
