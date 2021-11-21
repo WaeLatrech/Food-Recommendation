@@ -42,5 +42,11 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/ourcollections")
+	public String OurCollections() {
+
+	    return "user/category";
+	}
+	
 
 }
