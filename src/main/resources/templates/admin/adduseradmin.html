@@ -30,16 +30,16 @@
                     		<div class="row no-gutters">
     							<div align="center" class="contact-wrap  ">
                     				<h3 class="mb-4">Add User</h3>
-									<form method="POST" th:action="@{/admin/adduser}" th:object="${user}" id="contactForm" class="contactForm" name="fsignup" onsubmit="return valider()" enctype="multipart/form-data">
+									<form method="POST" class="contactForm" name="fsignup" onsubmit="return valider()" enctype="multipart/form-data">
 										<div class="row">
                         					<div class="col-md-12">
                           						<div class="form-group">
-                        							<input type="text" class="form-control" name="username" id="username" th:field="*{username}" placeholder="Username">
+                        							<input type="text" class="form-control" name="username" id="username"  placeholder="Username">
                           						</div>
                         					</div>
                          					<div class="col-md-6"> 
                           						<div class="form-group">
-                            						<input type="password" class="form-control" name="password" id="password" th:field="*{password}" placeholder="Password">
+                            						<input type="password" class="form-control" name="password" id="password"  placeholder="Password">
                           						</div>
                         					</div>
                            					<div class="col-md-6"> 
@@ -50,17 +50,17 @@
                         					</div>
                         					<div class="col-md-12"> 
                           						<div class="form-group">
-                            						<input type="email" class="form-control" name="email" id="email" th:field="*{email}" placeholder="Email">
+                            						<input type="email" class="form-control" name="email" id="email" placeholder="Email">
                           						</div>
                         					</div>
                         					<div class="col-md-12">
                           						<div class="form-group">
-                           							<input type="text" class="form-control" name="phone" id="phone" th:field="*{phone}" placeholder="Phone">
+                           							<input type="text" class="form-control" name="phone" id="phone"  placeholder="Phone">
                           						</div>
                         					</div>
                         					<div class="col-md-12">
                           						<div class="form-group">
-                        							<input type="date" name="birthDate" id="birthDate"  th:field="*{birthDate}" > 		
+                        							<input type="date" name="birthDate" id="birthDate"  > 		
                           						</div>
                          					</div>
                          					 <div class="col-md-12"> 

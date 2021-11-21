@@ -45,19 +45,19 @@
 					<th >Delete</th>
 					<th >Edit</th>
 				</tr>
-				<tr th:each ="user : ${users}" >
-					<td th:utext="${user.id}" ></td>
-					<td th:utext="${user.username}" ></td>
-					<td th:utext="${user.email}" ></td>
-					<td th:utext="${user.password}" ></td>
-					<td th:utext="${user.phone}" ></td>
-					<td th:utext="${user.birthDate}" ></td>
-					<td th:utext="${user.Role}" ></td>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 					<td>
-						<a th:href="@{/admin/deluser/{id}(id=${user.id})}" class="btn btn-danger mt">Delete</a>
+						<a class="btn btn-danger mt">Delete</a>
 					</td>
 					<td> 
-						<a th:href="@{/admin/upduser/{id}(id=${user.id})}"   aria-hidden="true" class="btn btn-info mt">edit</a>
+						<a aria-hidden="true" class="btn btn-info mt">edit</a>
 					</td>
 				</tr>
 			</table>	

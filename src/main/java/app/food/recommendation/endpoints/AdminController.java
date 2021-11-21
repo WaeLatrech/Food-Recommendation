@@ -26,4 +26,46 @@ public class AdminController {
 		
 	    return "admin/indexadmin";
 	}
+	@GetMapping("/brandlist")
+	public String returnbrandadmin() {
+		
+	    return "admin/brandlistadmin";
+	}
+	@GetMapping("/addbrand")
+	public String returnaddbrandadmin() {
+		
+	    return "admin/addbrandadmin";
+	}
+	@GetMapping("/addcategorie")
+	public String returnaddcategorieadmin() {
+		
+	    return "admin/addcategorieadmin";
+	}
+	@GetMapping("/listcategorie")
+	public String returnlistcategorieadmin() {
+		
+	    return "admin/categorielistadmin";
+	}
+	@GetMapping("/userlist")
+   public String AllUsers() {
+		
+		 return "admin/userlistadmin";
+	}
+	@GetMapping("/adduser")
+	 public String AddUsers() {
+		
+		 return "admin/adduseradmin";
+	}
+	@GetMapping("/listreview")
+	 public String Listreviews() {
+		
+		 return "admin/reviewlistadmin";
+	}
+	@GetMapping("/reportreview")
+	 public String Repportreviews() {
+		
+		 return "admin/reportreviewadmin";
+	}
+	
 }
+

@@ -46,20 +46,20 @@
 				
 			</tr>
 			
-				<tr th:each="a : ${Reviews}" >		
+				<tr  >		
 						
-			  			<td  th:utext="${a.product.nom}" ></td>
-				   		<td  th:utext="${a.c1}" ></td>
-				   		<td  th:utext="${a.c2}" ></td>
-				   		<td  th:utext="${a.c3}" ></td>
-				   		<td  th:utext="${a.c4}" ></td>
-						<td th:utext="${a.c5}" ></td>
-						<td th:utext="${a.comment}" ></td>
-						<td th:utext="${a.nblike}" ></td>
-						<td th:utext="${a.nbdislike}" ></td>
-						<td th:utext="${a.repport}" ></td>
+			  			<td></td>
+				   		<td></td>
+				   		<td></td>
+				   		<td></td>
+				   		<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
 						<td >
-							<a th:href="@{/admin/delreview/{id}(id=${a.id})}" class="btn btn-danger mt" >Delete</a>
+							<a class="btn btn-danger mt" >Delete</a>
 						</td>
 				  </tr>
 
