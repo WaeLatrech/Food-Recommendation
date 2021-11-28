@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import lombok.Data;
 
 @Data
@@ -18,6 +17,8 @@ public class Brand {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private int idbrand;
+	private String brandname;
+	private String brandDescription;
 	@OneToMany( mappedBy = "brand")
 	private List<Restaurant> restos;
 }
