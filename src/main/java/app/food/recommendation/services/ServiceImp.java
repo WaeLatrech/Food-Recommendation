@@ -103,10 +103,7 @@ public class ServiceImp implements Services{
 	public User modifyUser(long id, User newUser) {
 		User oldUser = this.getUserById(id);
         System.out.println("password 2 = '"+newUser.getPassword()+"'");	
-        if (!newUser.getFirstName().equals(""))    
-            oldUser.setFirstName(newUser.getFirstName());
-        if (!newUser.getLastName().equals(""))    
-            oldUser.setLastName(newUser.getLastName());
+       
         if (!newUser.getPassword().equals(""))
         {   
         	oldUser.setPassword(newUser.getPassword());

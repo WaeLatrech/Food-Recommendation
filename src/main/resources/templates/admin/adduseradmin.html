@@ -30,11 +30,21 @@
                     		<div class="row no-gutters">
     							<div align="center" class="contact-wrap  ">
                     				<h3 class="mb-4">Add User</h3>
-									<form method="POST" class="contactForm" name="fsignup" onsubmit="return valider()" enctype="multipart/form-data">
+									<form method="POST" th:action="@{/admin/adduser}" th:object="${user}" class="contactForm" name="fsignup" onsubmit="return valider()" enctype="multipart/form-data">
 										<div class="row">
                         					<div class="col-md-12">
                           						<div class="form-group">
                         							<input type="text" class="form-control" name="username" id="username"  placeholder="Username">
+                          						</div>
+                        					</div>
+                        					<div class="col-md-12">
+                          						<div class="form-group">
+                        							<input type="text" class="form-control" name="firstName" id="firstName"  placeholder="firstName">
+                          						</div>
+                        					</div>
+                        					<div class="col-md-12">
+                          						<div class="form-group">
+                        							<input type="text" class="form-control" name="lastName" id="lastName"  placeholder="lastName">
                           						</div>
                         					</div>
                          					<div class="col-md-6"> 

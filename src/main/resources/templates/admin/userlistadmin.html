@@ -36,28 +36,30 @@
 			<table border="1" class="table">
 				<tr  class="thead-light">
 					<th >ID</th>
-					<th >Name</th>
+					<th >Username</th>
+					<th >Image</th>
 					<th >E-mail</th>
-					<th >Password</th>
 					<th >Phone</th>
 					<th >Birth Date</th>
 					<th>Role</th>
 					<th >Delete</th>
 					<th >Edit</th>
 				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+				<tr th:each ="user : ${users}">
+					<td th:utext="${user.id}"></td>
+					<td th:utext="${user.username}"></td>
 					<td>
-						<a class="btn btn-danger mt">Delete</a>
+						<img alt="" th:src="*{'data:img/png;base64,'+{user.imageU}}" style="width: 100px;height: 100px;">
+					</td>
+					<td th:utext="${user.email}"></td>
+					<td th:utext="${user.phone}"></td>
+					<td th:utext="${user.birthDate}"></td>
+					<td th:utext="${user.Role}"></td>
+					<td>
+						<a th:href="@{/admin/deluser/{id}(id=${user.id})}" class="btn btn-danger mt">Delete</a>
 					</td>
 					<td> 
-						<a aria-hidden="true" class="btn btn-info mt">edit</a>
+						<a th:href="@{/admin/upduser/{id}(id=${user.id})}" aria-hidden="true" class="btn btn-info mt">edit</a>
 					</td>
 				</tr>
 			</table>	

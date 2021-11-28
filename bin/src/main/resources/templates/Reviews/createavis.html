@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>User Register</title>
+
+   
+
+</head>
+<body>
+
+<!--th:object="${avis}" th:object="${product}" -->
+    <div align="center">
+		<h2>Review Creation </h2>
+		 <form action="#" th:action="@{/Reviews}" method="post"  >
+            <label>note: (between 0 and 5):</label><br>
+            <input type="range" min="0" max="5" value="3"class="note" id="note" th:value="${avis.note}" name="note">
+            <label>Value: <span id="demo"></span></label><br><br>
+            <hr>
+            <label>QalityPrice: (between 0 and 5)</label>
+            <input type="range" min="0" max="5" value="3"class="qalityPrice" id="qalityPrice" th:value="${avis.QalityPrice}" name="QalityPrice"><br><br>
+            <label>cameraquality: (between 0 and 5)</label>
+            <input type="range" min="0" max="5" value="3"class="cameraquality" id="cameraquality" th:value="${avis.cameraquality}" name="cameraquality" ><br><br>
+           
+            <label>design: (between 0 and 5)</label>
+            <input type="range" min="0" max="5" value="3"class="design" id="design" th:value="${avis.design}" name="design"><br><br>
+            
+            <input type="text" class="idproduct" id="idproduct" th:value="${product.idp}" name="idp" ><br><br>
+            
+            <button type="submit" >register</button>
+
+            <script>
+                var slider = document.getElementById("note");
+                var output = document.getElementById("demo");
+                output.innerHTML = slider.value;
+                
+                slider.oninput = function() {
+                  output.innerHTML = this.value;
+                }
+                </script>
+        </form>
+        </div>
+</body>
+</html>

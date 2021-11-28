@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your advancer - Forgot Password Part2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="../../css/animate.css">
+    <link rel="stylesheet" href="../../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../css/magnific-popup.css">
+    <link rel="stylesheet" href="../../css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../../css/jquery.timepicker.css">
+    <link rel="stylesheet" href="../../css/flaticon.css">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body class="bg-gradient-primary">
+	
+		<section class="menu-wrap flex-md-column-reverse d-md-flex">
+			<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		    <div class="container">
+		    
+		      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+		        <span class="fa fa-bars"></span> Menu
+		      </button>
+		         <div class="req-button order-lg-last">
+		      	<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add product</a>
+	        </div>
+	          <div class="req-button order-lg-last">
+		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
+	        </div>
+		        <div class="req-button order-lg-last">
+		      	<a href="/Sign-up"><span class="fa fa-user" aria-hidden="true"></span> Sign up</a>
+	        </div>
+	       
+		      <div class="collapse navbar-collapse" id="ftco-nav">
+		        <ul class="navbar-nav mr-auto">
+		        	<li class="nav-item active"><a href="/" class="nav-link">Home</a></li>
+		        	<li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
+		        	<li class="nav-item"><a href="/Products" class="nav-link">Our products</a></li>
+		        	<li class="nav-item"><a href="/Contact" class="nav-link">Contact</a>
+		        </ul>
+		      </div>
+		    </div>
+		  </nav>
+		</section>
+   		<div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row justify-content-center">                        
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <a href="/"><img src="../../static/images/logoooo.png"  style="height: 100px;width: 100px;" /></a>
+                                        <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
+                              			<hr>
+                                    </div>
+                                    <form  method="POST" th:object="${user}" th:action="@{/change-password/{confirmationToken}(confirmationToken=${token.confirmationToken})}"  onsubmit="return valider()">
+                                        <div class="form-group">
+                                            <input type="password" name="password1" id="password1" class="form-control" placeholder="New Password...">
+                                        </div> 
+                                        <div class="form-group">
+                                            <input type="password" name="password" th:field="*{password}" id="confirm_password" class="form-control"  placeholder="Confirm new password..." onkeyup="check_pass()">
+                                            <span id="message"></span>
+                                        </div>
+                                        <div class="form-group">
+                            				<input type="submit" name="submit" id="submit" value="Reset Password" class="btn btn-primary sign-up">
+                            				<div class="submitting"></div>
+                          				</div>                                        
+                                        
+                                    </form>
+                                    <hr>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../../js/sb-admin-2.min.js"></script>
+	
+  <script src="js/main.js"></script>
+  <script src="js/passwd.js"></script>
+</body>
+
+</html>
