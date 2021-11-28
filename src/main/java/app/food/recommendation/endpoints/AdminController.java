@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import app.food.recommendation.services.Services;
+import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -18,7 +18,7 @@ import lombok.Data;
 public class AdminController {
 
 	@Autowired
-	Services service ;
+	ServiceImp service ;
 
     
 	@GetMapping("/home")
