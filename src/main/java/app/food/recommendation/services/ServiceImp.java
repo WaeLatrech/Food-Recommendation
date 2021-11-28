@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -28,10 +29,11 @@ import app.food.recommendation.models.ConfirmationToken;
 
 @Service
 public class ServiceImp implements Services{
-	//@Autowired
-   	//private BCryptPasswordEncoder bCryptPasswordEncoder;
-	//@Autowired
-	//SendEmailService SendEmailService;
+	@Autowired
+	SendEmailService SendEmailService;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
 	private UserRepo repoUser;
 	private TokenRepo repoToken;
 	private RestoRepo repoResto;
@@ -84,16 +86,10 @@ public class ServiceImp implements Services{
 
 	@Override
 	public User createUser(User entity) {
-		//String password = bCryptPasswordEncoder.encode(entity.getPassword());
-		 String password = generateRandomPassword();
-		 String text="To connect, you need to create a new password. Your current password is : "
-                +password;
-        //SendEmailService.verifyEmail(entity.getEmail(),"Account Created!",text);
-		 System.out.println("$$$$$password="+password);
-		 //entity.setPassword(bCryptPasswordEncoder.encode(password));
+       	entity.setRole("NOTVERIFIED");
+       	entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
 		 
-                                
-                return repoUser.save(entity);
+        return repoUser.save(entity);
 	}
 
 	@Override
@@ -111,12 +107,12 @@ public class ServiceImp implements Services{
             oldUser.setFirstName(newUser.getFirstName());
         if (!newUser.getLastName().equals(""))    
             oldUser.setLastName(newUser.getLastName());
-//        if (!newUser.getPassword().equals(""))
-//        {   
-//        	oldUser.setPassword(newUser.getPassword());
-//        	String password = bCryptPasswordEncoder.encode(newUser.getPassword());
-//        	oldUser.setPassword(password);
-//        }
+        if (!newUser.getPassword().equals(""))
+        {   
+        	oldUser.setPassword(newUser.getPassword());
+        	String password = bCryptPasswordEncoder.encode(newUser.getPassword());
+        	oldUser.setPassword(password);
+        }
         if (!newUser.getPhone().equals(""))    
             oldUser.setPhone(newUser.getPhone());
         if (newUser.getBirthDate() != null)

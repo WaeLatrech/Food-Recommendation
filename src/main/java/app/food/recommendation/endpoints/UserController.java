@@ -1,12 +1,17 @@
 package app.food.recommendation.endpoints;
 
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
@@ -22,6 +27,14 @@ public class UserController {
 	@Autowired
 	ServiceImp service ;
 	
+	public String CheckRole () {
+		Collection<? extends GrantedAuthority> authorities;
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    authorities = auth.getAuthorities();
+	     
+	    return authorities.toArray()[0].toString();
+	}
+	
 	public String getUserUsername() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username ;
@@ -35,8 +48,12 @@ public class UserController {
 	
 	
 	@GetMapping("/home")
-	public String userindex() {
-				
+	public String userindex(RedirectAttributes redirAttrs) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
 	    return "user/userindex";
 	}
 	
