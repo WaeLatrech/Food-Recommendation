@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.User;
 import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
@@ -53,16 +54,39 @@ public class AdminController {
 	    }
 	    return "admin/indexadmin";
 	}
+	
+	/***********Brands************/
+	
 	@GetMapping("/brandlist")
-	public String returnbrandadmin() {
-		
+	public String returnbrandadmin(Model model) {
+		List<Brand> brands =  service.getAllBrands();
+		model.addAttribute("brands",brands);
+		Brand brand = new Brand();
+		model.addAttribute("brand",brand);
 	    return "admin/brandlistadmin";
 	}
 	@GetMapping("/addbrand")
-	public String returnaddbrandadmin() {
-		
+	public String returnaddbrandadmin(Model model) {
+		Brand brand = new Brand();
+		model.addAttribute("brand",brand);
 	    return "admin/addbrandadmin";
 	}
+	
+	@PostMapping("/addbrand")
+	public String registerSuccessbrand(@ModelAttribute("brand") Brand brand, Model model) {
+		System.out.println("$$$$$$$$$$$$$$");
+		service.createBrand(brand);
+		System.out.println("++++++++--------++++++");
+		return  "redirect:/admin/brandlist";
+	}
+	
+	@GetMapping("/delbrand/{id}")
+	public String DeleteBrand(@PathVariable("id") Long id, Model model) {	    
+		service.deleteBrand(id);
+		return "redirect:/admin/userbrand";
+	}
+	
+	
 	@GetMapping("/addcategorie")
 	public String returnaddcategorieadmin() {
 		

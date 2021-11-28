@@ -2,6 +2,7 @@ package app.food.recommendation.services;
 
 import java.util.List;
 
+import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
 import app.food.recommendation.models.Dish;
 import app.food.recommendation.models.Plan;
@@ -52,4 +53,11 @@ import app.food.recommendation.models.User;
 	Plan createPlan(Plan p );
 	Plan deletePlan(long id);
 	Plan modifyPlan(long id, Plan newPlan);
+	
+	////////////////**Brand**////////////
+	List<Brand> getAllBrands();
+	Brand getBrandById(long id);
+	Brand createBrand(Brand Brand);
+	Brand deleteBrand(long id);
+	Brand modifyBrand(long id, Brand newBrand);
 }

@@ -11,12 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
 import app.food.recommendation.models.Dish;
 import app.food.recommendation.models.Plan;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.User;
+import app.food.recommendation.repositories.BrandRepo;
 import app.food.recommendation.repositories.CategoryRepo;
 import app.food.recommendation.repositories.DishRepo;
 import app.food.recommendation.repositories.PlanRepo;
@@ -41,10 +43,11 @@ public class ServiceImp implements Services{
 	private CategoryRepo repoCategory;
 	private DishRepo repoDish;
 	private PlanRepo repoPlan;
+	private BrandRepo repoBrand;
 	
 	@Autowired
 	public ServiceImp(UserRepo repoUser, TokenRepo repoToken, RestoRepo repoResto, RecipeRepo repoRecipe,
-			CategoryRepo repoCategory, DishRepo repoDish, PlanRepo repoPlan) {
+			CategoryRepo repoCategory, DishRepo repoDish, PlanRepo repoPlan,BrandRepo repoBrand) {
 		super();
 		this.repoUser = repoUser;
 		this.repoToken = repoToken;
@@ -53,6 +56,7 @@ public class ServiceImp implements Services{
 		this.repoCategory = repoCategory;
 		this.repoDish = repoDish;
 		this.repoPlan = repoPlan;
+		this.repoBrand = repoBrand;
 	}
 
 	@Override
@@ -332,4 +336,41 @@ public class ServiceImp implements Services{
 		return null;
 	}
 
+	
+	///////////////////////////////////////////////
+	
+	@Override
+	public List<Brand> getAllBrands() {
+		return repoBrand.findAll();
+	}
+	
+	@Override
+	public Brand getBrandById(long id) {
+		Optional<Brand> opt = repoBrand.findById(id);
+		Brand Brand;
+		if (opt.isPresent())
+			Brand = opt.get();
+		else
+			throw new NoSuchElementException("Brand with id : "+id+" is not found");
+		return Brand;
+	}
+	
+	@Override
+	public Brand createBrand(Brand Brand) {
+		return repoBrand.save(Brand);
+	}
+	
+	@Override
+	public Brand deleteBrand(long id) {
+		Brand Brand = this.getBrandById(id);
+		repoBrand.deleteById(id);
+		return Brand;
+	}
+	
+	@Override
+	public Brand modifyBrand(long id, Brand newBrand) {
+	// TODO Auto-generated method stub
+	return null;
+	}
+	///////////////////////////////////////////////
 }

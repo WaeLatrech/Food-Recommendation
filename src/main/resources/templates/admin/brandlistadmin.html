@@ -37,36 +37,20 @@
 			<tr class="thead-light">
 			
 				<th>ID</th>
-				<th>Image</th>
-				<th>Name</th>
-				<th>Brand</th>
-				<th>Category</th>
-				<th>Date Of creation</th>
+				<th>Brandname</th>
 				<th>Description</th>
-				<th>Rate</th>
 				<th >Delete</th>
-				<th >Edit</th>
 				
-	
 			</tr>
-			<tr>
+			<tr th:each ="brand : ${brands}">
 
-				<td></td>
+				<td th:utext="${brand.idbrand}"></td>
+				<td th:utext="${brand.brandname}"></td>
+				<td th:utext="${brand.brandDescription}"></td>
 				<td>
-                 
+					<a th:href="@{/admin/delbrand/{id}(id=${brand.idbrand})}" aria-hidden="true" class="btn btn-danger mt">Delete</a>
 				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>
-					<a aria-hidden="true" class="btn btn-danger mt">Delete</a>
-				</td>
-				<td> 
-					<a aria-hidden="true" class="btn btn-info mt">edit</a>
-				</td>
+				
 			</tr>
 		</table>
 		

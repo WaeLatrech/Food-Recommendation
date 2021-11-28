@@ -32,41 +32,21 @@
                     <div class="row no-gutters">
                         <div align="center" class="contact-wrap w-100 p-md-5 p-4">
                           	<h3 class="mb-4">Add New brand</h3>
-		                    <form action="#" th:action="@{/admin/addbrandadmin}" method="post"  id="contactForm" class="contactForm"   enctype="multipart/form-data">		                  
-		                      	<div class="row">
-		                        	<div class="col-md-12">                          		
-			            				<select class="form-control" name="pcat" >
-				                            <option value="0">select category</option>
-				                            <option></option>
-			                            </select><br/>		            				
-		                          	</div>  
-		                        </div>
+		                    <form  th:action="@{/admin/addbrand}" th:object="${brand}" method="post"  id="contactForm" class="contactForm"   enctype="multipart/form-data">		                  
+		                      	
 		                        <div class="col-md-12">
 		                          <div class="form-group">
-		                        	<input type="text" class="form-control"  name="pname" id="name" placeholder="Name of product">
-		                          </div>
-		                        </div>
-		                        <div class="col-md-12">
-		                          <div class="form-group">
-		                        	<input type="text" class="form-control" name="marque"  id="brand" placeholder="Brand of product">
+		                        	<input type="text" class="form-control" th:field="*{brandname}" name="brandname" id="brandname" placeholder="Name of brand">
 		                          </div>
 		                        </div>
 		                        <div class="col-md-12"> 
-			                      <div class="custom-file mb-3" >  
-			                         <div class="form-group">
-			                            <input type="file" class="custom-file-input"  id="validatedCustomFile" required name="file">
-			                         </div>
-			                         <label class="custom-file-label" for="validatedCustomFile">Add photo for your product...</label>
-			                      </div>  
-		                         </div>		
-		                        <div class="col-md-12"> 
 		                          <div class="form-group">
-		                            <textarea class="form-control" name="desc" id="description" placeholder="description"></textarea>
+		                            <textarea class="form-control" th:field="*{brandDescription}"  name="brandDescription" id="brandDescription" placeholder="Description of brand"></textarea>
 		                          </div>
 		                        </div>		   
 		                        <div class="col-md-12">
 		                          <div class="form-group">
-		                            <input type="submit" value="Add product" class="btn btn-primary sign-up">
+		                            <input type="submit" value="Add brand" class="btn btn-primary sign-up">
 		                            <div class="submitting"></div>
 		                          </div>
 		                        </div>
