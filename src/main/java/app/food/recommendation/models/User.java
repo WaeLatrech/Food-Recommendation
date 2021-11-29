@@ -1,6 +1,6 @@
 package app.food.recommendation.models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -25,7 +27,8 @@ public class User {
 	private long id;
 	private String username;
 	private String password; 
-	private String birthDate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date birthDate;
 	private String gender;
 	private String email;
 	private String phone;

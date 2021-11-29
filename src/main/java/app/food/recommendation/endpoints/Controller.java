@@ -238,5 +238,56 @@ public class Controller {
 
     }
 	
+	@GetMapping("/forgotpass")
+	public String forgotpass(Model model) {
+		
+	    return "Other/forgot-password";
+	}
+	@PostMapping("/forgotpass")
+	public String forgotpass1(@RequestParam("email") String email, RedirectAttributes redirAttrs) {
+		User user = userrepo.findByEmail(email);
+        if(user == null)
+        {	
+        redirAttrs.addFlashAttribute("error", "email doesn't exist");
+        return "redirect:/forgotpass";
+        }
+        else
+        {	//lazem na3mlou table o5ra mta3 tokens teb3a el password
+            ConfirmationToken confirmationToken = new ConfirmationToken(user);
+            tokenRepo.save(confirmationToken);
+            String text="To Change your password, please click here : "
+                    +"http://localhost:9090/change-password/"+confirmationToken.getConfirmationToken();
+            SendEmailService.changePassword(email,"Change Password !",text);
+    		redirAttrs.addFlashAttribute("success", "Check Your Mail to Confirm new Password");
+
+            return "redirect:/Login";
+        }
+	}
+	@GetMapping("/change-password/{confirmationToken}")
+	public String updPassword(Model model,@PathVariable String confirmationToken) {
+		 ConfirmationToken token = tokenRepo.findByConfirmationToken(confirmationToken);
+		 if (token.getExpired()==1)
+	        	return "redirect:/Login";
+		 User user = userrepo.findByEmail(token.getUser().getEmail());
+			model.addAttribute("user",user);
+			model.addAttribute("token",token);
+			return "Other/forgotpass_part2";
+		
+	}
+	
+	@PostMapping("/change-password/{confirmationToken}")
+	public String updPassword1(@ModelAttribute("user") User user ,@PathVariable String confirmationToken, RedirectAttributes redirAttrs) {	
+        ConfirmationToken token = tokenRepo.findByConfirmationToken(confirmationToken);
+
+        User olduser = userrepo.findByEmail(token.getUser().getEmail());
+        olduser.setPassword(user.getPassword());
+        System.out.println("Passworrrrd = "+olduser.getPassword());
+        service.modifyUser(olduser.getId(), olduser);
+        token.setExpired(1);
+        tokenRepo.save(token);
+		redirAttrs.addFlashAttribute("success", "Password Modified Successfully");
+
+		return "redirect:/Login";
+	}
 	
 }

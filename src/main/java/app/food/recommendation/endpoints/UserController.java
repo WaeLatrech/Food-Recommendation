@@ -1,9 +1,14 @@
 package app.food.recommendation.endpoints;
 
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,11 +16,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.User;
+import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
+import app.food.recommendation.services.SendEmailService;
 import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,9 +40,12 @@ public class UserController {
 	
 	@Autowired
 	ServiceImp service ;
+	@Autowired
+    SendEmailService SendEmailService;
 	
-	UserRepo
-	userrepo;
+	UserRepo userrepo;
+	TokenRepo tokenRepo;
+	
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -51,6 +65,11 @@ public class UserController {
 		User user = userrepo.findByEmail(username);
 		return user.getUsername();
 	}
+	public void setUserUsername(String username,String password) {
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+	//////////////////////////////////
 	
 	
 	@GetMapping("/home")
@@ -68,23 +87,99 @@ public class UserController {
 	
 	
 	@GetMapping("/brands")
-	public String userbrands() {
-				
+	public String userbrands(Model model) {
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
 	    return "user/brands";
 	}
 	
 	
 	@GetMapping("/contact")
-	public String Contact() {
-
+	public String Contact(Model model) {
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
 	    return "user/contact";
 	}
 	
 	
 	@GetMapping("/ourcollections")
-	public String OurCollections() {
-
+	public String OurCollections(Model model) {
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
 	    return "user/category";
+	}
+	
+	@GetMapping("/Account")
+	public String Account(Model model) {
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+		
+	    return "user/Account";
+	}
+
+	@PostMapping("/upd_account")
+	public String EditAccount( Model model ,@RequestParam ("username") String username ,
+			@RequestParam ("email") String email , @RequestParam("password") String password,
+			@RequestParam("phone") String phone,@RequestParam ("birthDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date birthDate  ,@RequestParam("file") MultipartFile file, 
+			RedirectAttributes redirAttrs) {
+		User olduser = userrepo.findByUsername(getUserUsername());
+		User newuser =new User();
+			String FileName = org.springframework.util.StringUtils.cleanPath(file.getOriginalFilename());
+	    	if(FileName.contains("..")) {
+	    		System.out.println("not a proper file ");
+	    	}
+	    	try {
+	    		if(!FileName.isEmpty()) {
+	    			newuser.setImageU(Base64.getEncoder().encodeToString(file.getBytes()));
+					System.out.println("cv");
+			
+	    		}
+	    		else {
+	    			newuser.setImageU(olduser.getImageU());
+	    		}
+						} catch (IOException e) {
+				System.out.println("dowiw");
+				e.printStackTrace();
+			}
+		
+			
+		 newuser.setUsername(username);
+		 newuser.setEmail(email);
+			User existingMail = userrepo.findByEmail(newuser.getEmail());
+			User existingUsername = userrepo.findByUsername(newuser.getUsername());
+	        if((existingMail != null)&&(existingMail != olduser))
+	        {	
+	        	redirAttrs.addFlashAttribute("error", "Mail already exists");
+	        	return "redirect:/user/Account";
+	        }
+	        else if((existingUsername != null)&&(existingUsername != olduser))
+	        {	
+	        	redirAttrs.addFlashAttribute("error", "Username already exists");
+	        	return "redirect:/user/Account";
+	        }
+	        
+	        else
+	        {
+	       System.out.println("password = '"+password+"'");
+		 newuser.setPassword(password);
+		 newuser.setPhone(phone);
+		 newuser.setBirthDate(birthDate);
+		 service.modifyUser(olduser.getId(), newuser);
+		 
+		 setUserUsername(newuser.getUsername(), newuser.getPassword());
+		 
+		 if (!newuser.getEmail().equals(olduser.getEmail())) {
+			 ConfirmationToken confirmationToken = new ConfirmationToken(olduser);
+	            tokenRepo.save(confirmationToken);
+	            String text="To confirm your email, please click here : "
+	                    +"http://localhost:9090/confirm-Email/"+confirmationToken.getConfirmationToken()+"/"
+	                    +newuser.getEmail();
+	            SendEmailService.verifyEmail(newuser.getEmail(),"Mail Verified!",text);
+	           redirAttrs.addFlashAttribute("success", "Email Changed! Check your mail to Verifie it");
+	            return "redirect:/Login";
+		 }
+		return "redirect:/user/Account";
+		}
 	}
 	
 
