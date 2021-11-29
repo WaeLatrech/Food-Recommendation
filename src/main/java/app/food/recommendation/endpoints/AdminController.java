@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.food.recommendation.models.Brand;
+import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.User;
 import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
@@ -99,6 +100,7 @@ public class AdminController {
 		return "redirect:/admin/brandlist";
 	}
 	
+	/***********Categories************/
 	
 	@GetMapping("/addcategorie")
 	public String returnaddcategorieadmin() {
@@ -192,9 +194,42 @@ public class AdminController {
 		 return "redirect:/admin/userlist"; 
 	}
 	
+	/***********Restos************/
+	
+	@GetMapping("/restolist")
+	public String listrestoadmin(Model model) {
+		List<Restaurant> restos =  service.getAllRestos();
+		model.addAttribute("restos",restos);
+		Restaurant resto = new Restaurant();
+		model.addAttribute("resto",resto);
+	    return "admin/restolistadmin";
+	}
+	
+	@GetMapping("/addresto")
+	public String addrestoadmin(Model model) {
+		Restaurant resto = new Restaurant();
+		model.addAttribute("resto",resto);
+		List<Brand> brands =  service.getAllBrands();
+		model.addAttribute("brands",brands);
+		Brand brand = new Brand();
+		model.addAttribute("brand",brand);
+	    return "admin/addrestoadmin";
+	}
+	
+	@PostMapping("/addresto")
+	public String registerSuccessresto(Model model, @RequestParam ("brandname") String brandname , @RequestParam ("restoname") String restoname, @RequestParam ("location") String location) {
+		service.createResto(brandname,restoname,location);
+		
+		return  "redirect:/admin/restolist";
+	}
+	
+	
+	
+	/***********Review************/
+	
 	@GetMapping("/listreview")
 	 public String Listreviews() {
-		
+		 
 		 return "admin/reviewlistadmin";
 	}
 	@GetMapping("/reportreview")

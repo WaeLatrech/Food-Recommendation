@@ -24,14 +24,11 @@ public class Restaurant {
     private int idresto;
 	private String restoname;
 	private String location;
-	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
-	private String logo;
    
 	@OneToMany( mappedBy = "resto")
 	private List<Dish> menu; 
 	
 	@ManyToOne( cascade = CascadeType.DETACH )
 	private Brand brand;
-	
+	private String brandname;
 }

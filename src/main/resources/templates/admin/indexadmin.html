@@ -81,7 +81,13 @@
             <a href="/admin/brandlist" onclick="openlink(event, 'iframe_brandlist')" target="iframe_brandlist" class="w3-bar-item w3-button">Brand List</a>
             <a href="/admin/addbrand" onclick="openlink(event, 'iframe_addbrand')" target="iframe_addbrand" class="w3-bar-item w3-button tablinks">Add Brand</a>
         </div>
-        
+        <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccResto')">
+            Resto <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="demoAccResto" class="w3-hide w3-white w3-card">
+            <a href="/admin/restolist" onclick="openlink(event, 'iframe_restolist')" target="iframe_restolist" class="w3-bar-item w3-button">Resto List</a>
+            <a href="/admin/addresto" onclick="openlink(event, 'iframe_addresto')" target="iframe_addresto" class="w3-bar-item w3-button tablinks">Add Resto</a>
+        </div>
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccR')">
           Reviews <i class="fa fa-caret-down"></i>
         </button>
@@ -112,6 +118,12 @@
       </div>
       <div class="tab-pane container p-0 " >
         <iframe id="iframe_addbrand" class="tabcontent" name="iframe_addbrand" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 ">
+        <iframe  id="iframe_restolist" class="tabcontent" name="iframe_restolist" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 " >
+        <iframe id="iframe_addresto" class="tabcontent" name="iframe_addresto" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
       </div>
       <div class="tab-pane container p-0 ">
         <iframe  id="iframe_updprod" class="tabcontent" name="iframe_updprod" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>

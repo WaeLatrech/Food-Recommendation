@@ -38,7 +38,7 @@ import app.food.recommendation.models.User;
 	////////////////**Restaurant**////////////
 	List<Restaurant> getAllRestos();
 	Restaurant getRestoById(long id);
-	Restaurant createResto(Restaurant Restaurant);
+	Restaurant createResto(String brand, String restoname, String location);
 	Restaurant deleteResto(long id);
 	Restaurant modifyResto(long id, Restaurant newResto);
 	////////////////**Dish**////////////

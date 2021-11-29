@@ -249,8 +249,23 @@ public class ServiceImp implements Services{
 	}
 
 	@Override
-	public Restaurant createResto(Restaurant Restaurant) {
-		return repoResto.save(Restaurant);
+	public Restaurant createResto(String brandname, String restoname, String location) {
+		Restaurant resto = new Restaurant ();
+		resto.setRestoname(restoname);
+		resto.setLocation(location);
+		resto.setBrandname(brandname);
+		List<Brand> l = this.getAllBrands();
+        for(Brand c : l)
+        {
+            if (resto.getBrandname().equalsIgnoreCase(c.getBrandname())) {
+            	resto.setBrand(c);
+                break;
+            }
+            
+        }
+        
+    	
+		return repoResto.save(resto);
 	}
 
 	@Override
