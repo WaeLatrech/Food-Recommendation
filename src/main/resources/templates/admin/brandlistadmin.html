@@ -38,6 +38,7 @@
 			
 				<th>ID</th>
 				<th>Brandname</th>
+				<th>Image</th>
 				<th>Description</th>
 				<th >Delete</th>
 				
@@ -46,6 +47,9 @@
 
 				<td th:utext="${brand.idbrand}"></td>
 				<td th:utext="${brand.brandname}"></td>
+				<td>
+					<img alt="" th:src="*{'data:img/png;base64,'+{brand.imageB}}" style="width: 100px;height: 100px;">
+				</td>
 				<td th:utext="${brand.brandDescription}"></td>
 				<td>
 					<a th:href="@{/admin/delbrand/{id}(id=${brand.idbrand})}" aria-hidden="true" class="btn btn-danger mt">Delete</a>

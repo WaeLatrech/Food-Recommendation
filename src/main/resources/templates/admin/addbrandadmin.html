@@ -39,11 +39,20 @@
 		                        	<input type="text" class="form-control" th:field="*{brandname}" name="brandname" id="brandname" placeholder="Name of brand">
 		                          </div>
 		                        </div>
+		                       
 		                        <div class="col-md-12"> 
 		                          <div class="form-group">
 		                            <textarea class="form-control" th:field="*{brandDescription}"  name="brandDescription" id="brandDescription" placeholder="Description of brand"></textarea>
 		                          </div>
-		                        </div>		   
+		                        </div>
+		                        <div class="col-md-12"> 
+	                    			<div class="custom-file mb-3" >  
+						               <div class="form-group">
+						                    <input type="file" name="file" class="custom-file-input"  id="validatedCustomFile" required>
+						               </div>
+						               <label class="custom-file-label" for="validatedCustomFile">Add brand image...</label>
+						             </div>  
+						         </div>		   
 		                        <div class="col-md-12">
 		                          <div class="form-group">
 		                            <input type="submit" value="Add brand" class="btn btn-primary sign-up">

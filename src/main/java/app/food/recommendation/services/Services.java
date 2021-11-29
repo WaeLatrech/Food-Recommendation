@@ -56,8 +56,8 @@ import app.food.recommendation.models.User;
 	
 	////////////////**Brand**////////////
 	List<Brand> getAllBrands();
-	Brand getBrandById(long id);
+	Brand getBrandById(int id);
 	Brand createBrand(Brand Brand);
-	Brand deleteBrand(long id);
-	Brand modifyBrand(long id, Brand newBrand);
+	Brand deleteBrand(int id);
+	
 }

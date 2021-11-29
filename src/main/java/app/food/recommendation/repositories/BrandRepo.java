@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import app.food.recommendation.models.Brand;
 
-public interface BrandRepo extends JpaRepository<Brand, Long>{
+public interface BrandRepo extends JpaRepository<Brand, Integer>{
 
 }

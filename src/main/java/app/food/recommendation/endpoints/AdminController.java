@@ -73,17 +73,30 @@ public class AdminController {
 	}
 	
 	@PostMapping("/addbrand")
-	public String registerSuccessbrand(@ModelAttribute("brand") Brand brand, Model model) {
-		System.out.println("$$$$$$$$$$$$$$");
+	public String registerSuccessbrand(@ModelAttribute("brand") Brand brand, Model model,@RequestParam("file")MultipartFile file) {
+		String FileName = org.springframework.util.StringUtils.cleanPath(file.getOriginalFilename());
+    	if(FileName.contains("..")) {
+    		System.out.println("not a proper file ");
+    	}
+    	try {
+			brand.setImageB(Base64.getEncoder().encodeToString(file.getBytes()));
+			System.out.println("cv");
+		} catch (IOException e) {
+			System.out.println("dowiw");
+			e.printStackTrace();
+		}
+		
 		service.createBrand(brand);
-		System.out.println("++++++++--------++++++");
+		
 		return  "redirect:/admin/brandlist";
 	}
 	
 	@GetMapping("/delbrand/{id}")
-	public String DeleteBrand(@PathVariable("id") Long id, Model model) {	    
+	public String DeleteBrand(@PathVariable("id") int id, Model model) {	    
+		System.out.println("$$$$$$$$$$$$$$");
 		service.deleteBrand(id);
-		return "redirect:/admin/userbrand";
+		System.out.println("$$$$$$$$$$$$$$");
+		return "redirect:/admin/brandlist";
 	}
 	
 	
@@ -150,7 +163,7 @@ public class AdminController {
 	    return "admin/upduseradmin";
 	}
 	@PostMapping("/upduseradmin/{id}")
-	public String EditSuucesUser( Model model ,@PathVariable("id") long id ,@RequestParam ("username") String username , @RequestParam ("email") String email , @RequestParam("password") String password, @RequestParam("phone") String phone,@RequestParam ("birthDate") @DateTimeFormat(pattern="yyyy-MM-dd") String birthDate,@RequestParam("Role") String Role , @RequestParam("file") MultipartFile file  ) {
+	public String EditSuucesUser( Model model ,@PathVariable("id") long id ,@RequestParam ("username") String username , @RequestParam ("email") String email , @RequestParam("password") String password, @RequestParam("phone") String phone,@RequestParam ("birthDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date birthDate,@RequestParam("Role") String Role , @RequestParam("file") MultipartFile file  ) {
 		 User user =new User();
 		 user.setUsername(username);
 		 user.setEmail(email);

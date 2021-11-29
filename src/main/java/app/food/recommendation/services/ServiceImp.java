@@ -345,7 +345,7 @@ public class ServiceImp implements Services{
 	}
 	
 	@Override
-	public Brand getBrandById(long id) {
+	public Brand getBrandById(int id) {
 		Optional<Brand> opt = repoBrand.findById(id);
 		Brand Brand;
 		if (opt.isPresent())
@@ -361,16 +361,12 @@ public class ServiceImp implements Services{
 	}
 	
 	@Override
-	public Brand deleteBrand(long id) {
-		Brand Brand = this.getBrandById(id);
+	public Brand deleteBrand(int id) {
+		Brand brand = this.getBrandById(id);
 		repoBrand.deleteById(id);
-		return Brand;
+		return brand;
 	}
 	
-	@Override
-	public Brand modifyBrand(long id, Brand newBrand) {
-	// TODO Auto-generated method stub
-	return null;
-	}
+	
 	///////////////////////////////////////////////
 }
