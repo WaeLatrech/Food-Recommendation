@@ -57,7 +57,7 @@
             <span class="fa fa-bars"></span> Menu
           </button>
            <div class="req-button order-lg-last">
-            <a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add product</a>
+            <a href="/user/add-recipe"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
           </div>
             <div class="req-button order-lg-last">
             <a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
@@ -67,17 +67,12 @@
           </div>
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-              <li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
-
-					<li class="nav-item dropdown">
-		        	<a href="/Products" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our products</a>
-		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Products/{title}(title=${category.Title})}" th:each="category : ${categories}" th:value="${category.Title}"  th:text="${category.Title}"></a>
-	           		</div>
-		        	</li>
-		        <li class="nav-item"><a href="/Contact" class="nav-link">Contact</a></li>
-            </ul>
+						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item "><a href="/brands" class="nav-link">Brands</a></li>
+						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
+						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
+					</ul>
           </div>
         </div>
       </nav>
@@ -221,7 +216,7 @@
               <ul class="list-unstyled">
                 <li><a href="../" class="py-1 d-block">Home</a></li>
                 <li><a href="/#about" class="py-1 d-block">About</a></li>
-                <li><a href="/user/add-product" class="py-1 d-block">Add Products</a></li>
+                <li><a href="/user/add-recipe" class="py-1 d-block">Add Recipe</a></li>
                 <li><a href="/Contact" class="py-1 d-block">Contact</a></li>
               </ul>
               

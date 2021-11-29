@@ -23,10 +23,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	private String firstName;
-	private String lastName;
 	private String username;
-	private String password; //prof qal mayet7atech el password fel table houni
+	private String password; 
 	private String birthDate;
 	private String gender;
 	private String email;

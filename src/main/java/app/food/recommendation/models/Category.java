@@ -22,7 +22,6 @@ public class Category {
     
     @Column(unique = true )
     private String categoryname ; 
-    
     @OneToMany( mappedBy = "category")
     private  List<Recipe> Recipes;
     @OneToMany( mappedBy = "dishcategory")

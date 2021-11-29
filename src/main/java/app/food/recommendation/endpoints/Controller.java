@@ -88,7 +88,47 @@ public class Controller {
 //	    List <CategoryEntity> footerCategories = categories.subList(Math.max(categories.size() - 4, 0), categories.size());
 //	    model.addAttribute("footercategories", footerCategories);
 	    
-	    return "/index";
+	    return "index";
+	}
+	@GetMapping("/contact")
+	public String Contact(Model model) {
+
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/Contact";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    return "Other/contact";
+	}
+	@PostMapping("/Contact")
+	public String ContactMail(@RequestParam("email") String to,@RequestParam("message") String body, @RequestParam("subject") String topic,@RequestParam("name") String name) {
+		System.out.println("Sending : "+to+" "+body+" "+topic);
+		SendEmailService.sendEmail(to,body,"By "+name+": "+topic);
+		System.out.println("Success : "+to+" "+body+" "+topic);
+	    return "Other/contact";
+	}
+	@GetMapping("/brands")
+	public String Brands(Model model) {
+
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/brands";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/brands";
+	    }
+	    return "Other/brands";
+	}
+	@GetMapping("/ourcollections")
+	public String ourcollections(Model model) {
+
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/ourcollections";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/ourcollections";
+	    }
+	    return "Other/collections";
 	}
 	@RequestMapping("/default")
 	public String defaultAfterLogin() {

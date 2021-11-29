@@ -9,10 +9,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import app.food.recommendation.models.User;
+import app.food.recommendation.repositories.UserRepo;
 import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +30,8 @@ public class UserController {
 	@Autowired
 	ServiceImp service ;
 	
+	UserRepo
+	userrepo;
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -43,17 +48,21 @@ public class UserController {
 		} else {
 		 username = principal.toString();
 		}
-		return username;
+		User user = userrepo.findByEmail(username);
+		return user.getUsername();
 	}
 	
 	
 	@GetMapping("/home")
-	public String userindex(RedirectAttributes redirAttrs) {
+	public String userindex(Model model,RedirectAttributes redirAttrs) {
 		if (CheckRole().equals("NOTVERIFIED")) 
 		{
 		redirAttrs.addFlashAttribute("error", "Mail not verified");
 		return "redirect:/logout";
     	}
+		
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
 	    return "user/userindex";
 	}
 	
