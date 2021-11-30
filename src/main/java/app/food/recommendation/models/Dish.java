@@ -1,7 +1,5 @@
 package app.food.recommendation.models;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +21,7 @@ public class Dish {
 	private String dishdescription;
 	private String price;
 	@ManyToOne(cascade = CascadeType.DETACH )
-	private Category dishcategory;
+	private DishCategory dishcategory;
 	@ManyToOne(cascade = CascadeType.DETACH )
 	public Restaurant resto;
 }

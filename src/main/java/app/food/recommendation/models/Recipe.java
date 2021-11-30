@@ -35,7 +35,7 @@ public class Recipe {
 	@ManyToOne( cascade = CascadeType.DETACH )
 	private User publisher;
 	@ManyToOne( cascade = CascadeType.DETACH )
-	private Category category;
+	private DishCategory dishcategory;
 	@CreationTimestamp
 	private Date dateofcreation;
 	@ManyToMany

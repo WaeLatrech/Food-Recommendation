@@ -24,7 +24,8 @@ public class Restaurant {
     private int idresto;
 	private String restoname;
 	private String location;
-   
+	@ManyToOne( cascade = CascadeType.DETACH )
+	private Category placecategory;
 	@OneToMany( mappedBy = "resto")
 	private List<Dish> menu; 
 	

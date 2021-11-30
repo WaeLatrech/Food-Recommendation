@@ -14,17 +14,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table( name = "placeCategory")
-public class Category {
+@Table( name = "DishCategory")
+public class DishCategory {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private int idcategory ;
+    private int iddishcategory ;
     
     @Column(unique = true )
-    private String placeCategory ; 
-    @OneToMany( mappedBy = "placecategory")
-    private  List<Restaurant> restos;
-
-
-	
+    private String dishcategory ; 
+    @OneToMany( mappedBy = "dishcategory")
+    private  List<Recipe> Recipes;
+    @OneToMany( mappedBy = "dishcategory")
+    private  List<Dish> dishes;
 }

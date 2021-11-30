@@ -113,7 +113,6 @@ public class UserController {
 	public String Account(Model model) {
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
-		
 	    return "user/Account";
 	}
 
@@ -132,17 +131,13 @@ public class UserController {
 	    		if(!FileName.isEmpty()) {
 	    			newuser.setImageU(Base64.getEncoder().encodeToString(file.getBytes()));
 					System.out.println("cv");
-			
 	    		}
 	    		else {
 	    			newuser.setImageU(olduser.getImageU());
 	    		}
 						} catch (IOException e) {
-				System.out.println("dowiw");
 				e.printStackTrace();
 			}
-		
-			
 		 newuser.setUsername(username);
 		 newuser.setEmail(email);
 			User existingMail = userrepo.findByEmail(newuser.getEmail());
@@ -157,27 +152,31 @@ public class UserController {
 	        	redirAttrs.addFlashAttribute("error", "Username already exists");
 	        	return "redirect:/user/Account";
 	        }
-	        
 	        else
 	        {
-	       System.out.println("password = '"+password+"'");
 		 newuser.setPassword(password);
 		 newuser.setPhone(phone);
 		 newuser.setBirthDate(birthDate);
 		 service.modifyUser(olduser.getId(), newuser);
-		 
+		 System.out.println("$$$$$");
+		 System.out.println(newuser.getUsername());
+		 System.out.println(newuser.getPassword());
+		 System.out.println("$$$$$");	
 		 setUserUsername(newuser.getUsername(), newuser.getPassword());
 		 
 		 if (!newuser.getEmail().equals(olduser.getEmail())) {
+
+			 System.out.println("$$$$$$$$$$$test1");
 			 ConfirmationToken confirmationToken = new ConfirmationToken(olduser);
 	            tokenRepo.save(confirmationToken);
 	            String text="To confirm your email, please click here : "
 	                    +"http://localhost:9090/confirm-Email/"+confirmationToken.getConfirmationToken()+"/"
 	                    +newuser.getEmail();
 	            SendEmailService.verifyEmail(newuser.getEmail(),"Mail Verified!",text);
-	           redirAttrs.addFlashAttribute("success", "Email Changed! Check your mail to Verifie it");
+	           redirAttrs.addFlashAttribute("success", "Email Changed! Check your mail to Verify it");
 	            return "redirect:/Login";
 		 }
+		 System.out.println("$$$$$$$$$$$test");
 		return "redirect:/user/Account";
 		}
 	}
