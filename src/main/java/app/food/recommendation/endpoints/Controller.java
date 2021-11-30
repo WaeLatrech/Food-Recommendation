@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
@@ -63,16 +64,13 @@ public class Controller {
 	        return "redirect:/admin/home";
 	    }
 	    
-	    List <Restaurant> restos = service.getAllRestos();
-	    //product => resto
-	    Restaurant resto = new Restaurant();
-	    List <Restaurant> newResto = restos.subList(Math.max(restos.size() - 3, 0), restos.size());
-	    model.addAttribute("restos", restos);
-	    model.addAttribute("newResto", newResto);
+	    List <Brand> brands = service.getAllBrands();
+	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 3, 0), brands.size());
+	    model.addAttribute("brands", brands);
+	    model.addAttribute("newBrand", newBrand);
 	  //AvisEntity => reciepe
 	    List <Recipe> AllRecipes = service.getAllRecipes();
-	    Recipe recipe = new Recipe();
-	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 9, 0), AllRecipes.size());
+	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 3, 0), AllRecipes.size());
 	    model.addAttribute("NewRecipes", NewRecipes);
 	    model.addAttribute("AllRecipes", AllRecipes);
 	    /**** average ****/

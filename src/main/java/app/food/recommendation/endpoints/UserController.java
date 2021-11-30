@@ -147,7 +147,7 @@ public class UserController {
 		}
 
 		service.createRecipe(r);
-		return "redirect:/user/Recipes/"+dishcategory;
+		return "redirect:/user/add-recipe";//+dishcategory;
 	}
 	
 	

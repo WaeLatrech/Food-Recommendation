@@ -75,7 +75,7 @@
 						 -->
 					<li class="nav-item "><a href="/user/ourcollections" class="nav-link">Our Collections</a></li>
 		        	<li class="nav-item "><a href="/user/recipes" class="nav-link">Our Recipes</a></li>
-		        	<li class="nav-item"><a href="/user/Contact" class="nav-link">Contact</a></li>
+		        	<li class="nav-item"><a href="/user/contact" class="nav-link">Contact</a></li>
 			       <li class="nav-item" th:switch="${user.Role}">
                      <a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
                     </li>
@@ -109,7 +109,7 @@
                     <form action="#" th:action="@{/user/add-recipe}" method="post"  id="contactForm" class="contactForm" enctype="multipart/form-data">                  
                       	<div class="row">
 		                        	<div class="col-md-12">                          		
-			            				<select class="form-control" name="brandname" >
+			            				<select class="form-control" name="dishcategory" >
 				                            <option value="0">select Category</option>
 				                            <option th:each="cat : ${dishcategory}" th:value="${cat.dishcategory}" th:text="${cat.dishcategory}"></option>
 			                            </select><br/>		            				
@@ -133,7 +133,7 @@
 
                         <div class="col-md-12"> 
                           <div class="form-group">
-                            <textarea class="form-control" name="desc" id="description" placeholder="description" cols="30" rows="7" required></textarea>
+                            <textarea class="form-control" name="description" id="description" placeholder="description" cols="30" rows="7" required></textarea>
                           </div>
                         </div>
                         <div class="col-md-12"> 

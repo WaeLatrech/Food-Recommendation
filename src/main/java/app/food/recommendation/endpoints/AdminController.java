@@ -129,7 +129,7 @@ public class AdminController {
 		Category Category = new Category();
 		Category.setPlacecategory(catname);
 		service.createCategory(Category);
-		
+		redirAttrs.addFlashAttribute("success", "Category Created Successfully");
 		return  "redirect:/admin/listcategorie";
 	}
 	@GetMapping("/listcategorie")
@@ -170,7 +170,7 @@ public class AdminController {
 		DishCategory Category = new DishCategory();
 		Category.setDishcategory(catname);
 		service.createDishCategory(Category);
-		
+		redirAttrs.addFlashAttribute("success", "Category Created Successfully");
 		return  "redirect:/admin/listdishcategorie";
 	}
 	@GetMapping("/listdishcategorie")
