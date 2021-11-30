@@ -22,11 +22,10 @@
 <body>
 	<div align="center" class="container-fluid table-responsive ">
 		<hr>
-		<h2 class="mb-4">List Categories</h2>
+		<h2 class="mb-4">List of Dish Categories</h2>
 		<hr>
 		   <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-			<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
-		
+	<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 		<table border="1" class="table">
 			<tr class="thead-light">
 				<th>ID</th>
@@ -35,13 +34,13 @@
 				<th >Delete</th>
 			</tr>
 			<tr th:each ="Category : ${categories}" >
-				<td th:utext="${Category.idcategory}" ></td>
-				<td th:utext="${Category.placecategory}" ></td>
+				<td th:utext="${Category.iddishcategory}" ></td>
+				<td th:utext="${Category.dishcategory}" ></td>
 				<td> 
-					<a th:href="@{/admin/updcategorie/{id}(id=${Category.idcategory})}" aria-hidden="true" class="btn btn-info mt">edit</a>
+					<a th:href="@{/admin/upddishcategorie/{id}(id=${Category.iddishcategory})}" aria-hidden="true" class="btn btn-info mt">edit</a>
 				</td>
 				<td>
-					<a th:href="@{/admin/delcategorie/{id}(id=${Category.idcategory})}" class="btn btn-danger mt">Delete</a>
+					<a th:href="@{/admin/deldishcategorie/{id}(id=${Category.iddishcategory})}" class="btn btn-danger mt">Delete</a>
 				</td>
 			</tr>
 		</table>

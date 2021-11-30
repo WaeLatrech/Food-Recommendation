@@ -31,10 +31,10 @@
 							<div align="center" class="contact-wrap w-100 p-md-5 p-4">
 						        <h3 class="mb-4">Add Place Category</h3>
 								<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-								<form action="#" th:action="@{/admin/addcategorie}" th:object="${category}" method="post" id="contactForm" class="contactForm">
+								<form action="#" th:action="@{/admin/adddishcategorie}" th:object="${DishCategory}" method="post" id="contactForm" class="contactForm">
 						             <div class="col-md-12">
 						                 <div class="form-group">
-					                    	<input type="text" class="form-control" th:field="*{placecategory}" name="placeCategory" id="placeCategory" placeholder="Title of Categorie">
+					                    	<input type="text" class="form-control" th:field="*{dishcategory}" name="dishcategory" id="dishcategory" placeholder="Title of the dish category">
 				                          </div>
    			                         </div>   
    			                          

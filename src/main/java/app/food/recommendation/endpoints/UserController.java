@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,8 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.ConfirmationToken;
+import app.food.recommendation.models.DishCategory;
+import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.User;
+import app.food.recommendation.repositories.DishCategoryRepo;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
 import app.food.recommendation.services.SendEmailService;
@@ -45,6 +50,7 @@ public class UserController {
 	
 	UserRepo userrepo;
 	TokenRepo tokenRepo;
+	DishCategoryRepo dishCatRepo;
 	
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
@@ -91,6 +97,57 @@ public class UserController {
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
 	    return "user/brands";
+	}
+	
+	@GetMapping("/add-recipe")
+	public String addProduct(Model model) {
+				
+		if (CheckRole().equals("NOTVERIFIED")) 
+			{
+			return "redirect:/logout";
+	    	}
+		List<Brand> brands = service.getAllBrands();
+		model.addAttribute("brands",brands);
+		
+		List<DishCategory> dishcategory = service.getAllDishCategories();
+		model.addAttribute("dishcategory",dishcategory);
+		
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+		/**** footer *****/
+//	    List <CategoryEntity> footerCategories = categories.subList(Math.max(categories.size() - 4, 0), categories.size());
+//	    model.addAttribute("footercategories", footerCategories);
+	    return "user/add-recipe";
+	}
+	
+	@PostMapping("/add-recipe")
+	public String registerSuccess( @RequestParam ("title") String title ,
+			@RequestParam ("description") String description ,
+			@RequestParam("ingredients") String ingredients,
+			@RequestParam("preparationTime") String preparationTime ,
+			@RequestParam("dishcategory") String dishcategory ,
+			@RequestParam ("file") MultipartFile file ) {
+		Recipe r = new Recipe();
+		r.setPublisher(userrepo.findByUsername(getUserUsername()));
+		r.setTitle(title);
+		r.setDescription(description);
+		r.setIngredients(ingredients);
+		r.setPreparationTime(preparationTime);
+		r.setDishcategory(dishCatRepo.findByDishcategory(dishcategory));
+		
+		
+		String FileName = org.springframework.util.StringUtils.cleanPath(file.getOriginalFilename());
+    	if(FileName.contains("..")) {
+    		System.out.println("not a proper file ");
+    	}
+    	try {
+    			r.setImgRecipe(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		service.createRecipe(r);
+		return "redirect:/user/Recipes/"+dishcategory;
 	}
 	
 	

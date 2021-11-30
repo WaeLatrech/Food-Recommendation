@@ -48,7 +48,7 @@
 		        	<span class="fa fa-bars"></span> Menu
 		      	</button>
 		        <div class="req-button order-lg-last">
-		      		<a href=""><span class="fa fa-upload" aria-hidden="true"></span> Add product</a>
+		      		<a href=""><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
 	        	</div>
 	        	<!-- statiqueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee  -->
 		        <div class="dropdown order-lg-last ml-4 dark-text">
@@ -108,52 +108,46 @@
 
                     <form action="#" th:action="@{/user/add-recipe}" method="post"  id="contactForm" class="contactForm" enctype="multipart/form-data">                  
                       	<div class="row">
-                        	<div class="col-md-12">                          
-	            				<select class="form-control" name="pcat">
-		                            <option value="0">select category</option>
-		                            <option th:each="category : ${categories}" th:value="${category.Title}" th:text="${category.Title}"></option>
-	                            </select><br/>
-            				
-                          	</div>  
-                        </div>
+		                        	<div class="col-md-12">                          		
+			            				<select class="form-control" name="brandname" >
+				                            <option value="0">select Category</option>
+				                            <option th:each="cat : ${dishcategory}" th:value="${cat.dishcategory}" th:text="${cat.dishcategory}"></option>
+			                            </select><br/>		            				
+		                          	</div>  
+		                 </div>
                         <div class="col-md-12">
                           <div class="form-group">
-                        	<input type="text" class="form-control"  name="title" id="title" placeholder="Title of the recipe">
+                        	<input type="text" class="form-control"  name="title" id="title" placeholder="Title of the recipe" required>
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
-                        	<input type="text" class="form-control" name="ingredients" id="ingredients" placeholder="ingredients">
+                        	<input type="text" class="form-control" name="preparationTime" id="preparationTime" placeholder="Preparation Time" required>
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
-                        	<input type="text" class="form-control" name="preparationTime" id="preparationTime" placeholder="preparationTime">
+                        	<textarea type="text" class="form-control" name="ingredients" id="ingredients" placeholder="Ingredients" cols="30" rows="7" required></textarea>
                           </div>
                         </div>
-                        <div class="col-md-12">
+
+                        <div class="col-md-12"> 
                           <div class="form-group">
-                        	<input type="text" class="form-control" name="description" id="description" placeholder="description">
+                            <textarea class="form-control" name="desc" id="description" placeholder="description" cols="30" rows="7" required></textarea>
                           </div>
                         </div>
                         <div class="col-md-12"> 
 	                      <div class="custom-file mb-3" >  
 	                         <div class="form-group">
-	                            <input type="file" name="file" class="custom-file-input"  id="validatedCustomFile" required>
+	                            <input type="file" name="file" class="custom-file-input"  id="validatedCustomFile">
 	                         </div>
-	                         <label class="custom-file-label" for="validatedCustomFile">Add photo for your product...</label>
+	                         <label class="custom-file-label" for="validatedCustomFile">Add photo for your Recipe...</label>
 	                      </div>  
                          </div>
 
-                        <div class="col-md-12"> 
-                          <div class="form-group">
-                            <textarea class="form-control" name="desc" id="description" placeholder="description"></textarea>
-                          </div>
-                        </div>
-   
                         <div class="col-md-12">
                           <div class="form-group">
-                            <input type="submit" value="Add product" class="btn btn-primary sign-up">
+                            <input type="submit" value="Add Recipe" class="btn btn-primary sign-up">
                             <div class="submitting"></div>
                           </div>
                         </div>
@@ -200,7 +194,7 @@
               <ul class="list-unstyled">
                 <li><a href="../" class="py-1 d-block">Home</a></li>
                 <li><a href="/#about" class="py-1 d-block">About</a></li>
-                <li><a href="/user/add-product" class="py-1 d-block">Add products</a></li>
+                <li><a href="/user/add-recipe" class="py-1 d-block">Add Recipe</a></li>
                 <li><a href="/Contact" class="py-1 d-block">Contact</a></li>
               </ul>
               

@@ -21,7 +21,7 @@ import lombok.Data;
 public class Restaurant {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private int idresto;
+    private long idresto;
 	private String restoname;
 	private String location;
 	@ManyToOne( cascade = CascadeType.DETACH )

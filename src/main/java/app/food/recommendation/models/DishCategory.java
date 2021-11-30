@@ -18,7 +18,7 @@ import lombok.Data;
 public class DishCategory {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private int iddishcategory ;
+    private long iddishcategory ;
     
     @Column(unique = true )
     private String dishcategory ; 

@@ -18,10 +18,10 @@ import lombok.Data;
 public class Category {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private int idcategory ;
-    
+    private long idcategory ;
+
     @Column(unique = true )
-    private String placeCategory ; 
+    private String placecategory ; 
     @OneToMany( mappedBy = "placecategory")
     private  List<Restaurant> restos;
 

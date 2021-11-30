@@ -105,7 +105,7 @@ public class Controller {
 	public String ContactMail(@RequestParam("email") String to,@RequestParam("message") String body, @RequestParam("subject") String topic,@RequestParam("name") String name) {
 		System.out.println("Sending : "+to+" "+body+" "+topic);
 		SendEmailService.sendEmail(to,body,"By "+name+": "+topic);
-		System.out.println("Success : "+to+" "+body+" "+topic);
+		System.out.println(" : "+to+" "+body+" "+topic);
 	    return "Other/contact";
 	}
 	@GetMapping("/brands")

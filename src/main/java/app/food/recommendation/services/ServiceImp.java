@@ -13,20 +13,22 @@ import org.springframework.stereotype.Service;
 
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
+import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Dish;
+import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Plan;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.BrandRepo;
 import app.food.recommendation.repositories.CategoryRepo;
+import app.food.recommendation.repositories.DishCategoryRepo;
 import app.food.recommendation.repositories.DishRepo;
 import app.food.recommendation.repositories.PlanRepo;
 import app.food.recommendation.repositories.RecipeRepo;
 import app.food.recommendation.repositories.RestoRepo;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
-import app.food.recommendation.models.ConfirmationToken;
 
 
 @Service
@@ -44,10 +46,12 @@ public class ServiceImp implements Services{
 	private DishRepo repoDish;
 	private PlanRepo repoPlan;
 	private BrandRepo repoBrand;
+	private DishCategoryRepo repoDishCat;
 	
 	@Autowired
 	public ServiceImp(UserRepo repoUser, TokenRepo repoToken, RestoRepo repoResto, RecipeRepo repoRecipe,
-			CategoryRepo repoCategory, DishRepo repoDish, PlanRepo repoPlan,BrandRepo repoBrand) {
+			CategoryRepo repoCategory, DishRepo repoDish, PlanRepo repoPlan,BrandRepo repoBrand
+			,DishCategoryRepo repoDishCat) {
 		super();
 		this.repoUser = repoUser;
 		this.repoToken = repoToken;
@@ -57,6 +61,7 @@ public class ServiceImp implements Services{
 		this.repoDish = repoDish;
 		this.repoPlan = repoPlan;
 		this.repoBrand = repoBrand;
+		this.repoDishCat = repoDishCat;
 	}
 
 	@Override
@@ -198,40 +203,74 @@ public class ServiceImp implements Services{
 	///////////////////////////////////////////////
 
 	@Override
-	public List<Category> getAllCategories() {
-		return repoCategory.findAll();
+	public List<DishCategory> getAllDishCategories() {
+		return repoDishCat.findAll();
 	}
 
 	@Override
-	public Category getCategoryById(long id) {
-		Optional<Category> opt = repoCategory.findById(id);
-		Category Category;
+	public DishCategory getDishCategoryById(long id) {
+		Optional<DishCategory> opt = repoDishCat.findById((long) id);
+		DishCategory DishCategory;
         if (opt.isPresent())
-        	Category = opt.get();
+        	DishCategory = opt.get();
         else
-            throw new NoSuchElementException("Category with id : "+id+" is not found");
-        return Category;
+            throw new NoSuchElementException("DishCategory with id : "+id+" is not found");
+        return DishCategory;
 	}
 
 	@Override
-	public Category createCategory(Category Category) {
-		return repoCategory.save(Category);
+	public DishCategory createDishCategory(DishCategory DishCategory) {
+		return repoDishCat.save(DishCategory);
 	}
 
 	@Override
-	public Category deleteCategory(long id) {
-		Category Category = this.getCategoryById(id);
-        repoCategory.deleteById(id);
-        return Category;
+	public DishCategory deleteDishCategory(long id) {
+		DishCategory DishCategory = this.getDishCategoryById(id);
+		repoDishCat.deleteById(id);
+        return DishCategory;
 	}
 
 	@Override
-	public Category modifyCategory(long id, Category newCategory) {
+	public DishCategory modifyDishCategory(long id, DishCategory DishCategory) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	///////////////////////////////////////////////
+///////////////////////////////////////////////
 
+	@Override
+	public List<Category> getAllCategories() {
+	return repoCategory.findAll();
+	}
+	
+	@Override
+	public Category getCategoryById(long id) {
+	Optional<Category> opt = repoCategory.findById(id);
+	Category Category;
+	if (opt.isPresent())
+	Category = opt.get();
+	else
+	throw new NoSuchElementException("Category with id : "+id+" is not found");
+	return Category;
+	}
+	
+	@Override
+	public Category createCategory(Category Category) {
+	return repoCategory.save(Category);
+	}
+	
+	@Override
+	public Category deleteCategory(long id) {
+	Category Category = this.getCategoryById(id);
+	repoCategory.deleteById(id);
+	return Category;
+	}
+
+@Override
+public Category modifyCategory(long id, Category newCategory) {
+// TODO Auto-generated method stub
+return null;
+}
 	@Override
 	public List<Restaurant> getAllRestos() {
 		return repoResto.findAll();
@@ -360,7 +399,7 @@ public class ServiceImp implements Services{
 	}
 	
 	@Override
-	public Brand getBrandById(int id) {
+	public Brand getBrandById(long id) {
 		Optional<Brand> opt = repoBrand.findById(id);
 		Brand Brand;
 		if (opt.isPresent())
@@ -376,7 +415,7 @@ public class ServiceImp implements Services{
 	}
 	
 	@Override
-	public Brand deleteBrand(int id) {
+	public Brand deleteBrand(long id) {
 		Brand brand = this.getBrandById(id);
 		repoBrand.deleteById(id);
 		return brand;

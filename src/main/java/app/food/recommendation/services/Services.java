@@ -5,6 +5,7 @@ import java.util.List;
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
 import app.food.recommendation.models.Dish;
+import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Plan;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
@@ -35,6 +36,12 @@ import app.food.recommendation.models.User;
 	Category createCategory(Category Category);
 	Category deleteCategory(long id);
 	Category modifyCategory(long id, Category newCategory);
+	////////////////**Category**////////////
+	List<DishCategory> getAllDishCategories();
+	DishCategory getDishCategoryById(long id);
+	DishCategory createDishCategory(DishCategory DishCategory);
+	DishCategory deleteDishCategory(long id);
+	DishCategory modifyDishCategory(long id, DishCategory DishCategory);
 	////////////////**Restaurant**////////////
 	List<Restaurant> getAllRestos();
 	Restaurant getRestoById(long id);
@@ -56,8 +63,8 @@ import app.food.recommendation.models.User;
 	
 	////////////////**Brand**////////////
 	List<Brand> getAllBrands();
-	Brand getBrandById(int id);
+	Brand getBrandById(long id);
 	Brand createBrand(Brand Brand);
-	Brand deleteBrand(int id);
+	Brand deleteBrand(long id);
 	
 }

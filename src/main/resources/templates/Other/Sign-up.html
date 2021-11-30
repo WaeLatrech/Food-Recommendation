@@ -99,9 +99,8 @@
                 <div class="col-md-6  d-flex">
                   <div class="contact-wrap w-100 p-md-5 p-4">
                     <h3 class="mb-4">Sign up</h3>
-
+		   			<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
                     <form method="POST" th:action="@{/Sign-up}" th:object="${user}" id="contactForm" class="contactForm" name="fsignup" onsubmit="valider()" enctype="multipart/form-data">
-		    <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
           
                       <div class="row">
                         <div class="col-md-12">

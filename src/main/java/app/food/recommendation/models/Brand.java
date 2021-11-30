@@ -18,7 +18,7 @@ import lombok.Data;
 public class Brand {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private int idbrand;
+    private long idbrand;
 	private String brandname;
 	private String brandDescription;
 	@Lob

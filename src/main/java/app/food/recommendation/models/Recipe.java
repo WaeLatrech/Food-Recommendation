@@ -27,7 +27,7 @@ import lombok.Data;
 public class Recipe {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    private int idrecipe;
+    private long idrecipe;
 	private String ingredients;
 	private String title;
 	private String description;

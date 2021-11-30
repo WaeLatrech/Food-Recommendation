@@ -6,5 +6,6 @@ import app.food.recommendation.models.Category;
 
 
 public interface CategoryRepo  extends JpaRepository<Category, Long>{
+	Category findByPlacecategory(String Category);
 
 }

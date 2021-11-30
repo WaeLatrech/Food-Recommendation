@@ -8,9 +8,9 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,10 +22,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.food.recommendation.models.Brand;
+import app.food.recommendation.models.Category;
+import app.food.recommendation.models.Dish;
+import app.food.recommendation.models.DishCategory;
+import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.User;
+import app.food.recommendation.repositories.CategoryRepo;
+import app.food.recommendation.repositories.DishCategoryRepo;
 import app.food.recommendation.services.ServiceImp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,6 +46,9 @@ public class AdminController {
 	@Autowired
 	ServiceImp service ;
 
+	private CategoryRepo catRepo;
+	private DishCategoryRepo catDishRepo;
+	
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -100,19 +110,90 @@ public class AdminController {
 		return "redirect:/admin/brandlist";
 	}
 	
-	/***********Categories************/
+	/***********Place Categories************/
 	
 	@GetMapping("/addcategorie")
-	public String returnaddcategorieadmin() {
-		
+	public String addcategorieadmin(Model model) {
+		Category Category = new Category();
+		model.addAttribute("category",Category);
 	    return "admin/addcategorieadmin";
 	}
-	@GetMapping("/listcategorie")
-	public String returnlistcategorieadmin() {
+	@PostMapping("/addcategorie")
+	public String addcategorieadmin(Model model, @RequestParam ("placecategory") String catname,
+			RedirectAttributes redirAttrs) {
+		if (catRepo.findByPlacecategory(catname)!= null)
+		{	
+        	redirAttrs.addFlashAttribute("error", "Category Name already exists");
+        	return "redirect:/admin/addcategorie";
+        }
+		Category Category = new Category();
+		Category.setPlacecategory(catname);
+		service.createCategory(Category);
 		
+		return  "redirect:/admin/listcategorie";
+	}
+	@GetMapping("/listcategorie")
+	public String returnlistcategorieadmin(Model model) {
+		
+		List <Category> categories = catRepo.findAll();
+		model.addAttribute("categories",categories);
 	    return "admin/categorielistadmin";
 	}
-	
+	//updcategorie
+	@GetMapping("/delcategorie/{id}")
+	public String DelCat(RedirectAttributes redirAttrs,@PathVariable("id") Long id, Model model) {
+		//add all dishes in this category and delete them
+		Category a = service.getCategoryById(id);
+		for (Restaurant resto : service.getCategoryById(id).getRestos()) {
+			service.deleteResto(resto.getIdresto());
+		}
+
+		service.deleteCategory(id);
+        redirAttrs.addFlashAttribute("success", "Category deleted");
+		return "redirect:/admin/listcategorie";
+	}
+	/***********Dish Categories************/
+	@GetMapping("/adddishcategorie")
+	public String adddishcategorieadmin(Model model) {
+		DishCategory DishCategory = new DishCategory();
+		model.addAttribute("DishCategory",DishCategory);
+	    return "admin/dishaddcategorieadmin";
+	}
+	@PostMapping("/adddishcategorie")
+	public String adddishcategorieadmin(Model model, @RequestParam ("dishcategory") String catname,
+			RedirectAttributes redirAttrs) {
+		if (catDishRepo.findByDishcategory(catname)!= null)
+		{	
+        	redirAttrs.addFlashAttribute("error", "Category Name already exists");
+        	return "redirect:/admin/adddishcategorie";
+        }
+		DishCategory Category = new DishCategory();
+		Category.setDishcategory(catname);
+		service.createDishCategory(Category);
+		
+		return  "redirect:/admin/listdishcategorie";
+	}
+	@GetMapping("/listdishcategorie")
+	public String listdishcategorieadmin(Model model) {
+		List <DishCategory> categories = catDishRepo.findAll();
+		model.addAttribute("categories",categories);
+	    return "admin/dishcategorielistadmin";
+	}
+
+	@GetMapping("/deldishcategorie/{id}")
+	public String DelDishCat(RedirectAttributes redirAttrs,@PathVariable("id") Long id, Model model) {
+		//add all dishes in this category and delete them
+		DishCategory a = service.getDishCategoryById(id);
+		for (Dish dish : service.getDishCategoryById(id).getDishes()) {
+			service.deleteDish(dish.getIddish());
+		}
+		for (Recipe recipe : service.getDishCategoryById(id).getRecipes()) {
+			service.deleteRecipe(recipe.getIdrecipe());
+		}
+		service.deleteDishCategory(id);
+        redirAttrs.addFlashAttribute("success", "Category deleted");
+		return "redirect:/admin/listdishcategorie";
+	}
 	/***********Users************/
 	
 	@GetMapping("/userlist")
@@ -223,6 +304,7 @@ public class AdminController {
 		return  "redirect:/admin/restolist";
 	}
 	
+	//updresto
 	
 	
 	/***********Review************/
