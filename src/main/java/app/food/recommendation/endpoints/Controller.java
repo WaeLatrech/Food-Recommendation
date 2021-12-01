@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Recipe;
-import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
@@ -87,6 +86,37 @@ public class Controller {
 //	    model.addAttribute("footercategories", footerCategories);
 	    
 	    return "index";
+	}
+	@GetMapping("/recipes")
+	public String Recipes(Model model) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    List <Brand> brands = service.getAllBrands();
+	    model.addAttribute("brands", brands);
+	    List<Recipe> recipes = service.getAllRecipes();
+	    model.addAttribute("recipes", recipes);
+	return "Other/recipes";
+	}
+	
+	@GetMapping("/recipe/{id}")
+	public String recipe(Model model,@PathVariable int id ) {
+	    
+		Recipe recipe = service.getRecipeById(id);
+		model.addAttribute("recipe",recipe);
+		//User user = userrepo.findByUsername(getUserUsername());
+		//a.setUser(user);
+//		model.addAttribute("user",user);
+//		model.addAttribute("avis",a);
+//		/**** footer *****/
+//	    List <CategoryEntity> footerCategories = categories.subList(Math.max(categories.size() - 4, 0), categories.size());
+//	    model.addAttribute("footercategories", footerCategories);
+		return "Other/recipe";
+		
 	}
 	@GetMapping("/contact")
 	public String Contact(Model model) {

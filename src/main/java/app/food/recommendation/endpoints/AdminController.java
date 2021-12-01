@@ -110,6 +110,41 @@ public class AdminController {
 		return "redirect:/admin/brandlist";
 	}
 	
+
+	/***********Dish************/
+	
+	@GetMapping("/dishlist")
+	public String listdisheadmin(Model model) {
+		List<Dish> dishes =  service.getAllDishes();
+		model.addAttribute("dishes",dishes);
+		Dish dishe = new Dish();
+		model.addAttribute("dishe",dishe);
+	    return "admin/dishlistadmin";
+	}
+							
+	@GetMapping("/adddish")
+	public String adddisheadmin(Model model) {
+		Dish dish = new Dish();
+		model.addAttribute("dish",dish);
+		List<Restaurant> restos =  service.getAllRestos();
+		model.addAttribute("restos",restos);
+		Restaurant resto = new Restaurant();
+		model.addAttribute("resto",resto);
+		List<DishCategory> dishcats =  service.getAllDishCategories();
+		model.addAttribute("dishcats",dishcats);
+		DishCategory dishcat = new DishCategory();
+		model.addAttribute("dishcat",dishcat);
+	    return "admin/adddishadmin";
+	}
+	
+	@PostMapping("/adddish")
+	public String registerSuccessdish(RedirectAttributes redirAttrs,Model model, @RequestParam ("dishcatname") String dishcatname ,  @RequestParam ("restoname") String restoname ,@RequestParam ("dishname") String dishname, 
+			@RequestParam ("dishdescription") String dishdescription,@RequestParam ("price") String price, @RequestParam ("file") MultipartFile file) {
+		
+		service.createDish(restoname,dishcatname,dishname,dishdescription,Float.parseFloat(price),file);
+		redirAttrs.addFlashAttribute("success", "Dish Created Successfully");
+		return  "redirect:/admin/dishlist";
+	}
 	/***********Place Categories************/
 	
 	@GetMapping("/addcategorie")
@@ -298,9 +333,9 @@ public class AdminController {
 	}
 	
 	@PostMapping("/addresto")
-	public String registerSuccessresto(Model model, @RequestParam ("brandname") String brandname , @RequestParam ("restoname") String restoname, @RequestParam ("location") String location) {
+	public String registerSuccessresto(RedirectAttributes redirAttrs,Model model, @RequestParam ("brandname") String brandname , @RequestParam ("restoname") String restoname, @RequestParam ("location") String location) {
 		service.createResto(brandname,restoname,location);
-		
+		redirAttrs.addFlashAttribute("success", "Resto Created Successfully");
 		return  "redirect:/admin/restolist";
 	}
 	

@@ -2,6 +2,8 @@ package app.food.recommendation.services;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
 import app.food.recommendation.models.Dish;
@@ -51,7 +53,7 @@ import app.food.recommendation.models.User;
 	////////////////**Dish**////////////
 	List<Dish> getAllDishes();
 	Dish getDishById(long id);
-	Dish createDish(Dish d);
+	Dish createDish(String restoname, String dishcatname, String dishname, String dishdescription, float price,MultipartFile file);
 	Dish deleteDish(long id);
 	Dish modifyDish(long id, Dish newDish);
 	////////////////**Plan**////////////

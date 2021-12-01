@@ -88,6 +88,8 @@ public class UserController {
 		
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
+		
+		
 	    return "user/userindex";
 	}
 	

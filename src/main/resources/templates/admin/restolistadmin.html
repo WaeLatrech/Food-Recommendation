@@ -33,6 +33,8 @@
 			<hr>
 			<h2 class="mb-4"> List Restos </h2>
 			<hr>
+					   <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+			<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 			<table border="1" class="table">
 				<tr  class="thead-light">
 					<th >ID</th>

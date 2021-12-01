@@ -95,6 +95,13 @@
             <a href="/admin/restolist" onclick="openlink(event, 'iframe_restolist')" target="iframe_restolist" class="w3-bar-item w3-button">Resto List</a>
             <a href="/admin/addresto" onclick="openlink(event, 'iframe_addresto')" target="iframe_addresto" class="w3-bar-item w3-button tablinks">Add Resto</a>
         </div>
+        <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccDish')">
+            Dish <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="demoAccDish" class="w3-hide w3-white w3-card">
+            <a href="/admin/dishlist" onclick="openlink(event, 'iframe_dishlist')" target="iframe_dishlist" class="w3-bar-item w3-button">Dish List</a>
+            <a href="/admin/adddish" onclick="openlink(event, 'iframe_adddish')" target="iframe_adddish" class="w3-bar-item w3-button tablinks">Add Dish</a>
+        </div>
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccR')">
           Reviews <i class="fa fa-caret-down"></i>
         </button>
@@ -131,6 +138,12 @@
       </div>
       <div class="tab-pane container p-0 " >
         <iframe id="iframe_addresto" class="tabcontent" name="iframe_addresto" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 ">
+        <iframe  id="iframe_dishlist" class="tabcontent" name="iframe_dishlist" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 " >
+        <iframe id="iframe_adddish" class="tabcontent" name="iframe_adddish" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
       </div>
       <div class="tab-pane container p-0 ">
         <iframe  id="iframe_updprod" class="tabcontent" name="iframe_updprod" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<title>list Dishes</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+        <link rel="stylesheet" href="../css/animate.css">
+        
+        <link rel="stylesheet" href="../css/owl.carousel.min.css">
+        <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="../css/magnific-popup.css">
+
+        <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="../css/jquery.timepicker.css">
+
+        <link rel="stylesheet" href="../css/flaticon.css">
+        <link rel="stylesheet" href="../css/style.css">
+<body>
+	<div align="center" class="container-fluid table-responsive ">
+		<hr>
+		<h2 class="mb-4">List OF Dishes</h2>
+		<hr>
+		   <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+			<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+		
+		<table border="1" class="table">
+			<tr class="thead-light">
+				<th>ID</th>
+				<th>Name of Dish</th>
+				<th>Image</th>
+				<th>Resto</th>
+				<th>Price</th>
+				<th>Category</th>
+				<th>Description</th>
+				<th >Edit</th>
+				<th >Delete</th>
+			</tr>
+			<tr th:each ="dish : ${dishes}" >
+				<td th:utext="${dish.iddish}" ></td>
+				<td>
+					<img alt="" th:src="*{'data:img/png;base64,'+{dish.imageD}}" style="width: 120px;height: 100px;">
+				</td>
+				<td th:utext="${dish.dishname}" ></td>
+				<td th:utext="${dish.resto.restoname}" ></td>
+				<td th:utext="${dish.price}" ></td>
+				<td th:utext="${dish.dishcategory.dishcategory}" ></td>
+				<td th:utext="${dish.dishdescription}" ></td>
+				<td> 
+					<a th:href="@{/admin/upddish/{id}(id=${dish.iddish})}" aria-hidden="true" class="btn btn-info mt">edit</a>
+				</td>
+				<td>
+					<a th:href="@{/admin/deldish/{id}(id=${dish.iddish})}" class="btn btn-danger mt">Delete</a>
+				</td>
+			</tr>
+		</table>
+		
+	</div>
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+</body>
+</html>

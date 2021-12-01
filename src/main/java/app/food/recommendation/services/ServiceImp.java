@@ -1,7 +1,9 @@
 package app.food.recommendation.services;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
@@ -338,9 +341,42 @@ return null;
 	}
 
 	@Override
-	public Dish createDish(Dish d) {
-		return repoDish.save(d);
+	public Dish createDish(String restoname ,String dishcatname, String dishname, String dishdescription, float price,MultipartFile file) {
+		Dish dish = new Dish ();
+		dish.setDishcategory(repoDishCat.findByDishcategory(dishcatname));
+		dish.setResto(repoResto.findByRestoname(restoname));
+		dish.setDishdescription(dishdescription);
+		dish.setPrice(price);
+		dish.setDishname(dishname);
+		
+    	String FileName = org.springframework.util.StringUtils.cleanPath(file.getOriginalFilename());
+    	if(FileName.contains("..")) {
+    		System.out.println("not a proper file ");
+    	}
+    	try {
+    		dish.setImageD(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+        for(Restaurant c : this.getAllRestos())
+        {
+            if (dish.getResto().getRestoname().equalsIgnoreCase(c.getRestoname())) {
+            	dish.setResto(c);
+                break;
+            }    
+        }
+        for(DishCategory c : this.getAllDishCategories())
+        {
+            if (dish.getDishcategory().getDishcategory().equalsIgnoreCase(c.getDishcategory())) {
+            	dish.setDishcategory(c);
+                break;
+            }    
+        }
+        
+		return repoDish.save(dish);
 	}
+
 
 	@Override
 	public Dish deleteDish(long id) {
