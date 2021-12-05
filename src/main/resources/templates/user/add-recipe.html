@@ -14,7 +14,30 @@
     <link rel="stylesheet" th:href="@{../css/bootstrap-datepicker.css}">
     <link rel="stylesheet" th:href="@{../css/jquery.timepicker.css}">
     <link rel="stylesheet" th:href="@{../css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{../css/style.css}">	
+    <link rel="stylesheet" th:href="@{../css/style.css}">
+    <script type='text/javascript'>
+        function addFields(){
+            // Number of inputs to create
+            var number = document.getElementById("member").value;
+            // Container <div> where dynamic content will be placed
+            var container = document.getElementById("container");
+            // Clear previous contents of the container
+            while (container.hasChildNodes()) {
+                container.removeChild(container.lastChild);
+            }
+            for (i=0;i<number;i++){
+                // Append a node with a random text
+                container.appendChild(document.createTextNode("Member " + (i+1)));
+                // Create an <input> element, set its type and name attributes
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = "member" + i;
+                container.appendChild(input);
+                // Append a line break 
+                container.appendChild(document.createElement("br"));
+            }
+        }
+    </script>	
   </head>
   <body>
   	<div class="wrap">
@@ -125,12 +148,24 @@
                         	<input type="text" class="form-control" name="preparationTime" id="preparationTime" placeholder="Preparation Time" required>
                           </div>
                         </div>
-                        <div class="col-md-12">
+                          <!--
+					     <div class="col-md-12" th:each="mapEntry : ${map}">
                           <div class="form-group">
-                        	<textarea type="text" class="form-control" name="ingredients" id="ingredients" placeholder="Ingredients" cols="30" rows="7" required></textarea>
+					         <input type="text" class="form-control" th:field="${mapEntry.key}" name="ingredients" id="ingredients" placeholder="Ingredients" required>
+					         <input type="number" class="form-control" th:field="${mapEntry.value}" name="quantity" id="quantity" placeholder="quantity" required>
+					     </div>
+					     </div>
+					     -->
+					     <!-- 
+					     <input type="text" id="member" name="member" value="">Number of members: (max. 10)<br />
+						    <a href="#" id="filldetails" onclick="addFields()">Fill Details</a>
+						    <div id="container"/>
+					      -->
+					     <div class="col-md-12">
+                          <div class="form-group">
+                        	<input type="text" class="form-control" name="ingredients" id="ingredients" placeholder="Ingredients"  cols="30" rows="7" required></textarea>
                           </div>
                         </div>
-
                         <div class="col-md-12"> 
                           <div class="form-group">
                             <textarea class="form-control" name="description" id="description" placeholder="description" cols="30" rows="7" required></textarea>

@@ -40,5 +40,12 @@ public class User {
     
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.REMOVE)
 	private List<Recipe> recipes;
-	
+	/////Reviews/////
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Review> reviews ;
+//    @ManyToMany(mappedBy = "LikedBy", cascade = CascadeType.REMOVE)
+//    private List<Review> Likedavis;
+//    @ManyToMany(mappedBy = "dislikedBy", cascade = CascadeType.REMOVE)
+//    private List<Review> DisLikedavis;
+
 }
