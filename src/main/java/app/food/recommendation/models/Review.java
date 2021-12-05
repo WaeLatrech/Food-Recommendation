@@ -3,10 +3,12 @@ package app.food.recommendation.models;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Review {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idReview;
+    private long idReview;
     private int nblike;
     private int nbdislike;
 //    private float note;
@@ -38,10 +40,12 @@ public class Review {
 //    @JoinTable(name = "DislikedBy")
 //    @JsonIgnore
 //    private List<User> dislikedBy;
-
-    @JsonIgnore
-    @ManyToOne
+    
+    @ManyToOne( cascade = CascadeType.DETACH )
     private Recipe recipe;
+    @Lob
+	@Column(columnDefinition = "MEDIUMBLOB")
+	private String imgReview;
     
     
     @CreationTimestamp

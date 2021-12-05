@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Recipe;
+import app.food.recommendation.models.Review;
 import app.food.recommendation.models.User;
+import app.food.recommendation.repositories.ReviewRepo;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
 import app.food.recommendation.services.SendEmailService;
@@ -42,8 +44,9 @@ public class Controller {
 	@Autowired
     SendEmailService SendEmailService;
 
-	UserRepo userrepo;
-	TokenRepo tokenRepo;
+	private UserRepo userrepo;
+	private TokenRepo tokenRepo;
+	private ReviewRepo reviewRepo;
 	
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
@@ -108,6 +111,8 @@ public class Controller {
 	    
 		Recipe recipe = service.getRecipeById(id);
 		model.addAttribute("recipe",recipe);
+		Review rev = new Review();
+		model.addAttribute("review",rev);
 		//User user = userrepo.findByUsername(getUserUsername());
 		//a.setUser(user);
 //		model.addAttribute("user",user);

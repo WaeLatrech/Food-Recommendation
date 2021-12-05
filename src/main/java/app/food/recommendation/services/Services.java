@@ -11,6 +11,7 @@ import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Plan;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
+import app.food.recommendation.models.Review;
 import app.food.recommendation.models.User;
 
 
@@ -68,5 +69,17 @@ import app.food.recommendation.models.User;
 	Brand getBrandById(long id);
 	Brand createBrand(Brand Brand);
 	Brand deleteBrand(long id);
+	
+	////////////////**Review**////////////
+    Review createReview(long id, Review a ) ;
+    Review deleteReview( long id ) ; 
+    List<Review> getAllReviewOfRecipe(long idrecipe);
+    Review getReviewById( long id) ; 
+    Review modifyReview( long id , Review newEntityAvis);
+//    public Review addLike(int id , long userid);
+    //public Review addDisLike(int id , int userid);
+//	public List<ReportEntity> getAllReports();
+//	public List<LikeEntity> getAllLikes();
+//	public List<DislikeEntity> getAllDisLikes();
 	
 }

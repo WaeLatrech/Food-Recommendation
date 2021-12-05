@@ -7,6 +7,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +31,14 @@ import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Dish;
 import app.food.recommendation.models.DishCategory;
+import app.food.recommendation.models.Dislike;
+import app.food.recommendation.models.Like;
 import app.food.recommendation.models.Recipe;
+import app.food.recommendation.models.Review;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.DishCategoryRepo;
+import app.food.recommendation.repositories.DislikeRepo;
+import app.food.recommendation.repositories.LikeRepo;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
 import app.food.recommendation.services.SendEmailService;
@@ -51,9 +58,11 @@ public class UserController {
 	@Autowired
     SendEmailService SendEmailService;
 	
-	UserRepo userrepo;
-	TokenRepo tokenRepo;
-	DishCategoryRepo dishCatRepo;
+	private UserRepo userrepo;
+	private TokenRepo tokenRepo;
+	private DishCategoryRepo dishCatRepo;
+	private LikeRepo likeRepo;
+	private DislikeRepo dislikeRepo;
 	
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
@@ -199,6 +208,7 @@ public class UserController {
 		{
 		return "redirect:/logout";
     	}
+		model.addAttribute("user", getUserUsername());
 		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
 	    List <Brand> brands = service.getAllBrands();
 	    model.addAttribute("brands", brands);
@@ -206,16 +216,7 @@ public class UserController {
 	    model.addAttribute("recipes", recipes);
 	return "user/recipes";
 	}
-	@GetMapping("/recipe/{id}")
-	public String recipe(Model model,@PathVariable int id ) {
-	    
-		model.addAttribute("recipe",service.getRecipeById(id));
-		//model.addAttribute("reviews",service.getReviewsByRecipe(recipe));
-		//model.addAttribute("nblikes",);
-		//model.addAttribute("nbdislikes",);
-		return "user/recipe";
-		
-	}
+
 	@GetMapping("/add-recipe")
 	public String addProduct(Model model) {
 				
@@ -240,10 +241,10 @@ public class UserController {
 	}
 	
 	@PostMapping("/add-recipe")
-	public String registerSuccess(@RequestParam ("title") String title ,
+	public String registerSuccess(RedirectAttributes redirAttrs,
+			@RequestParam ("title") String title ,
 			@RequestParam ("description") String description ,
 			@RequestParam("ingredients") String ingredient,
-			@RequestParam("quantity") String quantity,
 			@RequestParam("preparationTime") String preparationTime ,
 			@RequestParam("dishcategory") String dishcategory ,
 			@RequestParam ("file") MultipartFile file ) {
@@ -264,19 +265,127 @@ public class UserController {
     	if(FileName.contains("..")) {
     		System.out.println("not a proper file ");
     	}
+    	if(!file.isEmpty()) {
     	try {
     			r.setImgRecipe(Base64.getEncoder().encodeToString(file.getBytes()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	}
 
 		service.createRecipe(r);
-		return "redirect:/user/add-recipe";//+dishcategory;
+		return "redirect:/user/recipe/"+r.getIdrecipe();
 	}
-//	@GetMapping("/add-review/{id}")
-//	public String addReview(Model model,@PathVariable int id ) {
-//	return "user/add-review";
-//		
-//	}
+	@GetMapping("/recipe/{id}")
+	public String recipe(Model model,@PathVariable int id ) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		return "redirect:/logout";
+    	}
+		model.addAttribute("user", userrepo.findByUsername(getUserUsername()));
+		Recipe recipe = service.getRecipeById(id);
+		model.addAttribute("recipe",recipe);
+		Review rev = new Review();
+		model.addAttribute("review",rev);
+		
+		return "user/recipe";
+		
+	}
+	@PostMapping("/add-review/{id}")
+    public String ReviewSuccess(@ModelAttribute("review") Review review ,
+    		@PathVariable("id") int idrecipe, @RequestParam("file") MultipartFile file ) {
+        review.setUser(userrepo.findByUsername(getUserUsername()));
+        String FileName = org.springframework.util.StringUtils.cleanPath(file.getOriginalFilename());
+    	if(FileName.contains("..")) {
+    		System.out.println("not a proper file ");
+    	}
+    	if (!file.isEmpty())
+    	{
+    	try {
+    			review.setImgReview(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	}
+
+        try {
+            service.createReview(idrecipe, review);
+        }
+        catch(NoSuchElementException e) {
+            return "user/RecipeNotFound";
+        }
+        return "redirect:/user/recipe/"+idrecipe;
+    }
+	
+	@GetMapping("/like/{idrecipe}/{idreview}/{userid}")
+	public String Like (RedirectAttributes redirAttrs,
+			@PathVariable("idreview") long idreview ,
+			@PathVariable("userid") long iduser ,
+			@PathVariable("idrecipe") long idrecipe ) {
+		Review review = service.getReviewById(idreview);
+		List <Like> likes = likeRepo.findAll();
+		for (Like i : likes) {
+			if((i.getIdreview()==idreview)&&(i.getIduser()==iduser)) {
+				review.setNblike(review.getNblike()-1);
+				service.modifyReview(idreview, review);
+				likeRepo.delete(i);
+				return "redirect:/user/recipe/"+idrecipe;
+			}}
+		
+			for (Dislike j : dislikeRepo.findAll()) {
+			
+			 if ((j.getIdreview()==idreview)&&(j.getIduser()==iduser)) {
+				 	review.setNbdislike(review.getNbdislike()-1);
+					review.setNblike(review.getNblike()+1);
+				service.modifyReview(idreview, review);
+				dislikeRepo.delete(j);
+			Like like = new Like(iduser,idreview);
+			likeRepo.save(like);
+				return "redirect:/user/recipe/"+idrecipe;
+			}
+
+			}
+				
+		review.setNblike(review.getNblike()+1);
+		service.modifyReview(idreview, review);
+	Like like = new Like(iduser,idreview);
+	likeRepo.save(like);
+	return "redirect:/user/recipe/"+idrecipe;
+}
+	@GetMapping("/dislike/{idrecipe}/{idreview}/{userid}")
+	public String DisLike (RedirectAttributes redirAttrs,
+			@PathVariable("idreview") long idreview ,
+			@PathVariable("userid") long iduser ,
+			@PathVariable("idrecipe") long idrecipe ) {
+		Review review = service.getReviewById(idreview);
+		for (Dislike i : dislikeRepo.findAll()) {
+			if((i.getIdreview()==idreview)&&(i.getIduser()==iduser)) {
+				review.setNbdislike(review.getNbdislike()-1);
+				service.modifyReview(idreview, review);
+				dislikeRepo.delete(i);
+				return "redirect:/user/recipe/"+idrecipe;
+			}}
+				
+			for (Like j : likeRepo.findAll()) {
+			
+			 if ((j.getIdreview()==idreview)&&(j.getIduser()==iduser)) {
+				 review.setNblike(review.getNblike()-1);
+				 review.setNbdislike(review.getNbdislike()+1);
+				service.modifyReview(idreview, review);
+				likeRepo.delete(j);				
+			Dislike dislike = new Dislike(iduser,idreview);
+			dislikeRepo.save(dislike);
+				return "redirect:/user/recipe/"+idrecipe;
+			}
+
+			}
+			
+		
+		review.setNbdislike(review.getNbdislike()+1);
+		service.modifyReview(idreview, review);
+	Dislike dislike = new Dislike(iduser,idreview);
+	dislikeRepo.save(dislike);
+	return "redirect:/user/recipe/"+idrecipe;
+}
 
 }

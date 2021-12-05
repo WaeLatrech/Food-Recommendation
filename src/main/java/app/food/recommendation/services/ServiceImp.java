@@ -22,6 +22,7 @@ import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Plan;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Restaurant;
+import app.food.recommendation.models.Review;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.BrandRepo;
 import app.food.recommendation.repositories.CategoryRepo;
@@ -30,6 +31,7 @@ import app.food.recommendation.repositories.DishRepo;
 import app.food.recommendation.repositories.PlanRepo;
 import app.food.recommendation.repositories.RecipeRepo;
 import app.food.recommendation.repositories.RestoRepo;
+import app.food.recommendation.repositories.ReviewRepo;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
 
@@ -50,11 +52,12 @@ public class ServiceImp implements Services{
 	private PlanRepo repoPlan;
 	private BrandRepo repoBrand;
 	private DishCategoryRepo repoDishCat;
+	private ReviewRepo repoReview;
 	
 	@Autowired
 	public ServiceImp(UserRepo repoUser, TokenRepo repoToken, RestoRepo repoResto, RecipeRepo repoRecipe,
 			CategoryRepo repoCategory, DishRepo repoDish, PlanRepo repoPlan,BrandRepo repoBrand
-			,DishCategoryRepo repoDishCat) {
+			,DishCategoryRepo repoDishCat, ReviewRepo repoReview) {
 		super();
 		this.repoUser = repoUser;
 		this.repoToken = repoToken;
@@ -65,6 +68,7 @@ public class ServiceImp implements Services{
 		this.repoPlan = repoPlan;
 		this.repoBrand = repoBrand;
 		this.repoDishCat = repoDishCat;
+		this.repoReview = repoReview;
 	}
 
 	@Override
@@ -455,6 +459,61 @@ return null;
 		Brand brand = this.getBrandById(id);
 		repoBrand.deleteById(id);
 		return brand;
+	}
+
+	@Override
+	public Review createReview(long id, Review review) {
+        review.setRecipe(getRecipeById(id));
+        //review.setLikedBy(new ArrayList<>());
+        //a.getLikedBy().add(0);
+        //a1.setDislikedBy(new ArrayList<>());
+        //a.getDislikedBy().add(0);
+     
+        repoReview.save(review);
+        
+        return review;
+	}
+
+	@Override
+	public Review deleteReview(long id) {
+		Review Review = this.getReviewById(id);
+		Review.getRecipe().getReviews().remove(Review);
+        repoReview.deleteById(id);
+    	return Review;
+	}
+
+	@Override
+	public List<Review> getAllReviewOfRecipe(long idrecipe) {
+		return repoReview.findByRecipe(getRecipeById(idrecipe));
+	}
+
+	@Override
+	public Review getReviewById(long id) {
+		Optional<Review> opt = repoReview.findById(id);
+        
+		Review rev;
+	        if (opt.isPresent())
+	        	rev = opt.get();
+	        else
+	            throw new NoSuchElementException("Review with this id is not found");
+	        return rev; 
+	}
+
+	@Override
+	public Review modifyReview(long id, Review newReview) {
+		Review oldReview = this.getReviewById(id);
+        if (newReview.getNbdislike()!= 0 )
+            oldReview.setNbdislike(newReview.getNbdislike());
+        if (newReview.getNblike()!= 0 )
+            oldReview.setNblike(newReview.getNblike());
+
+        if (newReview.getComment()!= null )
+            oldReview.setComment(newReview.getComment());
+        if (newReview.getRepport()!= 0 )
+            oldReview.setRepport(newReview.getRepport());
+        
+        
+      return repoReview.save(oldReview);
 	}
 	
 	

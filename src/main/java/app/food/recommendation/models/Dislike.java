@@ -17,10 +17,10 @@ public class Dislike {
     (name="Dislikeid")
     private long Dislikeid;
 	
-	private int idreview;
-	private int iduser;
+	private long idreview;
+	private long iduser;
 	
-	public Dislike(int iduser,int idreview) {
+	public Dislike(long iduser,long idreview) {
         this.idreview = idreview;
         this.iduser = iduser;
     }
