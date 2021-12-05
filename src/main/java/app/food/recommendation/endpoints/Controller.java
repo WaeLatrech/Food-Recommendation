@@ -23,6 +23,7 @@ import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Review;
+import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.ReviewRepo;
 import app.food.recommendation.repositories.TokenRepo;
@@ -67,17 +68,20 @@ public class Controller {
 	    }
 	    
 	    List <Brand> brands = service.getAllBrands();
-	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 3, 0), brands.size());
+	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 4, 0), brands.size());
 	    model.addAttribute("brands", brands);
 	    model.addAttribute("newBrand", newBrand);
 	  //AvisEntity => reciepe
 	    List <Recipe> AllRecipes = service.getAllRecipes();
-	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 3, 0), AllRecipes.size());
+	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 4, 0), AllRecipes.size());
 	    model.addAttribute("NewRecipes", NewRecipes);
 	    model.addAttribute("AllRecipes", AllRecipes);
 	    /**** average ****/
 	    List<app.food.recommendation.models.User> users = service.getAllUsers() ; 
 	    model.addAttribute("users", users);
+	    
+	    List<Restaurant> restos = service.getAllRestos() ; 
+	    model.addAttribute("restos", restos);
 	    
 //	    List<CategoryEntity> categories = service.getAllCategories() ; 
 //	    model.addAttribute("categories", categories);

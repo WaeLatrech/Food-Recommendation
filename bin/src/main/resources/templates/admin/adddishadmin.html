@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Admin - Add Brand</title>
+        <title>Admin - Add Dish</title>
         <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <link href="css/bootstrap.css" rel="stylesheet">
@@ -31,18 +31,32 @@
                   <div class="wrapper">
                     <div class="row no-gutters">
                         <div align="center" class="contact-wrap w-100 p-md-5 p-4">
-                          	<h3 class="mb-4">Add New brand</h3>
-		                    <form  th:action="@{/admin/addbrand}" th:object="${brand}" method="post"  id="contactForm" class="contactForm"   enctype="multipart/form-data">		                  
-		                      	
+                          	<h3 class="mb-4">Add New Dish</h3>
+		                    <form  th:action="@{/admin/adddish}" th:object="${dish}" method="post"  id="contactForm" class="contactForm"   enctype="multipart/form-data">		                  
+		                      	<div class="row">
+		                        	<div class="col-md-12">                          		
+			            				<select class="form-control" name="restoname" >
+				                            <option value="0">select resto name</option>
+				                            <option th:each="resto : ${restos}" th:value="${resto.restoname}" th:text="${resto.restoname}"></option>
+			                            </select><br/>		            				
+		                          	</div>  
+		                        </div>
+		                        <div class="row">
+		                        	<div class="col-md-12">                          		
+			            				<select class="form-control" name="dishcatname" >
+				                            <option value="0">select Dish Category</option>
+				                            <option th:each="dishcat : ${dishcats}" th:value="${dishcat.dishcategory}" th:text="${dishcat.dishcategory}"></option>
+			                            </select><br/>		            				
+		                          	</div>  
+		                        </div>
 		                        <div class="col-md-12">
 		                          <div class="form-group">
-		                        	<input type="text" class="form-control" th:field="*{brandname}" name="brandname" id="brandname" placeholder="Name of brand">
+		                        	<input type="text" class="form-control" th:field="*{dishname}" name="dishname" id="dishname" placeholder="Name of dish">
 		                          </div>
 		                        </div>
-		                       
 		                        <div class="col-md-12"> 
 		                          <div class="form-group">
-		                            <textarea class="form-control" th:field="*{brandDescription}"  name="brandDescription" id="brandDescription" placeholder="Description of brand"></textarea>
+		                            <textarea class="form-control" th:field="*{dishdescription}"  name="dishdescription" id="dishdescription" placeholder="Description of dish"></textarea>
 		                          </div>
 		                        </div>
 		                        <div class="col-md-12"> 
@@ -50,12 +64,19 @@
 						               <div class="form-group">
 						                    <input type="file" name="file" class="custom-file-input"  id="validatedCustomFile" required>
 						               </div>
-						               <label class="custom-file-label" for="validatedCustomFile">Add brand image...</label>
+						               <label class="custom-file-label" for="validatedCustomFile">Add dish image...</label>
 						             </div>  
-						         </div>		   
+						         </div>	
 		                        <div class="col-md-12">
 		                          <div class="form-group">
-		                            <input type="submit" value="Add brand" class="btn btn-primary sign-up">
+		                        	<input type="number" class="form-control" th:field="*{price}" name="price" id="price" placeholder="price of dish (TND)">
+		                          </div>
+		                        </div>
+		                        
+		                        	   
+		                        <div class="col-md-12">
+		                          <div class="form-group">
+		                            <input type="submit" value="Add Dish" class="btn btn-primary sign-up">
 		                            <div class="submitting"></div>
 		                          </div>
 		                        </div>

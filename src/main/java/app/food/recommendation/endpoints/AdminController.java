@@ -341,6 +341,13 @@ public class AdminController {
 	
 	//updresto
 	
+	@GetMapping("/delresto/{id}")
+	public String DeleteResto(@PathVariable("id") int id, Model model) {	    
+		System.out.println("$$$$$$$$$$$$$$");
+		service.deleteResto(id);
+		System.out.println("$$$$$$$$$$$$$$");
+		return "redirect:/admin/restolist";
+	}
 	
 	/***********Review************/
 	

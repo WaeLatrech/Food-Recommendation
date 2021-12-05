@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Admin - List User</title>
+        <title>Admin - List Resto</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="css/bootstrap.css" rel="stylesheet">
@@ -31,35 +31,31 @@
     <body>
 	    <div align="center" class="container-fluid table-responsive ">
 			<hr>
-			<h2 class="mb-4"> List Users </h2>
+			<h2 class="mb-4"> List Restos </h2>
 			<hr>
+					   <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+			<div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 			<table border="1" class="table">
 				<tr  class="thead-light">
 					<th >ID</th>
-					<th >Username</th>
-					<th >Image</th>
-					<th >E-mail</th>
-					<th >Phone</th>
-					<th >Birth Date</th>
-					<th>Role</th>
-					<th >Delete</th>
+					<th >Resto name</th>
+					<th >Location</th>
+					<th >Brand</th>
 					<th >Edit</th>
+					<th >Delete</th>
 				</tr>
-				<tr th:each ="user : ${users}">
-					<td th:utext="${user.id}"></td>
-					<td th:utext="${user.username}"></td>
-					<td>
-						<img alt="" th:src="*{'data:img/png;base64,'+{user.imageU}}" style="width: 100px;height: 100px;">
-					</td>
-					<td th:utext="${user.email}"></td>
-					<td th:utext="${user.phone}"></td>
-					<td th:utext="${user.birthDate}"></td>
-					<td th:utext="${user.Role}"></td>
-					<td>
-						<a th:href="@{/admin/deluser/{id}(id=${user.id})}" class="btn btn-danger mt">Delete</a>
-					</td>
+				<tr th:each ="resto : ${restos}">
+					<td th:utext="${resto.idresto}"></td>
+					<td th:utext="${resto.restoname}"></td>
+					<td th:utext="${resto.location}"></td>
+					
+					<td th:utext="${resto.brandname}"></td>
+					
 					<td> 
-						<a th:href="@{/admin/upduser/{id}(id=${user.id})}" aria-hidden="true" class="btn btn-info mt">edit</a>
+						<a th:href="@{/admin/updresto/{id}(id=${resto.idresto})}" aria-hidden="true" class="btn btn-info mt">edit</a>
+					</td>
+					<td>
+						<a th:href="@{/admin/delresto/{id}(id=${resto.idresto})}" class="btn btn-danger mt">Delete</a>
 					</td>
 				</tr>
 			</table>	
