@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Admin - Add Brand</title>
+        <title>Admin - Add Resto</title>
         <meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <link href="css/bootstrap.css" rel="stylesheet">
@@ -31,31 +31,31 @@
                   <div class="wrapper">
                     <div class="row no-gutters">
                         <div align="center" class="contact-wrap w-100 p-md-5 p-4">
-                          	<h3 class="mb-4">Add New brand</h3>
-		                    <form  th:action="@{/admin/addbrand}" th:object="${brand}" method="post"  id="contactForm" class="contactForm"   enctype="multipart/form-data">		                  
-		                      	
+                          	<h3 class="mb-4">Add New Resto</h3>
+		                    <form  th:action="@{/admin/addresto}" th:object="${resto}" method="post"  id="contactForm" class="contactForm"   enctype="multipart/form-data">		                  
+		                      	<div class="row">
+		                        	<div class="col-md-12">                          		
+			            				<select class="form-control" name="brandname" >
+				                            <option value="0">select Brand</option>
+				                            <option th:each="brand : ${brands}" th:value="${brand.brandname}" th:text="${brand.brandname}"></option>
+			                            </select><br/>		            				
+		                          	</div>  
+		                        </div>
 		                        <div class="col-md-12">
 		                          <div class="form-group">
-		                        	<input type="text" class="form-control" th:field="*{brandname}" name="brandname" id="brandname" placeholder="Name of brand">
+		                        	<input type="text" class="form-control" th:field="*{restoname}" name="restoname" id="restoname" placeholder="Name of resto">
 		                          </div>
 		                        </div>
-		                       
-		                        <div class="col-md-12"> 
-		                          <div class="form-group">
-		                            <textarea class="form-control" th:field="*{brandDescription}"  name="brandDescription" id="brandDescription" placeholder="Description of brand"></textarea>
-		                          </div>
-		                        </div>
-		                        <div class="col-md-12"> 
-	                    			<div class="custom-file mb-3" >  
-						               <div class="form-group">
-						                    <input type="file" name="file" class="custom-file-input"  id="validatedCustomFile" required>
-						               </div>
-						               <label class="custom-file-label" for="validatedCustomFile">Add brand image...</label>
-						             </div>  
-						         </div>		   
 		                        <div class="col-md-12">
 		                          <div class="form-group">
-		                            <input type="submit" value="Add brand" class="btn btn-primary sign-up">
+		                        	<input type="text" class="form-control" th:field="*{location}" name="location" id="location" placeholder="location of resto">
+		                          </div>
+		                        </div>
+		                        
+		                        	   
+		                        <div class="col-md-12">
+		                          <div class="form-group">
+		                            <input type="submit" value="Add resto" class="btn btn-primary sign-up">
 		                            <div class="submitting"></div>
 		                          </div>
 		                        </div>

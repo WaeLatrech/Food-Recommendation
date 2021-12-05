@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Your Advancer - Account</title>
+    <title>Food Recommendation - Account</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="../../css/bootstrap.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 							<a class="navbar-brand d-flex" href="/user/home">
 								<div class="icon d-flex align-items-center justify-content-center">
 									<img src="../../static/images/logoooo.png" alt="logo" style="width:40px;">
-								</div>Your Advancer
+								</div>Food Recommendation
 							</a>
 						</div>
 						<div class="col-3 d-flex justify-content-end align-items-center">
@@ -77,16 +77,11 @@
          		</div>
 		      	<div class="collapse navbar-collapse" id="ftco-nav">
 			        <ul class="navbar-nav mr-auto">
-			        	<li class="nav-item active"><a href="/user/home" class="nav-link">Home</a></li>
-			        	<li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
-					<li class="nav-item dropdown">
-		        	<a href="/Products" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our products</a>
-		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Products/{title}(title=${category.Title})}" th:each="category : ${categories}" th:value="${category.Title}"  th:text="${category.Title}"></a>
-	           		</div>
-		        	</li>	
-		        			        	
-		        	<li class="nav-item"><a href="/user/Contact" class="nav-link">Contact</a></li>
+					<li class="nav-item"><a href="/user/home" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="/user/home/#about" class="nav-link">About</a></li>
+						<li class="nav-item "><a href="/user/brands" class="nav-link">Brands</a></li>
+						<li class="nav-item "><a href="" class="nav-link">Our Collections</a></li>
+						<li class="nav-item active"><a href="/user/contact" class="nav-link">Contact</a></li>
 		        	<li class="nav-item" th:switch="${user.Role}">
                      <a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
                     </li>
@@ -238,6 +233,7 @@
 								  
 								  	<hr>
 								  	<br>
+								  	<!-- 
 								  	<div  class="box1" th:each="avis : ${user.reviews}">
 								  	<div class="comment-body">
 	              
@@ -281,6 +277,7 @@
 								  	</div>
 								  	 <hr> 
 								  </div>
+								  -->
                                        
 								</div>
 								  

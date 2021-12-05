@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Your Advancer</title>
+    <title>Food Recommendation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -68,11 +68,18 @@
         </div>
       
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccC')">
-            Categories <i class="fa fa-caret-down"></i>
+            Place Category <i class="fa fa-caret-down"></i>
         </button>
         <div id="demoAccC" class="w3-hide w3-white w3-card">
             <a href="/admin/listcategorie" onclick="openlink(event, 'iframe_catlist')" target="iframe_catlist" class="w3-bar-item w3-button">Categories List</a>
             <a href="/admin/addcategorie" onclick="openlink(event, 'iframe_addcat')" target="iframe_addcat" class="w3-bar-item w3-button tablinks">Add Categorie</a>
+        </div>
+        <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('Dish')">
+            Dish Category <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="Dish" class="w3-hide w3-white w3-card">
+            <a href="/admin/listdishcategorie" onclick="openlink(event, 'iframe_catlist')" target="iframe_catlist" class="w3-bar-item w3-button">Categories List</a>
+            <a href="/admin/adddishcategorie" onclick="openlink(event, 'iframe_addcat')" target="iframe_addcat" class="w3-bar-item w3-button tablinks">Add Categorie</a>
         </div>
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccP')">
             Brand <i class="fa fa-caret-down"></i>
@@ -81,7 +88,20 @@
             <a href="/admin/brandlist" onclick="openlink(event, 'iframe_brandlist')" target="iframe_brandlist" class="w3-bar-item w3-button">Brand List</a>
             <a href="/admin/addbrand" onclick="openlink(event, 'iframe_addbrand')" target="iframe_addbrand" class="w3-bar-item w3-button tablinks">Add Brand</a>
         </div>
-        
+        <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccResto')">
+            Resto <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="demoAccResto" class="w3-hide w3-white w3-card">
+            <a href="/admin/restolist" onclick="openlink(event, 'iframe_restolist')" target="iframe_restolist" class="w3-bar-item w3-button">Resto List</a>
+            <a href="/admin/addresto" onclick="openlink(event, 'iframe_addresto')" target="iframe_addresto" class="w3-bar-item w3-button tablinks">Add Resto</a>
+        </div>
+        <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccDish')">
+            Dish <i class="fa fa-caret-down"></i>
+        </button>
+        <div id="demoAccDish" class="w3-hide w3-white w3-card">
+            <a href="/admin/dishlist" onclick="openlink(event, 'iframe_dishlist')" target="iframe_dishlist" class="w3-bar-item w3-button">Dish List</a>
+            <a href="/admin/adddish" onclick="openlink(event, 'iframe_adddish')" target="iframe_adddish" class="w3-bar-item w3-button tablinks">Add Dish</a>
+        </div>
         <button class="w3-button w3-block w3-left-align" onclick="myAccFunc('demoAccR')">
           Reviews <i class="fa fa-caret-down"></i>
         </button>
@@ -112,6 +132,18 @@
       </div>
       <div class="tab-pane container p-0 " >
         <iframe id="iframe_addbrand" class="tabcontent" name="iframe_addbrand" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 ">
+        <iframe  id="iframe_restolist" class="tabcontent" name="iframe_restolist" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 " >
+        <iframe id="iframe_addresto" class="tabcontent" name="iframe_addresto" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 ">
+        <iframe  id="iframe_dishlist" class="tabcontent" name="iframe_dishlist" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
+      </div>
+      <div class="tab-pane container p-0 " >
+        <iframe id="iframe_adddish" class="tabcontent" name="iframe_adddish" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>
       </div>
       <div class="tab-pane container p-0 ">
         <iframe  id="iframe_updprod" class="tabcontent" name="iframe_updprod" height="630px" width="1300px" style="border:none;" title="Iframe Example"></iframe>

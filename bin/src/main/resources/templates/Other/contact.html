@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Your Advancer - Contact</title>
+    <title>Food Recommendation - Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -29,7 +29,7 @@
 							<a class="navbar-brand d-flex" href="/">
 							<div class="icon d-flex align-items-center justify-content-center mr-2">
 								<img src="../static/images/logoooo.png" alt="logo" style="width:40px;">
-							</div>Your Advancer
+							</div>Food Recommendation
 						</a>
 					</div>
 					<div class="col-3 d-flex justify-content-end align-items-center">
@@ -54,7 +54,7 @@
 		        <span class="fa fa-bars"></span> Menu
 		      </button>
 		       <div class="req-button order-lg-last">
-		      	<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add product</a>
+		      	<a href="/user/add-recipe"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
 	        </div>
 	          <div class="req-button order-lg-last">
 		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
@@ -64,15 +64,12 @@
 	        </div>
 		      <div class="collapse navbar-collapse" id="ftco-nav">
 		        <ul class="navbar-nav mr-auto">
-		        	<li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-		        	<li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
-					<li class="nav-item dropdown">
-		        	<a href="/Products" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our products</a>
-		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Products/{title}(title=${category.Title})}" th:each="category : ${categories}" th:value="${category.Title}"  th:text="${category.Title}"></a>
-	           		</div>
-		        	</li>		          <li class="nav-item active"><a href="" class="nav-link">Contact</a></li>
-		        </ul>
+						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item "><a href="/brands" class="nav-link">Brands</a></li>
+						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
+						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
+					</ul>
 		      </div>
 		    </div>
 		  </nav>
@@ -187,7 +184,7 @@
             <div class="ftco-footer-widget mb-4">
             
          
-              <h2 class="logo mr-2"><a href="/"><img src="../static/images/logoooo.png" alt="logo" style="width:40px;" >Your Advancer</a></h2>
+              <h2 class="logo mr-2"><a href="/"><img src="../static/images/logoooo.png" alt="logo" style="width:40px;" >Food Recommendation</a></h2>
               <p>We analyze millions of reviews to find the best products for you.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-4">
                 <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
@@ -212,7 +209,7 @@
               <ul class="list-unstyled">
                 <li><a href="../" class="py-1 d-block">Home</a></li>
                 <li><a href="/#about" class="py-1 d-block">About</a></li>
-                <li><a href="/user/add-product" class="py-1 d-block">Add Products</a></li>
+                <li><a href="/user/add-recipe" class="py-1 d-block">Add Recipe</a></li>
                 <li><a href="/Contact" class="py-1 d-block">Contact</a></li>
               </ul>
               
@@ -227,7 +224,7 @@
 	                <h4>BALTI Nour</h4>
 	                <h4>MAATOUG Mohamed zouhaier</h4>
 	                <h4>DJEBALI Boutheina</h4>
-	                <h4>MANSOUR Ibtihel</h4>
+	                <h4>ARFA Mohamed</h4>
 	                
 	                  
 	            </div>
@@ -238,7 +235,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Your Advancer <i class="fa fa-heart" aria-hidden="true"></i>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Food Recommendation <i class="fa fa-heart" aria-hidden="true"></i>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>

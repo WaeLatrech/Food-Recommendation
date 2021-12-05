@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Your Advancer</title>
+    <title>Food Recommendation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -29,7 +29,7 @@
 						<a class="navbar-brand d-flex" href="">
 							<div class="icon d-flex align-items-center justify-content-center mr-2">
 								<img src="../static/images/logoooo.png" alt="logo" style="width:40px;">
-							</div>Your Advancer
+							</div>Food Recommendation
 						</a>
 					</div>
 					<div class="col-3 d-flex justify-content-end align-items-center">
@@ -55,7 +55,7 @@
 		        <span class="fa fa-bars"></span> Menu
 		      </button>
 		         <div class="req-button order-lg-last">
-		      	<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add product</a>
+		      	<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
 	        </div>
 	          <div class="req-button order-lg-last">
 		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
@@ -66,18 +66,17 @@
 	       
 		      <div class="collapse navbar-collapse" id="ftco-nav">
 		        <ul class="navbar-nav mr-auto">
-		        	<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
-		        	<li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
-		        	  	<li class="nav-item dropdown">
-		        	<a href="/Products" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our products</a>
+						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item dropdown">
+		        	<a href="/brands" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Brands</a>
 		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Products/{title}(title=${category.Title})}" th:each="category : ${categories}" th:value="${category.Title}"  th:text="${category.Title}"></a>
+			           <a    class="dropdown-item" th:href="@{/Brands/{brandname}(brandname=${brand.brandname})}" th:each="brand : ${brands}" th:value="${brand.brandname}"  th:text="${brand.brandname}"></a>
 	           		</div>
 		        	</li>
-		        	<li class="nav-item"><a href="/Contact" class="nav-link">Contact</a>
-		        
-		         
-		        </ul>
+						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
+						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
+					</ul>
 		      </div>
 		    </div>
 		  </nav>
@@ -138,7 +137,7 @@
         <div class="row justify-content-center pb-5 mb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
           	<span class="subheading">Testimonies</span>
-            <h2>Recent reviews &amp; Feedbacks</h2>
+            <h2>Recent Recipes &amp; Feedbacks</h2>
           </div>
         </div>
         <div class="row ftco-animate">
@@ -179,7 +178,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-window-restore"></span></div>
+              	<!-- 
                 <strong class="number" th:data-number="${restos.size()}" ></strong>
+              	 -->
               	<span>All Our Restaurants</span>
               </div>
             </div>
@@ -188,7 +189,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-commenting"></span></div>
+              	<!-- 
                 <strong class="number"  th:data-number="${AllRecipes.size()}" ></strong>
+              	 -->
               	<span>All Our recipes</span>
               </div>
             </div>
@@ -197,7 +200,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-users"></span></div>
+                <!-- 
                 <strong class="number" th:data-number="${users.size()}"></strong>
+              	 -->
               	<span>All Our Clients</span>
               </div>
             </div>
@@ -206,7 +211,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-bars"></span></div>
+              	<!-- 
                 <strong class="number" th:data-number=${brands.size()}></strong>
+              	 -->
               	<span>All Our Brands</span>
               </div>
             </div>
@@ -237,7 +244,7 @@
               </div>
               <div class="media-body pl-3">
                 <h3 class="heading">Concept</h3>
-                <p>Your Advancer is the leading destination for customer ratings and reviews of products. 
+                <p>Food Recommendation is the leading destination for customer ratings and reviews of products. 
                   Consumers find ratings and read reviews to ensure they buy from the best companies.</p>
                 
               </div>
@@ -323,7 +330,7 @@
         <div class="row d-flex">
           <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${NewRecipes}">
             <div class="blog-entry align-self-stretch">
-              <a th:href="@{/add-review/{id}(id=${recipe.idp})}"> <img alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+              <a th:href="@{/add-review/{id}(id=${recipe.idrecipe})}"> <img alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
               </a>
               <div class="text p-3">
               	<div class="posted mb-3 d-flex">
@@ -353,8 +360,8 @@
             <div class="ftco-footer-widget mb-4">
             
          
-              <h2 class="logo mr-2"><a href="/"><img src="../static/images/logoooo.png" alt="logo" style="width:40px;" >Your Advancer</a></h2>
-              <p>We analyze millions of reviews to find the best products for you.</p>
+              <h2 class="logo mr-2"><a href="/"><img src="../static/images/logoooo.png" alt="logo" style="width:40px;" >Food Recommendation</a></h2>
+              <p>We analyze millions of recipes to find the best dishes for you.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-4">
                 <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
                 <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
@@ -380,7 +387,7 @@
               <ul class="list-unstyled">
                 <li><a href="" class="py-1 d-block">Home</a></li>
                 <li><a href="/#about" class="py-1 d-block">About</a></li>
-                <li><a href="/user/add-product" class="py-1 d-block">Add Products</a></li>
+                <li><a href="/user/add-recipe" class="py-1 d-block">Add Recipe</a></li>
                 <li><a href="/Contact" class="py-1 d-block">Contact</a></li>
               </ul>
               
@@ -406,7 +413,7 @@
           <div class="col-md-12 text-center">
 
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Your Advancer <i class="fa fa-heart" aria-hidden="true"></i>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Food Recommendation <i class="fa fa-heart" aria-hidden="true"></i>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
           </div>
         </div>
