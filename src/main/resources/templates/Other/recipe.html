@@ -296,12 +296,11 @@
 	                   
 	                   <hr>  
 	                     <P>
-	                      <a href="#" class="mr-4" cliked="false"><span class="fa fa-thumbs-up" aria-hidden="true" ></span> Like </a>
-	                      <a href="#" class="mr-4"><span class="fa fa-thumbs-down" aria-hidden="true"></span> Dislike</a>
+	                    <a th:href="@{/user/recipe/recipe.id}" class="mr-4" cliked="false"><span class="fa fa-thumbs-up" aria-hidden="true" ></span> Like </a>
+	                      <a th:href="@{/user/recipe/recipe.id}" class="mr-4" cliked="false"><span class="fa fa-thumbs-down" aria-hidden="true" ></span> Dislike </a>
 	                      <a href="#" class="mr-4"><span class="fa fa-comment" aria-hidden="true"></span> report</a>
 	                      <a href="#" class="mr-4" style="color: grey; " >  <span class="fa fa-thumbs-up" aria-hidden="true" th:text="${review.nblike}" ></span></a> 
 	                      <a href="#" class="mr-4" style="color: grey "> <span class="fa fa-thumbs-down " aria-hidden="true" th:text="${review.nbdislike}" ></span></a>  
-	                      
 	                   </p>
 	                  </div>
 	                  
