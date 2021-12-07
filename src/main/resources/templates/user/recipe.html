@@ -176,6 +176,7 @@
 	              	
 	          			<div class="box1">
 							<img th:if="${recipe.imgRecipe != null}" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
+	              			<img th:if="${recipe.imgRecipe == null}" src="../static/images/recipe-default.jpg" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
 	              			<h3 >Preperation Time </h3>
 	          				<p  th:text=${recipe.preparationTime} 	></p>
 	                     	<h3 >Ingredients </h3>

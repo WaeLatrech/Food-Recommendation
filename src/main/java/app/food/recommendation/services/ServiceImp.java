@@ -172,12 +172,29 @@ public class ServiceImp implements Services{
 	public List<Recipe> getAllRecipes() {
 		return repoRecipe.findAll();
 	}
-
+	
 	@Override
-	public List<Recipe> getRecipesByCategory(String CategoryName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Recipe> getRecipesByCategory(String cat) {
+		List<Recipe> recipes = new ArrayList<>();
+		for (Recipe r : repoRecipe.findAll()) {
+			if(r.getDishcategory().getDishcategory().equalsIgnoreCase(cat))
+				recipes.add(r);
+		}
+		return recipes;
 	}
+	@Override
+	public List<Recipe> getRecipesBySearch(String search) {
+		List<Recipe> recipes = new ArrayList<>();
+		for (Recipe r : repoRecipe.findAll()) {
+			if(r.getDishcategory().getDishcategory().equalsIgnoreCase(search) 
+					|| r.getIngredients().equalsIgnoreCase(search)
+					|| r.getDescription().equalsIgnoreCase(search)
+					|| r.getTitle().equalsIgnoreCase(search) )
+				recipes.add(r);
+		}
+		return recipes;
+	}
+
 
 	@Override
 	public Recipe getRecipeById(long id) {

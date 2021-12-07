@@ -28,7 +28,8 @@ import app.food.recommendation.models.User;
 	void DelTokenByIdUser(long i);
 	////////////////**Recipe**////////////
 	List<Recipe> getAllRecipes();
-	List<Recipe> getRecipesByCategory(String CategoryName);
+	List<Recipe> getRecipesByCategory(String cat);
+	List<Recipe> getRecipesBySearch(String search);
 	Recipe getRecipeById(long id);
 	Recipe createRecipe(Recipe r );
 	Recipe deleteRecipe(long id);

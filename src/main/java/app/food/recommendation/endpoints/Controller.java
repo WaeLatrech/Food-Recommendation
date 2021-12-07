@@ -20,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.food.recommendation.models.Brand;
+import app.food.recommendation.models.Category;
 import app.food.recommendation.models.ConfirmationToken;
+import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Review;
 import app.food.recommendation.models.Restaurant;
@@ -73,7 +75,7 @@ public class Controller {
 	    model.addAttribute("newBrand", newBrand);
 	  //AvisEntity => reciepe
 	    List <Recipe> AllRecipes = service.getAllRecipes();
-	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 4, 0), AllRecipes.size());
+	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 3, 0), AllRecipes.size());
 	    model.addAttribute("NewRecipes", NewRecipes);
 	    model.addAttribute("AllRecipes", AllRecipes);
 	    /**** average ****/
@@ -103,13 +105,48 @@ public class Controller {
 	    else if (CheckRole().equals("ADMIN")) {
 	        return "redirect:/admin/home";
 	    }
-	    List <Brand> brands = service.getAllBrands();
-	    model.addAttribute("brands", brands);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
 	    List<Recipe> recipes = service.getAllRecipes();
 	    model.addAttribute("recipes", recipes);
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
 	return "Other/recipes";
 	}
-	
+	@GetMapping("/recipes/{category}")
+	public String RecipesByCategory(Model model,@PathVariable String category ) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    List<Recipe> recipes = service.getRecipesByCategory(category);
+	    model.addAttribute("recipes", recipes);
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("categories", dishcats);
+	return "Other/recipes";
+	}
+	@GetMapping("/searchRecipe")
+	public String RecipesSearch(Model model,@ModelAttribute("search") String search) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    List<Recipe> recipes = service.getRecipesBySearch(search);
+	    model.addAttribute("recipes", recipes);
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("categories", dishcats);
+	return "Other/recipes";
+	}
 	@GetMapping("/recipe/{id}")
 	public String recipe(Model model,@PathVariable int id ) {
 	    
@@ -154,7 +191,62 @@ public class Controller {
 	    else if (CheckRole().equals("ADMIN")) {
 	        return "redirect:/admin/brands";
 	    }
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    List<Brand> brands = service.getAllBrands();
+	    model.addAttribute("brands",brands);
+	    model.addAttribute("nbrRestos",brands);
 	    return "Other/brands";
+	}
+//	@GetMapping("/searchBrand")
+//	public String BrandSearch(Model model,@ModelAttribute("search") String search) {
+// 
+//	    if (CheckRole().equals("USER")) {
+//	        return "redirect:/user/home";
+//	    }
+//	    else if (CheckRole().equals("ADMIN")) {
+//	        return "redirect:/admin/home";
+//	    }
+//	    List <Category> categories = service.getAllCategories();
+//	    model.addAttribute("categories", categories);
+//	    List<Recipe> recipes = service.getRecipesBySearch(search);
+//	    model.addAttribute("recipes", recipes);
+//	    List<DishCategory> dishcats = service.getAllDishCategories();
+//	    model.addAttribute("categories", dishcats);
+//	return "Other/recipes";
+//	}
+	@GetMapping("/restos/{id}")
+	public String restos(Model model,@PathVariable long id ) {
+
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/brands";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/brands";
+	    }
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    List<Restaurant> restos = service.getBrandById(id).getRestos();
+	    model.addAttribute("restos",restos);
+
+	    return "Other/brands";
+	}
+	@GetMapping("/resto/{category}")
+	public String RestosByCategory(Model model,@PathVariable String category ) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    List<Recipe> recipes = service.getRecipesByCategory(category);
+	    model.addAttribute("recipes", recipes);
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("categories", dishcats);
+	return "Other/recipes";
 	}
 	@GetMapping("/ourcollections")
 	public String ourcollections(Model model) {
