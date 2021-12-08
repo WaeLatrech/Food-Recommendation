@@ -62,7 +62,7 @@
 	       
 		      <div class="collapse navbar-collapse" id="ftco-nav">
 		        <ul class="navbar-nav mr-auto">
-						<li class="nav-item "><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item "><a href="/" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
 						<li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
 						<li class="nav-item dropdown">
@@ -137,7 +137,8 @@
           <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${recipes}">
             <div class="blog-entry align-self-stretch">
               <a th:href="@{/recipe/{id}(id=${recipe.idrecipe})}"> 
-              <img alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+              <img th:if="${recipe.imgRecipe} != null" alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+	          <img th:if="${recipe.imgRecipe} == null" src="../../static/images/recipe.jpg" alt="" style="width: 280px; height: 250px; ">
               </a>
               <div class="text p-3">
               	<div class="posted mb-3 d-flex">

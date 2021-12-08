@@ -117,15 +117,17 @@
 	       
 		      <div class="collapse navbar-collapse" id="ftco-nav">
 		        <ul class="navbar-nav mr-auto">
-						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item "><a href="" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
 						<li class="nav-item dropdown">
-		        	<a href="/brands" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Brands</a>
+		        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
 		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Brands/{brandname}(brandname=${brand.brandname})}" th:each="brand : ${brands}" th:value="${brand.brandname}"  th:text="${brand.brandname}"></a>
+			           <a    class="dropdown-item" th:href="@{/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
 	           		</div>
+	           		
 		        	</li>
-						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
+						<li class="nav-item active"><a href="/recipes" class="nav-link">Our Recipes</a></li>
 						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
 					</ul>
 		      </div>
@@ -175,9 +177,9 @@
 	              		</ul>
 	              	
 	          			<div class="box1">
-	          				
-							<img th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
-						
+							<img th:if="${recipe.imgRecipe} != null" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
+	              			<img th:if="${recipe.imgRecipe} == null" src="../../static/images/recipe.jpg" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
+	              			<h4>test</h4>
 	              			<h3 >Preperation Time </h3>
 	          				<p  th:text=${recipe.preparationTime} 	></p>
 	                     	<h3 >Ingredients </h3>

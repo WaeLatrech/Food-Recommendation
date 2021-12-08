@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import app.food.recommendation.models.Brand;
+import app.food.recommendation.models.Category;
 import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Dish;
 import app.food.recommendation.models.DishCategory;
@@ -89,7 +90,27 @@ public class UserController {
 			}
 	//////////////////////////////////
 	
-	
+	@GetMapping("/menu")
+	public String Menu(Model model) {
+ 
+//	    if (CheckRole().equals("USER")) {
+//	        return "redirect:/user/home";
+//	    }
+//	    else if (CheckRole().equals("ADMIN")) {
+//	        return "redirect:/admin/home";
+//	    }
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+	    List<Recipe> recipes = service.getAllRecipes();
+	    model.addAttribute("recipes", recipes);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/menu";
+	}
 	@GetMapping("/home")
 	public String userindex(Model model,RedirectAttributes redirAttrs) {
 		if (CheckRole().equals("NOTVERIFIED")) 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -170,7 +171,9 @@ public class ServiceImp implements Services{
 	
 	@Override
 	public List<Recipe> getAllRecipes() {
-		return repoRecipe.findAll();
+		List <Recipe> recipes = repoRecipe.findAll();
+		Collections.reverse(recipes);
+		return recipes;
 	}
 	
 	@Override
@@ -300,7 +303,9 @@ return null;
 }
 	@Override
 	public List<Restaurant> getAllRestos() {
-		return repoResto.findAll();
+		List <Restaurant> restos = repoResto.findAll();
+		Collections.reverse(restos);
+		return restos;
 	}
 	@Override
 	public List<Restaurant> getRestosByCategory(String cat) {
@@ -487,7 +492,9 @@ return null;
 	
 	@Override
 	public List<Brand> getAllBrands() {
-		return repoBrand.findAll();
+		List <Brand> brands = repoBrand.findAll();
+		Collections.reverse(brands);
+		return brands;
 	}
 	
 	@Override

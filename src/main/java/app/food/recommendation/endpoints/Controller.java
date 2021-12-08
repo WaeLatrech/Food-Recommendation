@@ -3,6 +3,7 @@ package app.food.recommendation.endpoints;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,7 @@ public class Controller {
 	    }
 	    
 	    List <Brand> brands = service.getAllBrands();
+	    Collections.reverse(brands);
 	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 4, 0), brands.size());
 	    model.addAttribute("brands", brands);
 	    model.addAttribute("newBrand", newBrand);
@@ -92,6 +94,26 @@ public class Controller {
 	    model.addAttribute("categories", categories);
 	    
 	    return "index";
+	}
+	@GetMapping("/menu")
+	public String Menu(Model model) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    
+	    List<Recipe> recipes = service.getAllRecipes();
+	    model.addAttribute("recipes", recipes);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/menu";
 	}
 	@GetMapping("/recipes")
 	public String Recipes(Model model) {
