@@ -183,13 +183,16 @@ public class ServiceImp implements Services{
 		return recipes;
 	}
 	@Override
-	public List<Recipe> getRecipesBySearch(String search) {
+	public List<Recipe> getRecipesBySearch(String s) {
+		String search = s.toLowerCase();
 		List<Recipe> recipes = new ArrayList<>();
 		for (Recipe r : repoRecipe.findAll()) {
-			if(r.getDishcategory().getDishcategory().equalsIgnoreCase(search) 
-					|| r.getIngredients().equalsIgnoreCase(search)
-					|| r.getDescription().equalsIgnoreCase(search)
-					|| r.getTitle().equalsIgnoreCase(search) )
+			if(r.getDishcategory().getDishcategory().toLowerCase().contains(search) 
+					|| r.getIngredients().toLowerCase().contains(search)
+					|| r.getDescription().toLowerCase().contains(search)
+					|| r.getTitle().contains(search)
+					|| r.getPublisher().getEmail().toLowerCase().contains(search)
+					|| r.getPublisher().getUsername().toLowerCase().contains(search))
 				recipes.add(r);
 		}
 		return recipes;
@@ -298,6 +301,37 @@ return null;
 	@Override
 	public List<Restaurant> getAllRestos() {
 		return repoResto.findAll();
+	}
+	@Override
+	public List<Restaurant> getRestosByCategory(String cat) {
+		List<Restaurant> restos = new ArrayList<>();
+		for (Restaurant r : repoResto.findAll()) {
+			if(r.getPlacecategory().getPlacecategory().equalsIgnoreCase(cat))
+				restos.add(r);
+		}
+		return restos;
+	}
+	@Override
+	public List<Restaurant> getRestosBySearch(String s) {
+		String search = s.toLowerCase();
+		List<Restaurant> restos = new ArrayList<>();
+		for (Restaurant r : repoResto.findAll()) {
+			if(r.getPlacecategory().getPlacecategory().toLowerCase().contains(search) 
+					|| r.getBrandname().toLowerCase().contains(search)
+					|| r.getRestoname().toLowerCase().contains(search)
+					|| r.getLocation().toLowerCase().contains(search) )
+				restos.add(r);
+			else {
+				for (Dish d : r.getMenu()) {
+					String price = String.valueOf(d.getPrice());
+					if(d.getDishname().toLowerCase().contains(search)
+							|| d.getDishdescription().toLowerCase().contains(search)
+							|| price.toLowerCase().contains(search))
+						restos.add(r);
+				}
+			}
+		}
+		return restos;
 	}
 
 	@Override

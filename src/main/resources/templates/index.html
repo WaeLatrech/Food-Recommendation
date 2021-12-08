@@ -55,7 +55,7 @@
 		        <span class="fa fa-bars"></span> Menu
 		      </button>
 		         <div class="req-button order-lg-last">
-		      		<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
+		      		<a href="/user/add-recide"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
 	        	</div>
 	          <div class="req-button order-lg-last">
 		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
@@ -65,16 +65,18 @@
 	        </div>
 	       
 		      <div class="collapse navbar-collapse" id="ftco-nav">
-		        <ul class="navbar-nav mr-auto">
+		       <ul class="navbar-nav mr-auto">
 						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
-						<li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
 						<li class="nav-item dropdown">
-				        	<a href="/brands" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Brands</a>
-				        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-					           <a    class="dropdown-item" th:href="@{/Brands/{brandname}(brandname=${brand.brandname})}" th:each="brand : ${brands}" th:value="${brand.brandname}"  th:text="${brand.brandname}"></a>
-			           		</div>
-			        	</li>
-						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
+		        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
+		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
+			           <a    class="dropdown-item" th:href="@{/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
+	           		</div>
+	           		
+		        	</li>
+						<li class="nav-item"><a href="/recipes" class="nav-link">Our Recipes</a></li>
 						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
 					</ul>
 		      </div>
@@ -107,7 +109,7 @@
 										<br><br>
 										<br><br>
 										<br><br>
-										<a href="/Products" class="btn btn-primary">Start the experience</a>
+										<a href="/recipes" class="btn btn-primary">Start the experience</a>
 									</p>
 			          </div>
 			        </div>
@@ -316,7 +318,7 @@
                 <span class="fa fa-barcode" aria-hidden="true"  ></span>
               </div>
               <div class="media-body pl-3">
-                <h3 class="heading">Products</h3>
+                <h3 class="heading">Recipes</h3>
                 <p>Share your product experiences to help others make better decisions and empower businesses to improve.</p>
               </div>
             </div>  

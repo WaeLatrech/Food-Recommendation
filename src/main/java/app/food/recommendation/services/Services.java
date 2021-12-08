@@ -49,6 +49,8 @@ import app.food.recommendation.models.User;
 	////////////////**Restaurant**////////////
 	List<Restaurant> getAllRestos();
 	Restaurant getRestoById(long id);
+	List<Restaurant> getRestosByCategory(String cat);
+	List<Restaurant> getRestosBySearch(String search);
 	Restaurant createResto(String brand, String restoname, String location);
 	Restaurant deleteResto(long id);
 	Restaurant modifyResto(long id, Restaurant newResto);
@@ -82,5 +84,6 @@ import app.food.recommendation.models.User;
 //	public List<ReportEntity> getAllReports();
 //	public List<LikeEntity> getAllLikes();
 //	public List<DislikeEntity> getAllDisLikes();
+
 	
 }

@@ -282,12 +282,12 @@ public class UserController {
 		{
 		return "redirect:/logout";
     	}
-		model.addAttribute("user", userrepo.findByUsername(getUserUsername()));
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user", user);
 		Recipe recipe = service.getRecipeById(id);
 		model.addAttribute("recipe",recipe);
 		Review rev = new Review();
 		model.addAttribute("review",rev);
-		
 		return "user/recipe";
 		
 	}
