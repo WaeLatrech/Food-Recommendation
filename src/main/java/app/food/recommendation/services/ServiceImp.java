@@ -328,6 +328,7 @@ return null;
 							|| d.getDishdescription().toLowerCase().contains(search)
 							|| price.toLowerCase().contains(search))
 						restos.add(r);
+					
 				}
 			}
 		}
