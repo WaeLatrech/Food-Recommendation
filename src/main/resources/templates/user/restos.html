@@ -72,8 +72,8 @@
 		        <ul class="navbar-nav mr-auto">
 						<li class="nav-item "><a href="" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-						<li class="nav-item active"><a href="/user/brands" class="nav-link">Brands</a></li>
-						<li class="nav-item dropdown">
+						<li class="nav-item "><a href="/user/brands" class="nav-link">Brands</a></li>
+						<li class="nav-item dropdown active">
 				        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
 				        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
 					           <a class="dropdown-item" th:href="@{/user/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
@@ -114,7 +114,7 @@
       <div class="container-fluid">
                 <div class=" row justify-content-center mb-5">
                     <div class="col-md-8 text-center heading-section ftco-animate">
-                          <h2 class="mb-4" th:if="${not #lists.isEmpty(restos)}" th:text=${restos[0].brand.brandname}> </h2>
+                          <h2 class="mb-4" >Our Collections </h2>
                     </div>
                  </div>
                  <div class="row">
