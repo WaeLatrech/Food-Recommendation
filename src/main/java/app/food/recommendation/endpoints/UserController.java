@@ -141,7 +141,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/menu/{id}")
-	public String Menu(Model model,@PathVariable int id) {
+	public String Menu(Model model,@PathVariable int id,RedirectAttributes redirAttrs) {
 		if (CheckRole().equals("NOTVERIFIED")) 
 		{
 		redirAttrs.addFlashAttribute("error", "Mail not verified");
@@ -170,7 +170,7 @@ public class UserController {
 	return "user/menu";
 	}
 	@GetMapping("/brands")
-	public String userbrands(Model model) {
+	public String userbrands(Model model,RedirectAttributes redirAttrs) {
 		if (CheckRole().equals("NOTVERIFIED")) 
 		{
 		redirAttrs.addFlashAttribute("error", "Mail not verified");
@@ -178,14 +178,199 @@ public class UserController {
     	}
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
+		
+		List<Brand> brands = service.getAllBrands();
+	    model.addAttribute("brands",brands);
+	    model.addAttribute("nbrRestos",brands);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
 	    return "user/brands";
+	}
+	@GetMapping("/restos/{id}")
+	public String restos(Model model,@PathVariable long id ,RedirectAttributes redirAttrs) {
+
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+		
+	    List<Restaurant> restos = service.getBrandById(id).getRestos();
+	    model.addAttribute("restos",restos);
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    return "user/restos";
+	}
+	@GetMapping("/searchResto")
+	public String RestoSearch(Model model,@ModelAttribute("search") String search,RedirectAttributes redirAttrs) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+		
+	    List<Restaurant> restos = service.getRestosBySearch(search);
+	    model.addAttribute("restos", restos);
+	    for (Restaurant restaurant : restos) {
+			System.out.println("$$$$"+restaurant.getRestoname());
+		}
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    return "user/restos";
+	}
+
+	@GetMapping("/restos/cat/{category}")
+	public String RestosByCategory(Model model,@PathVariable String category ,RedirectAttributes redirAttrs) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+		
+	    List<Restaurant> restos = service.getRestosByCategory(category);
+	    model.addAttribute("restos", restos);
+
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/restos";
+	}
+	/****** Dishes ********/
+	@GetMapping("/dishes")
+	public String Dishes(Model model,RedirectAttributes redirAttrs) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+	    List<Dish> dishes = service.getAllDishes();
+	    model.addAttribute("dishes",dishes);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/dishes";
+	}
+	@GetMapping("/searchDish")
+	public String DishsSearch(Model model,@ModelAttribute("search") String search,RedirectAttributes redirAttrs) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+	    List<Dish> dishes = service.getDishesBySearch(search);
+	    model.addAttribute("dishes", dishes);
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/dishes";
+	}
+	@GetMapping("/dishes/{category}")
+	public String DishesByCategory(Model model,@PathVariable String category ,RedirectAttributes redirAttrs) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+	    List<Dish> dishes = service.getDishesByCategory(category);
+	    model.addAttribute("dishes", dishes);
+
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/dishes";
+	}
+	@GetMapping("/advancedDishSearch")
+	public String RestoSearchAdvanced(Model model,RedirectAttributes redirAttrs) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    return "user/searchDish";
+	}
+	@GetMapping("/advancedDish")
+	public String RestoSearchAdvanced1(Model model,RedirectAttributes redirAttrs,
+			@RequestParam ("search") String search ,  
+			@RequestParam ("location") String location,
+			@RequestParam ("price") String price) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+		
+		if (price.isEmpty())
+			price = "0";
+		float p = Float.parseFloat(price);
+		if(location.isEmpty())
+			location="empty";
+		
+		List<Dish> dishes = service.getDishBySearch(search, location, p);
+	    model.addAttribute("dishes", dishes);
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    return "user/dishes";
 	}
 	
 	
 	
-	
 	@GetMapping("/contact")
-	public String Contact(Model model) {
+	public String Contact(Model model,RedirectAttributes redirAttrs) {
 		if (CheckRole().equals("NOTVERIFIED")) 
 		{
 		redirAttrs.addFlashAttribute("error", "Mail not verified");
@@ -276,27 +461,136 @@ public class UserController {
 	}
 	/*********************recipes******************/
 	@GetMapping("/recipes")
-	public String Recipes(Model model) {
+	public String Recipes(RedirectAttributes redirAttrs,Model model) {
 		if (CheckRole().equals("NOTVERIFIED")) 
 		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
 		return "redirect:/logout";
     	}
-		model.addAttribute("user", getUserUsername());
 		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
-	    List <Brand> brands = service.getAllBrands();
-	    model.addAttribute("brands", brands);
 	    List<Recipe> recipes = service.getAllRecipes();
 	    model.addAttribute("recipes", recipes);
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
 	return "user/recipes";
 	}
-
-	@GetMapping("/add-recipe")
-	public String addProduct(Model model) {
-				
+	@GetMapping("/recipes/{category}")
+	public String RecipesByCategory(RedirectAttributes redirAttrs,Model model,@PathVariable String category ) {
+ 
 		if (CheckRole().equals("NOTVERIFIED")) 
-			{
-			return "redirect:/logout";
-	    	}
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+	    List<Recipe> recipes = service.getRecipesByCategory(category);
+	    model.addAttribute("recipes", recipes);
+		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
+
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/recipes";
+	}
+	@GetMapping("/advancedSearchRecipe")
+	public String AdvancedSearchRecipe(RedirectAttributes redirAttrs,Model model) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/searchRecipe";
+	}
+	@GetMapping("/advancedRecipe")
+	public String RecipesSearchAdvanced(RedirectAttributes redirAttrs,Model model,
+			@ModelAttribute("ing1") String ing1,
+			@ModelAttribute("ing2") String ing2,
+			@ModelAttribute("ing3") String ing3) {
+ 
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+	    if(ing2.isEmpty())
+	    	ing2="empty";
+	    if(ing3.isEmpty())
+	    	ing3="empty";
+	    List<Recipe> recipes = service.getRecipeByADsearch(ing1, ing2, ing3);
+	    model.addAttribute("recipes", recipes);
+		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/recipes";
+	}
+	@GetMapping("/searchRecipe")
+	public String RecipesSearch(RedirectAttributes redirAttrs,Model model,
+			@ModelAttribute("search") String search) {
+		
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
+		List<Recipe> recipes = service.getRecipesBySearch(search);
+	    model.addAttribute("recipes", recipes);
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/recipes";
+	}
+	
+	@GetMapping("/recipe/{id}")
+	public String recipe(RedirectAttributes redirAttrs,Model model,@PathVariable int id ) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		model.addAttribute("user",userrepo.findByUsername(getUserUsername()));
+
+		Recipe recipe = service.getRecipeById(id);
+		model.addAttribute("recipe",recipe);
+		Review rev = new Review();
+		model.addAttribute("review",rev);
+		
+		/***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+		return "user/recipe";
+		
+	}
+	@GetMapping("/add-recipe")
+	public String addProduct(RedirectAttributes redirAttrs,Model model) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		
 		List<Brand> brands = service.getAllBrands();
 		model.addAttribute("brands",brands);
 		
@@ -349,21 +643,7 @@ public class UserController {
 		service.createRecipe(r);
 		return "redirect:/user/recipe/"+r.getIdrecipe();
 	}
-	@GetMapping("/recipe/{id}")
-	public String recipe(Model model,@PathVariable int id ) {
-		if (CheckRole().equals("NOTVERIFIED")) 
-		{
-		return "redirect:/logout";
-    	}
-		User user = userrepo.findByUsername(getUserUsername());
-		model.addAttribute("user", user);
-		Recipe recipe = service.getRecipeById(id);
-		model.addAttribute("recipe",recipe);
-		Review rev = new Review();
-		model.addAttribute("review",rev);
-		return "user/recipe";
-		
-	}
+
 	@PostMapping("/add-review/{id}")
     public String ReviewSuccess(@ModelAttribute("review") Review review ,
     		@PathVariable("id") int idrecipe, @RequestParam("file") MultipartFile file ) {

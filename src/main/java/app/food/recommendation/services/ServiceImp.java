@@ -201,7 +201,7 @@ public class ServiceImp implements Services{
 			if(r.getDishcategory().getDishcategory().toLowerCase().contains(search) 
 					|| r.getIngredients().toLowerCase().contains(search)
 					|| r.getDescription().toLowerCase().contains(search)
-					|| r.getTitle().contains(search)
+					|| r.getTitle().toLowerCase().contains(search)
 					|| r.getPublisher().getEmail().toLowerCase().contains(search)
 					|| r.getPublisher().getUsername().toLowerCase().contains(search))
 				recipes.add(r);

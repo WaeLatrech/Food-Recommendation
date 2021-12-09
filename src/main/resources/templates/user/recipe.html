@@ -108,25 +108,41 @@
 		         <div class="req-button order-lg-last">
 		      	<a href="/user/add-recipe"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
 	        </div>
-	          <div class="req-button order-lg-last">
-		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
-	        </div>
-		        <div class="req-button order-lg-last">
-		      	<a href="/Sign-up"><span class="fa fa-user" aria-hidden="true"></span> Sign up</a>
-	        </div>
-	       
-		      <div class="collapse navbar-collapse" id="ftco-nav">
-		        <ul class="navbar-nav mr-auto">
-						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+	          <div class="dropdown order-lg-last ml-4 dark-text">
+					<a id="dropdownMenuButton" data-toggle="dropdown" class=" dark-text" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-user-circle-o"  style="font-size: 20px;" aria-hidden="true" ></i> welcome , <i th:value="${user.username}"  th:text="${user.username}"></i>     <i class="fa fa-chevron-down" aria-hidden="true"></i>   
+
+					</a>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a class="dropdown-item" href="/logout"> 
+							<i class="fa fa-sign-out"></i> Logout
+						</a> 
+						<a class="dropdown-item" href="/user/Account"> 
+							<i class="fa fa-refresh"></i>Account
+						</a>
+					</div>
+				</div>
+				<div class="collapse navbar-collapse" id="ftco-nav">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item "><a href="" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item "><a href="/user/brands" class="nav-link">Brands</a></li>
 						<li class="nav-item dropdown">
-		        	<a href="/brands" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Brands</a>
-		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Brands/{brandname}(brandname=${brand.brandname})}" th:each="brand : ${brands}" th:value="${brand.brandname}"  th:text="${brand.brandname}"></a>
-	           		</div>
-		        	</li>
-						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
-						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
+				        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
+				        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
+					           <a class="dropdown-item" th:href="@{/user/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
+			           		</div>
+			        	</li>
+			        	<li class="nav-item active"><a href="/user/recipes" class="nav-link">Our Recipes</a></li>
+						<li class="nav-item"><a href="/user/contact" class="nav-link">Contact</a></li>
+						
+							
+													
+						</ul>
+						
+						<li class="nav-item" th:switch="${user.Role}">
+                     		<a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
+                    	</li>						
 					</ul>
 		      </div>
 		    </div>
@@ -175,8 +191,8 @@
 	              		</ul>
 	              	
 	          			<div class="box1">
-							<img th:if="${recipe.imgRecipe != null}" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
-	              			<img th:if="${recipe.imgRecipe == null}" src="../static/images/recipe-default.jpg" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
+							<img th:if="${recipe.imgRecipe} != null" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
+	              			<img th:if="${recipe.imgRecipe} == null" src="../../static/images/recipe.jpg" alt="" class="img-fluid mb-8" style=" width: 450px ; height: 420px ;margin-left:30%  ">
 	              			<h3 >Preperation Time </h3>
 	          				<p  th:text=${recipe.preparationTime} 	></p>
 	                     	<h3 >Ingredients </h3>
@@ -273,37 +289,35 @@
 	            <br>
 	              <ul class="comment-list" >
 	              
-	             <div  th:each="rev : ${recipe.reviews}">
+	             <div  th:each="review : ${recipe.reviews}">
 	              
 	                <li class="comment box1">
 	                 
 	                	      <br>
 	                  <div class="vcard bio" >
-	                    <img  th:src="*{'data:img/png;base64,'+{rev.user.imageU}}"  class="ml-2" alt="Image placeholder">
+	                    <img  th:src="*{'data:img/png;base64,'+{review.user.imageU}}"  class="ml-2" alt="Image placeholder">
 	                  </div>
-	                 	
+	                 
 	                  <div class="comment-body">
 	                  
 	                
 	                  
-	                    <h3   style=" font-size :16px ; margin-top : 5px !important;" th:text=${rev.user.username}></h3>
-	                    <div class="meta"><span class="fa fa-chevron-circle-down" th:text="${rev.dateofcreation}"></span></div>
+	                    <h3   style=" font-size :16px ; margin-top : 5px !important;" th:text=${review.user.username}></h3>
+	                    <div class="meta"><span class="fa fa-chevron-circle-down" th:text="${review.dateofcreation}"></span></div>
 	                   
 	                 <hr> 
-	                 <div th:if="${rev.imgReview != null}" >
-	                  <img th:src="*{'data:img/png;base64,'+{rev.imgReview}}" alt="" class="img-fluid mb-8" style=" width: 200px ; height: 200px ">
+	                  <div th:if="${review.imgReview != null}" >
+	                  <img th:src="*{'data:img/png;base64,'+{review.imgReview}}" alt="" class="img-fluid mb-8" style=" width: 200px ; height: 200px ">
 					</div>
-						
-	                  <div style="color : #000000; font-size : 18px ; " th:text="${rev.comment}"></div>
+	                  <div style="color : #000000; font-size : 18px ; " th:text="${review.comment}"></div>
 	                   
 	                   <hr>  
 	                     <P>
-	                      <a th:href="@{/user/like/{idrecipe}/{idreview}/{userid}(idrecipe=${recipe.idrecipe},idreview=${rev.idReview},userid=${user.id})}" class="mr-4" cliked="false"><span class="fa fa-thumbs-up" aria-hidden="true" ></span> Like </a>
-	                      <a th:href="@{/user/dislike/{idrecipe}/{idreview}/{userid}(idrecipe=${recipe.idrecipe},idreview=${rev.idReview},userid=${user.id})}" class="mr-4" cliked="false"><span class="fa fa-thumbs-down" aria-hidden="true" ></span> Dislike </a>
+	                    <a th:href="@{/user/recipe/{id}(id=${recipe.idrecipe})}" class="mr-4" cliked="false"><span class="fa fa-thumbs-up" aria-hidden="true" ></span> Like </a>
+	                      <a th:href="@{/user/recipe/{id}(id=${recipe.idrecipe})}" class="mr-4" cliked="false"><span class="fa fa-thumbs-down" aria-hidden="true" ></span> Dislike </a>
 	                      <a href="#" class="mr-4"><span class="fa fa-comment" aria-hidden="true"></span> report</a>
-	                      <a href="#" class="mr-4" style="color: grey; " >  <span class="fa fa-thumbs-up" aria-hidden="true" th:text="${rev.nblike}" ></span></a> 
-	                      <a href="#" class="mr-4" style="color: grey "> <span class="fa fa-thumbs-down " aria-hidden="true" th:text="${rev.nbdislike}" ></span></a>  
-	                      
+	                      <a href="#" class="mr-4" style="color: grey; " >  <span class="fa fa-thumbs-up" aria-hidden="true" th:text="${review.nblike}" ></span></a> 
+	                      <a href="#" class="mr-4" style="color: grey "> <span class="fa fa-thumbs-down " aria-hidden="true" th:text="${review.nbdislike}" ></span></a>  
 	                   </p>
 	                  </div>
 	                  
@@ -317,10 +331,10 @@
 	              <div class="comment-form-wrap pt-5">
 	                <h3 class="mb-5">Leave a review</h3>
 	                
-                <form action="#" class="p-5 bg-light" th:action="@{/user/add-review/{id}(id=${recipe.idrecipe})}"  method="post" enctype="multipart/form-data">
+                <form action="#" class="p-5 bg-light">
 	                  <div class="form-group">
 	                    <label for="TitleReview">Add photo about your experience (optional) </label>
-	                    <input type="file" name="file" class="form-control" id="titleReview" >
+	                    <input type="file" class="form-control" id="titleReview">
 	                  </div>
 	           
 	                  <div class="form-group">
@@ -329,12 +343,9 @@
 	                  </div>
 	                 
 	                  <div class="form-group">
-	                    <!-- 
-	                    <a th:href="@{/user/add-recipe/{id}(id=${recipe.idrecipe})}"  type="submit"  class="btn py-3 px-4 btn-primary">
+	                    <a th:href="@{/user/recipe/{id}(id=${recipe.idrecipe})}"  type="submit"  class="btn py-3 px-4 btn-primary">
 	                  	Submit your review
 	                  	</a>
-	                  	 -->
-	                  	<input type="submit" value="Submit your review" class="btn py-3 px-4 btn-primary">
 	                  </div>
 	
 	             	</form>
@@ -395,7 +406,7 @@
 	                <h4>BALTI Nour</h4>
 	                <h4>MAATOUG Mohamed zouhaier</h4>
 	                <h4>DJEBALI Boutheina</h4>
-	                <h4>ARFA Mohamed</h4>
+	                <h4>MANSOUR Ibtihel</h4>
 	                
 	                  
 	            </div>

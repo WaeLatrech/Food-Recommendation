@@ -60,16 +60,27 @@
 	           		</div>
          		</div>
 		      	<div class="collapse navbar-collapse" id="ftco-nav">
-			        <ul class="navbar-nav mr-auto">
-			        <li class="nav-item"><a href="/user/home" class="nav-link">Home</a></li>
-						<li class="nav-item"><a href="/user/home/#about" class="nav-link">About</a></li>
+			       <ul class="navbar-nav mr-auto">
+						<li class="nav-item "><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
 						<li class="nav-item "><a href="/user/brands" class="nav-link">Brands</a></li>
-						<li class="nav-item "><a href="" class="nav-link">Our Collections</a></li>
-						<li class="nav-item active"><a href="/user/contact" class="nav-link">Contact</a></li>
-			       <li class="nav-item" th:switch="${user.Role}">
-                     <a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
-                    </li>
-			        </ul>
+						<li class="nav-item dropdown">
+				        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
+				        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
+					           <a class="dropdown-item" th:href="@{/user/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
+			           		</div>
+			        	</li>
+			        	<li class="nav-item"><a href="/user/recipes" class="nav-link">Our Recipes</a></li>
+						<li class="nav-item active	"><a href="/user/contact" class="nav-link">Contact</a></li>
+						
+							
+													
+						</ul>
+						
+						<li class="nav-item" th:switch="${user.Role}">
+                     		<a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
+                    	</li>						
+					</ul>
 		      	</div>
 		    </div>
 		  </nav>

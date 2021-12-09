@@ -213,7 +213,7 @@
               			<span th:value="${recipe.dateofcreation}" th:text="${recipe.dateofcreation}"></span>
               		</div>
               	</div>
-                <h3 class="heading"><a href="#" th:value="${recipe.title}" th:text="${recipe.title}"></a></h3>
+                <h3 class="heading"><a th:href="@{/user/recipe/{id}(id=${recipe.idrecipe})}" th:value="${recipe.title}" th:text="${recipe.title}"></a></h3>
               </div>
             </div>
           </div>
