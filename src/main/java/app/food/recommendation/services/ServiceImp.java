@@ -417,6 +417,53 @@ return null;
 
 	}
 	@Override
+	public List<Recipe> getRecipeByADsearch(String i1,String i2,String i3) {
+		String ing1 = i1.toLowerCase();
+		String ing2 = i2.toLowerCase();
+		String ing3 = i3.toLowerCase();
+		List<Recipe> recipes = repoRecipe.findAll();
+		List<Recipe> result = new ArrayList<Recipe>();
+		
+		if(!ing2.equals("empty") && ing3.equals("empty") ) {
+			for(Recipe r : recipes) {
+				if (r.getIngredients().toLowerCase().contains(ing2)
+					&&r.getIngredients().toLowerCase().contains(ing1) ){
+					result.add(r);
+				}
+			}
+			return result;
+		}
+		if(ing2.equals("empty") && !ing3.equals("empty") ) {
+			for(Recipe r : recipes) {
+				if (r.getIngredients().toLowerCase().contains(ing3)
+					&&r.getIngredients().toLowerCase().contains(ing1) ){
+					result.add(r);
+				}
+			}
+			return result;
+		}
+		if(!ing2.equals("empty") && !ing3.equals("empty") ) {
+			for(Recipe r : recipes) {
+				if (r.getIngredients().toLowerCase().contains(ing2)
+					&&r.getIngredients().toLowerCase().contains(ing3)
+					&&r.getIngredients().toLowerCase().contains(ing1) ){
+					result.add(r);
+				}
+			}
+			return result;
+		}
+		if(ing2.equals("empty") && ing3.equals("empty") ) {
+			for(Recipe r : recipes) {
+				if (r.getIngredients().toLowerCase().contains(ing1) ){
+					result.add(r);
+				}
+			}
+			return result;
+		}
+		return result;
+
+	}
+	@Override
 	public Restaurant getRestoById(long id) {
 		Optional<Restaurant> opt = repoResto.findById(id);
 		Restaurant Restaurant;

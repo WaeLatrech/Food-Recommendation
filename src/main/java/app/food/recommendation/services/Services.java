@@ -87,6 +87,7 @@ import app.food.recommendation.models.User;
 //	public List<DislikeEntity> getAllDisLikes();
 	List<Dish> getDishesByCategory(String cat);
 	List<Dish> getDishesBySearch(String s);
+	List<Recipe> getRecipeByADsearch(String ing1, String ing12, String ing3);
 
 	
 }

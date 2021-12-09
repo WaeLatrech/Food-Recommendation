@@ -162,7 +162,50 @@ public class Controller {
 	    model.addAttribute("categories", categories);
 	return "Other/recipes";
 	}
-	
+	@GetMapping("/advancedSearchRecipe")
+	public String AdvancedSearchRecipe(Model model) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/searchRecipe";
+	}
+	@GetMapping("/advancedRecipe")
+	public String RecipesSearchAdvanced(Model model,
+			@ModelAttribute("ing1") String ing1,
+			@ModelAttribute("ing2") String ing2,
+			@ModelAttribute("ing3") String ing3) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    if(ing2.isEmpty())
+	    	ing2="empty";
+	    if(ing3.isEmpty())
+	    	ing3="empty";
+	    List<Recipe> recipes = service.getRecipeByADsearch(ing1, ing2, ing3);
+	    model.addAttribute("recipes", recipes);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/recipes";
+	}
 	@GetMapping("/searchRecipe")
 	public String RecipesSearch(Model model,@ModelAttribute("search") String search) {
  
