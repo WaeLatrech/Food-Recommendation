@@ -293,7 +293,9 @@
 	                    <div class="meta"><span class="fa fa-chevron-circle-down" th:text="${review.dateofcreation}"></span></div>
 	                   
 	                 <hr> 
-	                  
+	                  <div th:if="${review.imgReview != null}" >
+	                  <img th:src="*{'data:img/png;base64,'+{review.imgReview}}" alt="" class="img-fluid mb-8" style=" width: 200px ; height: 200px ">
+					</div>
 	                  <div style="color : #000000; font-size : 18px ; " th:text="${review.comment}"></div>
 	                   
 	                   <hr>  

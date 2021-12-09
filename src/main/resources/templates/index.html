@@ -149,8 +149,8 @@
                 <div class="testimony-wrap py-4">
                 	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                   <div class="text">
-                    <p class="mb-4" th:value="${review.comment}" th:text="${review.comment}">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <div class="d-flex align-items-center">
+                    <p class="mb-4" th:value="${review.comment}" th:text="${review.comment}"></p>
+					<div class="d-flex align-items-center">
                     	<div class="posted mb-3 d-flex">
               		<div class="img author ">
                     	 <img  th:src="*{'data:img/png;base64,'+{review.user.imageU}}" style="width: 80px; height: 80px;border-radius: 50% 50%;" class="ml-4 mt-3">
@@ -170,26 +170,6 @@
         </div>
       </div>
       <hr>
-      <div class="container">
-        <div class="row justify-content-center pb-5 mb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">New Brands</span>
-            <h2>Latest Brands</h2>
-          </div>
-        </div>
-        <div class="row d-flex">
-          <div class="col-md-3 d-flex ftco-animate" th:each="brand : ${newBrand}">
-            <div class="blog-entry align-self-stretch">
-              <a th:href="@{/brand/{id}(id=${brand.idbrand})}"> <img alt="" th:src="*{'data:img/png;base64,'+{brand.imageB}}" style="width: 150px; height: 150px; ">
-              </a>
-              <div class="text p-3">
-              	
-                <h3 class="heading" ><a href="#" th:value="${brand.brandname}" th:text="${brand.brandname}"></a></h3>
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
     </section>
    	
    <section class="ftco-section">
@@ -203,7 +183,7 @@
         <div class="row d-flex">
           <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${NewRecipes}">
             <div class="blog-entry align-self-stretch">
-              <a th:href="@{/add-review/{id}(id=${recipe.idrecipe})}"> 
+              <a th:href="@{/recipe/{id}(id=${recipe.idrecipe})}"> 
               <img th:if="${recipe.imgRecipe} != null" alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
 	          <img th:if="${recipe.imgRecipe} == null" src="../../static/images/recipe.jpg" alt="" style="width: 280px; height: 250px; ">
               
@@ -245,9 +225,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-commenting"></span></div>
-              	<!-- 
+              	 
                 <strong class="number"  th:data-number="${AllRecipes.size()}" ></strong>
-              	 -->
+              	 
               	<span>All Our recipes</span>
               </div>
             </div>
@@ -379,26 +359,23 @@
       <div class="container">
         <div class="row justify-content-center pb-5 mb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">New Recipes</span>
-            <h2>Latest Recipes from our users</h2>
+          	<span class="subheading">New Brands</span>
+            <h2>Latest Brands from our users</h2>
           </div>
         </div>
         <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${NewRecipes}">
+          <div class="col-md-4 d-flex ftco-animate" th:each="brand : ${brands}">
             <div class="blog-entry align-self-stretch">
-              <a th:href="@{/add-review/{id}(id=${recipe.idrecipe})}"> <img alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+              <a th:href="@{/restos/{id}(id=${brand.idbrand})}"> <img alt="" th:src="*{'data:img/png;base64,'+{brand.imageB}}" style="width: 280px; height: 250px; ">
               </a>
               <div class="text p-3">
               	<div class="posted mb-3 d-flex">
-              	<div class="img author">
-            	 <img  th:src="*{'data:img/png;base64,'+{recipe.publisher.imageU}}" style="width: 50px; height: 50px;border-radius: 50%; " >
-	          	 </div>
               		<div class="desc pl-3">
-              			Posted By <i th:value="${recipe.publisher.username}" th:text="${recipe.publisher.username}"></i>
-              			<span th:value="${recipe.dateofcreation}" th:text="${recipe.dateofcreation}"></span>
+              			<i th:text="${#lists.size(brand.restos)}"></i><i>  resto(s)</i>
+              			<span th:value="${brand.brandname}" th:text="${brand.brandname}"></span>
               		</div>
               	</div>
-                <h3 class="heading"><a href="#" th:value="${recipe.title}" th:text="${recipe.title}"></a></h3>
+                <h3 class="heading"><a href="#" th:value="${brand.brandname}" th:text="${brand.brandname}"></a></h3>
               </div>
             </div>
           </div>

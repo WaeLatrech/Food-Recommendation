@@ -27,8 +27,8 @@ import app.food.recommendation.models.ConfirmationToken;
 import app.food.recommendation.models.Dish;
 import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Recipe;
-import app.food.recommendation.models.Review;
 import app.food.recommendation.models.Restaurant;
+import app.food.recommendation.models.Review;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.ReviewRepo;
 import app.food.recommendation.repositories.TokenRepo;
@@ -71,17 +71,22 @@ public class Controller {
 	    else if (CheckRole().equals("ADMIN")) {
 	        return "redirect:/admin/home";
 	    }
+	    List <Review> AllReviews = reviewRepo.findAll();
+	    Review review = new Review();
+	    List <Review> reviews = AllReviews.subList(Math.max(AllReviews.size() - 9, 0), AllReviews.size());
+	    model.addAttribute("reviews", reviews);
 	    
-	    List <Brand> brands = service.getAllBrands();
-	    Collections.reverse(brands);
-	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 4, 0), brands.size());
-	    model.addAttribute("brands", brands);
-	    model.addAttribute("newBrand", newBrand);
-	  //AvisEntity => reciepe
 	    List <Recipe> AllRecipes = service.getAllRecipes();
+	    Collections.reverse(AllRecipes);
 	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 3, 0), AllRecipes.size());
 	    model.addAttribute("NewRecipes", NewRecipes);
 	    model.addAttribute("AllRecipes", AllRecipes);
+	    List <Brand> brands = service.getAllBrands();
+	    model.addAttribute("brands", brands);
+	    Collections.reverse(brands);
+	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 4, 0), brands.size());
+	    model.addAttribute("newBrand", newBrand);
+
 	    /**** average ****/
 	    List<app.food.recommendation.models.User> users = service.getAllUsers() ; 
 	    model.addAttribute("users", users);
@@ -276,6 +281,26 @@ public class Controller {
 	    model.addAttribute("categories", categories);
 	    return "Other/restos";
 	}
+//	@GetMapping("/searchRestoAdvanced")
+//	public String RestoSearchAdvanced(Model model,
+//			@ModelAttribute("search") String category,
+//			@ModelAttribute("location") String location,
+//			@ModelAttribute("price") float price) {
+// 
+//	    if (CheckRole().equals("USER")||CheckRole().equals("ADMIN")) {
+//	        return "redirect:/user/searchRestoAdvanced";
+//	    }
+//	    if()
+//	    List<Restaurant> restos = service.getRestosBySearch(search);
+//	    model.addAttribute("restos", restos);
+//
+//	    /***	Navbar	***/
+//	    List<DishCategory> dishcats = service.getAllDishCategories();
+//	    model.addAttribute("dishcategories", dishcats);
+//	    List <Category> categories = service.getAllCategories();
+//	    model.addAttribute("categories", categories);
+//	    return "Other/restos";
+//	}
 	@GetMapping("/restos/cat/{category}")
 	public String RestosByCategory(Model model,@PathVariable String category ) {
  

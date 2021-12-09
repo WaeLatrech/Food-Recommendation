@@ -157,7 +157,7 @@
                   <!-- 
                    <small   th:text="${product.avisss.size}" ></small> 
                     -->
-                   <small>reviews</small>
+                   <small th:text="${#lists.size(recipe.reviews)}"></small><small> review(s)</small>
                    </div>
                 </h3>
                	 <!-- 

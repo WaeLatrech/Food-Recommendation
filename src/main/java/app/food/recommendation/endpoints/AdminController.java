@@ -229,6 +229,20 @@ public class AdminController {
         redirAttrs.addFlashAttribute("success", "Category deleted");
 		return "redirect:/admin/listdishcategorie";
 	}
+	@GetMapping("/deldish/{id}")
+	public String DelDish(RedirectAttributes redirAttrs,@PathVariable("id") Long id, Model model) {
+		//add all dishes in this category and delete them
+		DishCategory a = service.getDishCategoryById(id);
+		for (Dish dish : service.getDishCategoryById(id).getDishes()) {
+			service.deleteDish(dish.getIddish());
+		}
+		for (Recipe recipe : service.getDishCategoryById(id).getRecipes()) {
+			service.deleteRecipe(recipe.getIdrecipe());
+		}
+		service.deleteDish(id);
+        redirAttrs.addFlashAttribute("success", "Category deleted");
+		return "redirect:/admin/listdish";
+	}
 	/***********Users************/
 	
 	@GetMapping("/userlist")
