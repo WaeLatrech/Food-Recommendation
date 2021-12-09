@@ -35,6 +35,7 @@ import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Dislike;
 import app.food.recommendation.models.Like;
 import app.food.recommendation.models.Recipe;
+import app.food.recommendation.models.Restaurant;
 import app.food.recommendation.models.Review;
 import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.DishCategoryRepo;
@@ -90,8 +91,9 @@ public class UserController {
 			}
 	//////////////////////////////////
 	
-	@GetMapping("/menu")
-	public String Menu(Model model) {
+	
+	@GetMapping("/menu/{id}")
+	public String Menu(Model model,@PathVariable int id) {
  
 //	    if (CheckRole().equals("USER")) {
 //	        return "redirect:/user/home";
@@ -99,11 +101,22 @@ public class UserController {
 //	    else if (CheckRole().equals("ADMIN")) {
 //	        return "redirect:/admin/home";
 //	    }
+		
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
 	    List<Recipe> recipes = service.getAllRecipes();
 	    model.addAttribute("recipes", recipes);
 	    
+	    Restaurant resto = service.getRestoById(id);
+	    model.addAttribute("resto",resto);
+	    
+	    List<DishCategory> dg = new ArrayList<>();
+	    System.out.println("$$$$$$$$$$");
+	    for (Dish dish : resto.getMenu()) {
+			if (!dg.contains(dish.getDishcategory()))
+				{dg.add(dish.getDishcategory());System.out.println("$$$$$$$$$$"+dish.getDishcategory().getDishcategory());}
+		}
+	    model.addAttribute("dishCategoryList",dg);
 	    /***	Navbar	***/
 	    List<DishCategory> dishcats = service.getAllDishCategories();
 	    model.addAttribute("dishcategories", dishcats);

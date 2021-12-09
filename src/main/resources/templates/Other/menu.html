@@ -74,30 +74,25 @@
 					</a>
 				</div>
 				
-				<div class="dropdown order-lg-last ml-4 dark-text">
-					<a id="dropdownMenuButton" data-toggle="dropdown" class=" dark-text" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-user-circle-o"  style="font-size: 20px;" aria-hidden="true" ></i> welcome , <i th:value="${user.username}"  th:text="${user.username}"></i>     <i class="fa fa-chevron-down" aria-hidden="true"></i>   
-
-					</a>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="/logout"> 
-							<i class="fa fa-sign-out"></i> Logout
-						</a> 
-						<a class="dropdown-item" href="/user/Account"> 
-							<i class="fa fa-refresh"></i>Account
-						</a>
-					</div>
-				</div>
-				<div class="collapse navbar-collapse" id="ftco-nav">
+			<div class="req-button order-lg-last">
+		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
+	        </div>
+		        <div class="req-button order-lg-last">
+		      	<a href="/Sign-up"><span class="fa fa-user" aria-hidden="true"></span> Sign up</a>
+	        </div>				<div class="collapse navbar-collapse" id="ftco-nav">
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
+					<li class="nav-item "><a href="" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-						<li class="nav-item "><a href="/user/brands" class="nav-link">Brands</a></li>
-						<li class="nav-item "><a href="/user/ourcollections" class="nav-link">Our Collections</a></li>
-						<li class="nav-item"><a href="/user/contact" class="nav-link">Contact</a></li>
-						<li class="nav-item" th:switch="${user.Role}">
-                     <a th:case="'ADMIN'" class="nav-link" href="/admin/home"> Admin Page</a>
-                    </li>						
+						<li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
+						<li class="nav-item dropdown">
+		        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
+		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
+			           <a    class="dropdown-item" th:href="@{/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
+	           		</div>
+	           		
+		        	</li>
+						<li class="nav-item active"><a href="/recipes" class="nav-link">Our Recipes</a></li>
+						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>	
 					</ul>
 				</div>
 			</div>
@@ -165,25 +160,24 @@
 		      <h3 class="head2">Our Menu</h3>
 		    </div>  
 		    
-		    <div class="tabs tb gallery ">
-		             <div class="div-nav  ">
-		             <div class="grid_12" style="">
-		                 <ul class="nav">
-		                    <li class="selected"><a href="#tab-1" class="">Salads</a></li>
-		                    <li><a href="#tab-2">Soups</a></li>
-		                    <li><a href="#tab-3">Appetizers</a></li>
-		                    <li><a href="#tab-4">Beverages</a></li>
-		                    <li><a href="#tab-5">Desserts</a></li>
-		                    <li><a href="#tab-6">Lunch Specials</a></li>
+		    <div class="tabs tb gallery " >
+		             <div class="div-nav " >
+		             <div class="grid_12" style="" >
+		                 <ul class="nav" >
+		                    <li th:each="category : ${dishCategoryList}"><a th:href="'#'+${category.dishcategory}"  th:text="${category.dishcategory}"></a></li>
 		                 </ul>
 		             </div>    
 		             </div>
 		             <div class="div-tabs">
-		              <div  id="tab-1" class="tab-content gallery1">
-		                  <div class="grid_3">
-		                    <a href="images/big1.jpg" class="gal"><img src="../images/page3_img1.jpg" alt=""><span></span></a>
-		                    <div class="col2"><span class="col3"><a href="#">Cras facilisis</a></span> $ 19.99</div>
+		              <div th:each="category : ${dishCategoryList}" th:id="${category.dishcategory}" class="tab-content gallery1">
+		                  <div class="grid_3" th:each="dish : ${resto.menu}" >
+		                    <div th:if="${dish.dishcategory.dishcategory == category.dishcategory}" >
+		                    <a href="images/big1.jpg" class="gal">
+		                    <img th:src="*{'data:img/png;base64,'+{dish.imageD}}" alt=""><span></span></a>
+		                    <div class="col2"><span class="col3"><a th:text="${dish.dishname}" href="#"></a></span> <span  th:text="${dish.price}"></span></div>
+		                    </div>
 		                  </div>
+		                  <!-- 
 		                  <div class="grid_3">
 		                    <a href="images/big2.jpg" class="gal"><img src="../images/page3_img2.jpg" alt=""><span></span></a>
 		                    <div class="col2"><span class="col3"><a href="#">Phasellus erat </a></span> $ 21.99</div>
@@ -204,6 +198,7 @@
 		                    <a href="images/big6.jpg" class="gal"><img src="../images/page3_img6.jpg" alt=""><span></span></a>
 		                    <div class="col2"><span class="col3"><a href="#">Holi erat </a></span> $ 20.99</div>
 		                  </div>
+		                   -->
 		              </div>
 		              <div  id="tab-2" class="tab-content gallery2">
 		                 

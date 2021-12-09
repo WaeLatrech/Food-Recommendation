@@ -434,7 +434,14 @@ return null;
                 break;
             }    
         }
-        
+        Restaurant rest = dish.getResto();
+        List<Dish> menu = rest.getMenu();
+        menu.add(dish);
+        rest.setMenu(menu);
+        repoResto.save(rest);
+        for (Dish dish2 : rest.getMenu()) {
+        	System.out.println("$$$$$$$$$$$"+dish2.getDishname());
+		}
 		return repoDish.save(dish);
 	}
 

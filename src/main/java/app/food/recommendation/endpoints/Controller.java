@@ -1,6 +1,7 @@
 package app.food.recommendation.endpoints;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import app.food.recommendation.models.Brand;
 import app.food.recommendation.models.Category;
 import app.food.recommendation.models.ConfirmationToken;
+import app.food.recommendation.models.Dish;
 import app.food.recommendation.models.DishCategory;
 import app.food.recommendation.models.Recipe;
 import app.food.recommendation.models.Review;
@@ -294,7 +296,36 @@ public class Controller {
 	    model.addAttribute("categories", categories);
 	return "Other/restos";
 	}
-
+	@GetMapping("/menu/{id}")
+	public String Menu(Model model,@PathVariable int id) {
+ 
+//	    if (CheckRole().equals("USER")) {
+//	        return "redirect:/user/home";
+//	    }
+//	    else if (CheckRole().equals("ADMIN")) {
+//	        return "redirect:/admin/home";
+//	    }
+		
+	    List<Recipe> recipes = service.getAllRecipes();
+	    model.addAttribute("recipes", recipes);
+	    
+	    Restaurant resto = service.getRestoById(id);
+	    model.addAttribute("resto",resto);
+	    
+	    List<DishCategory> dg = new ArrayList<>();
+	    System.out.println("$$$$$$$$$$");
+	    for (Dish dish : resto.getMenu()) {
+			if (!dg.contains(dish.getDishcategory()))
+				{dg.add(dish.getDishcategory());System.out.println("$$$$$$$$$$"+dish.getDishcategory().getDishcategory());}
+		}
+	    model.addAttribute("dishCategoryList",dg);
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/menu";
+	}
 	@RequestMapping("/default")
 	public String defaultAfterLogin() {
 

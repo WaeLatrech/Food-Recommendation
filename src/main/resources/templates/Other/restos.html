@@ -142,7 +142,7 @@
             <div th:each="resto : ${restos}">
           <div class="col-md-4 d-flex ftco-animate" th:if="${not #lists.isEmpty(restos)}" >
             <div class="blog-entry align-self-stretch">
-              <a th:href="@{/resto/{id}(id=${resto.idresto})}"> 
+              <a th:href="@{/menu/{id}(id=${resto.idresto})}"> 
               <img alt="" th:src="*{'data:img/png;base64,'+{resto.brand.imageB}}" style="width: 280px; height: 250px; ">
               </a>
               <div class="text p-3">
@@ -153,7 +153,7 @@
               		</div>
               	</div>
                 <h3 class="heading">
-                <a th:href="@{/restos/{id}(id=${resto.restoname})}" th:value="${resto.restoname}" th:text="${resto.restoname}">
+                <a th:href="@{/menu/{id}(id=${resto.idresto})}" th:value="${resto.restoname}" th:text="${resto.restoname}">
                 </a>
                    <div style="float:right">
                   <!-- 
