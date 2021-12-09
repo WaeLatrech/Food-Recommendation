@@ -105,11 +105,8 @@ public class Controller {
 	@GetMapping("/menu")
 	public String Menu(Model model) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+	    if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/menu";
 	    }
 	    
 	    List<Recipe> recipes = service.getAllRecipes();
@@ -125,11 +122,8 @@ public class Controller {
 	@GetMapping("/recipes")
 	public String Recipes(Model model) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/recipes";
 	    }
 	    
 	    List<Recipe> recipes = service.getAllRecipes();
@@ -145,11 +139,8 @@ public class Controller {
 	@GetMapping("/recipes/{category}")
 	public String RecipesByCategory(Model model,@PathVariable String category ) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/recipe/"+category;
 	    }
 	    List<Recipe> recipes = service.getRecipesByCategory(category);
 	    model.addAttribute("recipes", recipes);
@@ -165,11 +156,8 @@ public class Controller {
 	@GetMapping("/advancedSearchRecipe")
 	public String AdvancedSearchRecipe(Model model) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/advancedSearchRecipe";
 	    }
 
 
@@ -186,11 +174,8 @@ public class Controller {
 			@ModelAttribute("ing2") String ing2,
 			@ModelAttribute("ing3") String ing3) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/advancedRecipe";
 	    }
 	    if(ing2.isEmpty())
 	    	ing2="empty";
@@ -209,11 +194,9 @@ public class Controller {
 	@GetMapping("/searchRecipe")
 	public String RecipesSearch(Model model,@ModelAttribute("search") String search) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		 
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/searchRecipe";
 	    }
 	    List<Recipe> recipes = service.getRecipesBySearch(search);
 	    model.addAttribute("recipes", recipes);
@@ -228,7 +211,9 @@ public class Controller {
 	
 	@GetMapping("/recipe/{id}")
 	public String recipe(Model model,@PathVariable int id ) {
-	    
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/recipe/"+id;
+	    }
 		Recipe recipe = service.getRecipeById(id);
 		model.addAttribute("recipe",recipe);
 		Review rev = new Review();
@@ -245,11 +230,8 @@ public class Controller {
 	@GetMapping("/contact")
 	public String Contact(Model model) {
 
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/Contact";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/contact/";
 	    }
 	    /***	Navbar	***/
 	    List<DishCategory> dishcats = service.getAllDishCategories();
@@ -268,11 +250,8 @@ public class Controller {
 	@GetMapping("/brands")
 	public String Brands(Model model) {
 
-	    if (CheckRole().equals("USER")) {
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
 	        return "redirect:/user/brands";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/brands";
 	    }
 	    List<Brand> brands = service.getAllBrands();
 	    model.addAttribute("brands",brands);
@@ -289,11 +268,8 @@ public class Controller {
 	@GetMapping("/restos/{id}")
 	public String restos(Model model,@PathVariable long id ) {
 
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/brands";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/brands";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/restos/"+id;
 	    }
 	    List<Restaurant> restos = service.getBrandById(id).getRestos();
 	    model.addAttribute("restos",restos);
@@ -308,11 +284,8 @@ public class Controller {
 	@GetMapping("/searchResto")
 	public String RestoSearch(Model model,@ModelAttribute("search") String search) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/searchResto";
 	    }
 	    List<Restaurant> restos = service.getRestosBySearch(search);
 	    model.addAttribute("restos", restos);
@@ -328,11 +301,8 @@ public class Controller {
 	@GetMapping("/restos/cat/{category}")
 	public String RestosByCategory(Model model,@PathVariable String category ) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/restos/cat/"+category;
 	    }
 	    List<Restaurant> restos = service.getRestosByCategory(category);
 	    model.addAttribute("restos", restos);
@@ -348,12 +318,9 @@ public class Controller {
 	@GetMapping("/menu/{id}")
 	public String Menu(Model model,@PathVariable int id) {
  
-//	    if (CheckRole().equals("USER")) {
-//	        return "redirect:/user/home";
-//	    }
-//	    else if (CheckRole().equals("ADMIN")) {
-//	        return "redirect:/admin/home";
-//	    }
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/menu/"+id;
+	    }
 		
 	    List<Recipe> recipes = service.getAllRecipes();
 	    model.addAttribute("recipes", recipes);
@@ -378,11 +345,8 @@ public class Controller {
 	@GetMapping("/dishes")
 	public String Dishes(Model model) {
  
-	    if (CheckRole().equals("USER")) {
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
 	        return "redirect:/user/dishes";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/dishes";
 	    }
 		
 	    List<Dish> dishes = service.getAllDishes();
@@ -398,11 +362,8 @@ public class Controller {
 	@GetMapping("/searchDish")
 	public String DishsSearch(Model model,@ModelAttribute("search") String search) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/searchDish";
 	    }
 	    List<Dish> dishes = service.getDishesBySearch(search);
 	    model.addAttribute("dishes", dishes);
@@ -417,11 +378,8 @@ public class Controller {
 	@GetMapping("/dishes/{category}")
 	public String DishesByCategory(Model model,@PathVariable String category ) {
  
-	    if (CheckRole().equals("USER")) {
-	        return "redirect:/user/home";
-	    }
-	    else if (CheckRole().equals("ADMIN")) {
-	        return "redirect:/admin/home";
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/dishes/"+category;
 	    }
 	    List<Dish> dishes = service.getDishesByCategory(category);
 	    model.addAttribute("dishes", dishes);
@@ -437,9 +395,9 @@ public class Controller {
 	@GetMapping("/advancedDishSearch")
 	public String RestoSearchAdvanced(Model model) {
  
-//	    if (CheckRole().equals("USER")||CheckRole().equals("ADMIN")) {
-//	        return "redirect:/user/searchRestoAdvanced";
-//	    }
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/advancedDishSearch";
+	    }
 
 	    /***	Navbar	***/
 	    List<DishCategory> dishcats = service.getAllDishCategories();
@@ -454,9 +412,9 @@ public class Controller {
 			@RequestParam ("location") String location,
 			@RequestParam ("price") String price) {
  
-//	    if (CheckRole().equals("USER")||CheckRole().equals("ADMIN")) {
-//	        return "redirect:/user/searchRestoAdvanced";
-//	    }
+		if (CheckRole().equals("USER") || CheckRole().equals("ADMIN")) {
+	        return "redirect:/user/advancedDish";
+	    }
 		if (price.isEmpty())
 			price = "0";
 		float p = Float.parseFloat(price);

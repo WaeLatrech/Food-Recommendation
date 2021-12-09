@@ -95,38 +95,7 @@ public class UserController {
 	//////////////////////////////////
 	
 	
-	@GetMapping("/menu/{id}")
-	public String Menu(Model model,@PathVariable int id) {
- 
-//	    if (CheckRole().equals("USER")) {
-//	        return "redirect:/user/home";
-//	    }
-//	    else if (CheckRole().equals("ADMIN")) {
-//	        return "redirect:/admin/home";
-//	    }
-		
-		User user = userrepo.findByUsername(getUserUsername());
-		model.addAttribute("user",user);
-	    List<Recipe> recipes = service.getAllRecipes();
-	    model.addAttribute("recipes", recipes);
-	    
-	    Restaurant resto = service.getRestoById(id);
-	    model.addAttribute("resto",resto);
-	    
-	    List<DishCategory> dg = new ArrayList<>();
-	    System.out.println("$$$$$$$$$$");
-	    for (Dish dish : resto.getMenu()) {
-			if (!dg.contains(dish.getDishcategory()))
-				{dg.add(dish.getDishcategory());System.out.println("$$$$$$$$$$"+dish.getDishcategory().getDishcategory());}
-		}
-	    model.addAttribute("dishCategoryList",dg);
-	    /***	Navbar	***/
-	    List<DishCategory> dishcats = service.getAllDishCategories();
-	    model.addAttribute("dishcategories", dishcats);
-	    List <Category> categories = service.getAllCategories();
-	    model.addAttribute("categories", categories);
-	return "user/menu";
-	}
+	
 	@GetMapping("/home")
 	public String userindex(Model model,RedirectAttributes redirAttrs) {
 		if (CheckRole().equals("NOTVERIFIED")) 
@@ -171,9 +140,42 @@ public class UserController {
 	    return "user/userindex";
 	}
 	
-	
+	@GetMapping("/menu/{id}")
+	public String Menu(Model model,@PathVariable int id) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
+		User user = userrepo.findByUsername(getUserUsername());
+		model.addAttribute("user",user);
+	    List<Recipe> recipes = service.getAllRecipes();
+	    model.addAttribute("recipes", recipes);
+	    
+	    Restaurant resto = service.getRestoById(id);
+	    model.addAttribute("resto",resto);
+	    
+	    List<DishCategory> dg = new ArrayList<>();
+	    System.out.println("$$$$$$$$$$");
+	    for (Dish dish : resto.getMenu()) {
+			if (!dg.contains(dish.getDishcategory()))
+				{dg.add(dish.getDishcategory());System.out.println("$$$$$$$$$$"+dish.getDishcategory().getDishcategory());}
+		}
+	    model.addAttribute("dishCategoryList",dg);
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "user/menu";
+	}
 	@GetMapping("/brands")
 	public String userbrands(Model model) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
 	    return "user/brands";
@@ -184,6 +186,11 @@ public class UserController {
 	
 	@GetMapping("/contact")
 	public String Contact(Model model) {
+		if (CheckRole().equals("NOTVERIFIED")) 
+		{
+		redirAttrs.addFlashAttribute("error", "Mail not verified");
+		return "redirect:/logout";
+    	}
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
 	    return "user/contact";
