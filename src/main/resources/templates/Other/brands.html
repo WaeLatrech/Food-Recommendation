@@ -115,12 +115,15 @@
             <div class="tabulation mt-4 ftco-animate">
               
                 <ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
+                <li class="nav-item text-left">
+                    <a class="nav-link py-4" href="/dishes"><strong> <i class="fa fa-align-justify mr-3" aria-hidden="true"></i>Check All Dishes</strong></a>
+                  </li>
                    <li class="nav-item text-left">
                     <a class="nav-link py-4"><strong> <i class="fa fa-align-justify mr-3" aria-hidden="true"></i>Category</strong></a>
                   </li>
                   <li class="nav-item text-left">
 
-                <a class="nav-link active py-4" th:href="@{/restos/{category}(category=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"><span class="fa fa-mobile mr-3" aria-hidden="true"></span> </a>
+                <a class="nav-link active py-4" th:href="@{/restos/cat/{category}(category=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"><span class="fa fa-mobile mr-3" aria-hidden="true"></span> </a>
                   </li>
                 </ul>
               </div>
