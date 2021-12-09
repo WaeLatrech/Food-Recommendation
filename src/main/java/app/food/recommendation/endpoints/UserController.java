@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -41,6 +42,7 @@ import app.food.recommendation.models.User;
 import app.food.recommendation.repositories.DishCategoryRepo;
 import app.food.recommendation.repositories.DislikeRepo;
 import app.food.recommendation.repositories.LikeRepo;
+import app.food.recommendation.repositories.ReviewRepo;
 import app.food.recommendation.repositories.TokenRepo;
 import app.food.recommendation.repositories.UserRepo;
 import app.food.recommendation.services.SendEmailService;
@@ -65,6 +67,7 @@ public class UserController {
 	private DishCategoryRepo dishCatRepo;
 	private LikeRepo likeRepo;
 	private DislikeRepo dislikeRepo;
+	private ReviewRepo reviewRepo;
 	
 	public String CheckRole () {
 		Collection<? extends GrantedAuthority> authorities;
@@ -135,6 +138,35 @@ public class UserController {
 		User user = userrepo.findByUsername(getUserUsername());
 		model.addAttribute("user",user);
 		
+		List <Review> AllReviews = reviewRepo.findAll();
+	    Review review = new Review();
+	    List <Review> reviews = AllReviews.subList(Math.max(AllReviews.size() - 9, 0), AllReviews.size());
+	    model.addAttribute("reviews", reviews);
+	    
+	    List <Recipe> AllRecipes = service.getAllRecipes();
+	    Collections.reverse(AllRecipes);
+	    List <Recipe> NewRecipes = AllRecipes.subList(Math.max(AllRecipes.size() - 3, 0), AllRecipes.size());
+	    model.addAttribute("NewRecipes", NewRecipes);
+	    model.addAttribute("AllRecipes", AllRecipes);
+	    List <Brand> brands = service.getAllBrands();
+	    model.addAttribute("brands", brands);
+	    Collections.reverse(brands);
+	    List <Brand> newBrand = brands.subList(Math.max(brands.size() - 4, 0), brands.size());
+	    model.addAttribute("newBrand", newBrand);
+
+	    /**** average ****/
+	    List<app.food.recommendation.models.User> users = service.getAllUsers() ; 
+	    model.addAttribute("users", users);
+	    
+	    List<Restaurant> restos = service.getAllRestos() ; 
+	    model.addAttribute("restos", restos);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    
 		
 	    return "user/userindex";
 	}

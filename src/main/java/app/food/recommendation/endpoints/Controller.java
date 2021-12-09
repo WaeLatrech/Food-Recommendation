@@ -281,26 +281,7 @@ public class Controller {
 	    model.addAttribute("categories", categories);
 	    return "Other/restos";
 	}
-//	@GetMapping("/searchRestoAdvanced")
-//	public String RestoSearchAdvanced(Model model,
-//			@ModelAttribute("search") String category,
-//			@ModelAttribute("location") String location,
-//			@ModelAttribute("price") float price) {
-// 
-//	    if (CheckRole().equals("USER")||CheckRole().equals("ADMIN")) {
-//	        return "redirect:/user/searchRestoAdvanced";
-//	    }
-//	    if()
-//	    List<Restaurant> restos = service.getRestosBySearch(search);
-//	    model.addAttribute("restos", restos);
-//
-//	    /***	Navbar	***/
-//	    List<DishCategory> dishcats = service.getAllDishCategories();
-//	    model.addAttribute("dishcategories", dishcats);
-//	    List <Category> categories = service.getAllCategories();
-//	    model.addAttribute("categories", categories);
-//	    return "Other/restos";
-//	}
+
 	@GetMapping("/restos/cat/{category}")
 	public String RestosByCategory(Model model,@PathVariable String category ) {
  
@@ -350,6 +331,103 @@ public class Controller {
 	    List <Category> categories = service.getAllCategories();
 	    model.addAttribute("categories", categories);
 	return "Other/menu";
+	}
+	@GetMapping("/dishes")
+	public String Dishes(Model model) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/dishes";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/dishes";
+	    }
+		
+	    List<Dish> dishes = service.getAllDishes();
+	    model.addAttribute("dishes",dishes);
+	    
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/dishes";
+	}
+	@GetMapping("/searchDish")
+	public String DishsSearch(Model model,@ModelAttribute("search") String search) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    List<Dish> dishes = service.getDishesBySearch(search);
+	    model.addAttribute("dishes", dishes);
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/dishes";
+	}
+	@GetMapping("/dishes/{category}")
+	public String DishesByCategory(Model model,@PathVariable String category ) {
+ 
+	    if (CheckRole().equals("USER")) {
+	        return "redirect:/user/home";
+	    }
+	    else if (CheckRole().equals("ADMIN")) {
+	        return "redirect:/admin/home";
+	    }
+	    List<Dish> dishes = service.getDishesByCategory(category);
+	    model.addAttribute("dishes", dishes);
+
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	return "Other/dishes";
+	}
+	@GetMapping("/advancedDishSearch")
+	public String RestoSearchAdvanced(Model model) {
+ 
+//	    if (CheckRole().equals("USER")||CheckRole().equals("ADMIN")) {
+//	        return "redirect:/user/searchRestoAdvanced";
+//	    }
+
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    return "Other/searchDish";
+	}
+	@GetMapping("/advancedDish")
+	public String RestoSearchAdvanced1(Model model,
+			@RequestParam ("search") String search ,  
+			@RequestParam ("location") String location,
+			@RequestParam ("price") String price) {
+ 
+//	    if (CheckRole().equals("USER")||CheckRole().equals("ADMIN")) {
+//	        return "redirect:/user/searchRestoAdvanced";
+//	    }
+		if (price.isEmpty())
+			price = "0";
+		float p = Float.parseFloat(price);
+		if(location.isEmpty())
+			location="empty";
+		
+		List<Dish> dishes = service.getDishBySearch(search, location, p);
+	    model.addAttribute("dishes", dishes);
+	    /***	Navbar	***/
+	    List<DishCategory> dishcats = service.getAllDishCategories();
+	    model.addAttribute("dishcategories", dishcats);
+	    List <Category> categories = service.getAllCategories();
+	    model.addAttribute("categories", categories);
+	    return "Other/dishes";
 	}
 	@RequestMapping("/default")
 	public String defaultAfterLogin() {

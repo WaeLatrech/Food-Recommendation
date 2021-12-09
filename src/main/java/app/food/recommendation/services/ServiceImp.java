@@ -175,7 +175,15 @@ public class ServiceImp implements Services{
 		Collections.reverse(recipes);
 		return recipes;
 	}
-	
+	@Override
+	public List<Dish> getDishesByCategory(String cat) {
+		List<Dish> dishes = new ArrayList<>();
+		for (Dish d : repoDish.findAll()) {
+			if(d.getDishcategory().getDishcategory().equalsIgnoreCase(cat))
+				dishes.add(d);
+		}
+		return dishes;
+	}
 	@Override
 	public List<Recipe> getRecipesByCategory(String cat) {
 		List<Recipe> recipes = new ArrayList<>();
@@ -200,7 +208,19 @@ public class ServiceImp implements Services{
 		}
 		return recipes;
 	}
-
+	@Override
+	public List<Dish> getDishesBySearch(String s) {
+		String search = s.toLowerCase();
+		List<Dish> dishes = new ArrayList<>();
+		for (Dish r : repoDish.findAll()) {
+			if(r.getDishcategory().getDishcategory().toLowerCase().contains(search) 
+					|| r.getDishdescription().toLowerCase().contains(search)
+					|| r.getDishname().contains(search)
+					|| r.getResto().getRestoname().toLowerCase().contains(search))
+				dishes.add(r);
+		}
+		return dishes;
+	}
 
 	@Override
 	public Recipe getRecipeById(long id) {
@@ -339,7 +359,63 @@ return null;
 		}
 		return restos;
 	}
+	@Override
+	public List<Dish> getDishBySearch(String search,String location,float price) {
+		String s = search.toLowerCase();
+		String l = location.toLowerCase();
+		List<Dish> dishes = repoDish.findAll();
+		List<Dish> result = new ArrayList<Dish>();
+		if(l.equals("empty") && price == 0) {
+			for(Dish d : dishes) {
+				if (d.getDishname().toLowerCase().contains(s)
+					||d.getDishdescription().toLowerCase().contains(s)
+					||d.getResto().getBrandname().toLowerCase().contains(s)
+					||d.getResto().getRestoname().toLowerCase().contains(s) ){
+					result.add(d);
+				}
+			}
+			return result;
+		}
+		if(!l.equals("empty") && price == 0) {
+			for(Dish d : dishes) {
+				if ((d.getDishname().toLowerCase().contains(s)
+					||d.getDishdescription().toLowerCase().contains(s)
+					||d.getResto().getBrandname().toLowerCase().contains(s)
+					||d.getResto().getRestoname().toLowerCase().contains(s))
+					&& d.getResto().getLocation().toLowerCase().contains(l)){
+					result.add(d);
+				}
+			}
+			return result;
+		}
+		if(l.equals("empty") && price != 0) {
+			for(Dish d : dishes) {
+				if ((d.getDishname().toLowerCase().contains(s)
+					||d.getDishdescription().toLowerCase().contains(s)
+					||d.getResto().getBrandname().toLowerCase().contains(s)
+					||d.getResto().getRestoname().toLowerCase().contains(s))
+					&& d.getPrice()<=price){
+					result.add(d);
+				}
+			}
+			return result;
+		}
+		if(!l.equals("empty") && price != 0) {
+			for(Dish d : dishes) {
+				if ((d.getDishname().toLowerCase().contains(s)
+					||d.getDishdescription().toLowerCase().contains(s)
+					||d.getResto().getBrandname().toLowerCase().contains(s)
+					||d.getResto().getRestoname().toLowerCase().contains(s))
+					&& d.getResto().getLocation().toLowerCase().contains(l)
+					&& d.getPrice()<=price){
+					result.add(d);
+				}
+			}
+			return result;
+		}
+		return result;
 
+	}
 	@Override
 	public Restaurant getRestoById(long id) {
 		Optional<Restaurant> opt = repoResto.findById(id);

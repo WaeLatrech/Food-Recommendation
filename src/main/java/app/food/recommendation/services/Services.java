@@ -60,6 +60,7 @@ import app.food.recommendation.models.User;
 	Dish createDish(String restoname, String dishcatname, String dishname, String dishdescription, float price,MultipartFile file);
 	Dish deleteDish(long id);
 	Dish modifyDish(long id, Dish newDish);
+	List<Dish> getDishBySearch(String s,String location,float price);
 	////////////////**Plan**////////////
 	List<Plan> getAllPlans();
 	Plan getPlanById(long id);
@@ -84,6 +85,8 @@ import app.food.recommendation.models.User;
 //	public List<ReportEntity> getAllReports();
 //	public List<LikeEntity> getAllLikes();
 //	public List<DislikeEntity> getAllDisLikes();
+	List<Dish> getDishesByCategory(String cat);
+	List<Dish> getDishesBySearch(String s);
 
 	
 }
