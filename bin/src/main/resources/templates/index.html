@@ -28,8 +28,8 @@
 					<div class="col-3 d-flex align-items-center">
 						<a class="navbar-brand d-flex" href="">
 							<div class="icon d-flex align-items-center justify-content-center mr-2">
-								<img src="../static/images/logoooo.png" alt="logo" style="width:40px;">
-							</div>Food Recommendation
+								<img src="../static/images/logoooo.png" alt="logo" style="width:50px;">
+							</div><b>Food Recommendation</b>
 						</a>
 					</div>
 					<div class="col-3 d-flex justify-content-end align-items-center">
@@ -55,8 +55,8 @@
 		        <span class="fa fa-bars"></span> Menu
 		      </button>
 		         <div class="req-button order-lg-last">
-		      	<a href="/user/add-product"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
-	        </div>
+		      		<a href="/user/add-recide"><span class="fa fa-upload" aria-hidden="true"></span> Add Recipe</a>
+	        	</div>
 	          <div class="req-button order-lg-last">
 		      	<a href="/Login"><span class="fa fa-user" aria-hidden="false"></span> Login</a>
 	        </div>
@@ -65,16 +65,18 @@
 	        </div>
 	       
 		      <div class="collapse navbar-collapse" id="ftco-nav">
-		        <ul class="navbar-nav mr-auto">
+		       <ul class="navbar-nav mr-auto">
 						<li class="nav-item active"><a href="" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
 						<li class="nav-item dropdown">
-		        	<a href="/brands" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Brands</a>
+		        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
 		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Brands/{brandname}(brandname=${brand.brandname})}" th:each="brand : ${brands}" th:value="${brand.brandname}"  th:text="${brand.brandname}"></a>
+			           <a    class="dropdown-item" th:href="@{/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
 	           		</div>
+	           		
 		        	</li>
-						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
+						<li class="nav-item"><a href="/recipes" class="nav-link">Our Recipes</a></li>
 						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
 					</ul>
 		      </div>
@@ -89,7 +91,7 @@
 		          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
 			          <div class="col-md-10 text-center ftco-animate">
 			          	<div class="text w-100">
-			          		<h2>Research & Read Business Reviews Before Buying</h2>
+			          		<h2>Live the best experiences thanks to others's reviews</h2>
 				            <h1 class="mb-4">Behind every review is an experience that matters</h1>
 				            <p><a href="/Login" class="btn btn-primary">Start the experience</a></p>
 			            </div>
@@ -97,31 +99,31 @@
 			        </div>
 		        </div>
 		      </div>
-		         <div class="slider-item js-fullheight" style="background-image:url(static/images/reviews.jpg);">
+		         <div class="slider-item js-fullheight" style="background-image:url(static/images/bestplaces2020.jpg);">
 		      	<div class="overlay"></div>
 		        <div class="container">
 		          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
 			          <div class="col-md-10 text-center ftco-animate">
 			          	<div class="text w-100">
-			          		<h2>Research & Read Business Reviews Before Buying</h2>
-				            <h1 class="mb-4">
-                           We analyze millions of reviews to find the best products for you</h1>
-				            <p><a href="/Login"class="btn btn-primary">Start the experience</a></p>
-			            </div>
+									<p> 
+										<br><br>
+										<br><br>
+										<br><br>
+										<a href="/recipes" class="btn btn-primary">Start the experience</a>
+									</p>
 			          </div>
 			        </div>
 		        </div>
 		      </div>
 
-		      <div class="slider-item js-fullheight" style="background-image:url(static/images/rating.jpg);">
+		      <div class="slider-item js-fullheight" style="background-image:url(static/images/Eatbook.jpg);">
 		      	<div class="overlay"></div>
 		        <div class="container">
 		          <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
 			          <div class="col-md-8 text-center ftco-animate">
 			          	<div class="text w-100">
 			          		<h2>Research & Read Business Reviews Before Buying</h2>
-				            <h1 class="mb-4">
-                           Product reviews for the customer obsessed</h1>
+				            <h1 class="mb-4">Product reviews for the customer obsessed</h1>
 				            <p><a href="/Login" class="btn btn-primary">Start the experience</a></p>
 			            </div>
 			          </div>
@@ -132,7 +134,7 @@
 		  </div>
 		</section>
 
-		 <section class="ftco-section testimony-section bg-light">
+	<section class="ftco-section testimony-section bg-light">
       <div class="container">
         <div class="row justify-content-center pb-5 mb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
@@ -147,8 +149,8 @@
                 <div class="testimony-wrap py-4">
                 	<div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
                   <div class="text">
-                    <p class="mb-4" th:value="${review.comment}" th:text="${review.comment}">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                    <div class="d-flex align-items-center">
+                    <p class="mb-4" th:value="${review.comment}" th:text="${review.comment}"></p>
+					<div class="d-flex align-items-center">
                     	<div class="posted mb-3 d-flex">
               		<div class="img author ">
                     	 <img  th:src="*{'data:img/png;base64,'+{review.user.imageU}}" style="width: 80px; height: 80px;border-radius: 50% 50%;" class="ml-4 mt-3">
@@ -167,10 +169,44 @@
           </div>
         </div>
       </div>
+      <hr>
     </section>
    	
-   
-
+   <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center pb-5 mb-3">
+          <div class="col-md-7 heading-section text-center ftco-animate">
+          	<span class="subheading">New Recipes</span>
+            <h2>Latest Recipes from our users</h2>
+          </div>
+        </div>
+        <div class="row d-flex">
+          <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${NewRecipes}">
+            <div class="blog-entry align-self-stretch">
+              <a th:href="@{/recipe/{id}(id=${recipe.idrecipe})}"> 
+              <img th:if="${recipe.imgRecipe} != null" alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+	          <img th:if="${recipe.imgRecipe} == null" src="../../static/images/recipe.jpg" alt="" style="width: 280px; height: 250px; ">
+              
+              </a>
+              <div class="text p-3">
+              	<div class="posted mb-3 d-flex">
+              	<div class="img author">
+            	 <img  th:src="*{'data:img/png;base64,'+{recipe.publisher.imageU}}" style="width: 50px; height: 50px;border-radius: 50%; " >
+	          	 </div>
+              		<div class="desc pl-3">
+              			Posted By <i th:value="${recipe.publisher.username}" th:text="${recipe.publisher.username}"></i>
+              			<span th:value="${recipe.dateofcreation}" th:text="${recipe.dateofcreation}"></span>
+              		</div>
+              	</div>
+                <h3 class="heading"><a href="#" th:value="${recipe.title}" th:text="${recipe.title}"></a></h3>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+	
      <section class="ftco-counter" id="section-counter">
     	<div class="container">
 				<div class="row">
@@ -178,9 +214,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-window-restore"></span></div>
-              	<!-- 
+              	 
                 <strong class="number" th:data-number="${restos.size()}" ></strong>
-              	 -->
+              	 
               	<span>All Our Restaurants</span>
               </div>
             </div>
@@ -189,9 +225,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-commenting"></span></div>
-              	<!-- 
+              	 
                 <strong class="number"  th:data-number="${AllRecipes.size()}" ></strong>
-              	 -->
+              	 
               	<span>All Our recipes</span>
               </div>
             </div>
@@ -200,9 +236,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-users"></span></div>
-                <!-- 
+                
                 <strong class="number" th:data-number="${users.size()}"></strong>
-              	 -->
+              	 
               	<span>All Our Clients</span>
               </div>
             </div>
@@ -211,9 +247,9 @@
             <div class="block-18 text-center">
               <div class="text">
               	<div class="icon"><span class="fa fa-bars"></span></div>
-              	<!-- 
+              	
                 <strong class="number" th:data-number=${brands.size()}></strong>
-              	 -->
+              	 
               	<span>All Our Brands</span>
               </div>
             </div>
@@ -295,7 +331,7 @@
                 <span class="fa fa-barcode" aria-hidden="true"  ></span>
               </div>
               <div class="media-body pl-3">
-                <h3 class="heading">Products</h3>
+                <h3 class="heading">Recipes</h3>
                 <p>Share your product experiences to help others make better decisions and empower businesses to improve.</p>
               </div>
             </div>  
@@ -323,26 +359,23 @@
       <div class="container">
         <div class="row justify-content-center pb-5 mb-3">
           <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">New Recipes</span>
-            <h2>Latest Recipes from our users</h2>
+          	<span class="subheading">New Brands</span>
+            <h2>Latest Brands from our users</h2>
           </div>
         </div>
         <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${NewRecipes}">
+          <div class="col-md-4 d-flex ftco-animate" th:each="brand : ${brands}">
             <div class="blog-entry align-self-stretch">
-              <a th:href="@{/add-review/{id}(id=${recipe.idrecipe})}"> <img alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+              <a th:href="@{/restos/{id}(id=${brand.idbrand})}"> <img alt="" th:src="*{'data:img/png;base64,'+{brand.imageB}}" style="width: 280px; height: 250px; ">
               </a>
               <div class="text p-3">
               	<div class="posted mb-3 d-flex">
-              	<div class="img author">
-            	 <img  th:src="*{'data:img/png;base64,'+{recipe.publisher.imageU}}" style="width: 50px; height: 50px;border-radius: 50%; " >
-	          	 </div>
               		<div class="desc pl-3">
-              			Posted By <i th:value="${recipe.publisher.username}" th:text="${recipe.publisher.username}"></i>
-              			<span th:value="${recipe.dateofcreation}" th:text="${recipe.dateofcreation}"></span>
+              			<i th:text="${#lists.size(brand.restos)}"></i><i>  resto(s)</i>
+              			<span th:value="${brand.brandname}" th:text="${brand.brandname}"></span>
               		</div>
               	</div>
-                <h3 class="heading"><a href="#" th:value="${recipe.title}" th:text="${recipe.title}"></a></h3>
+                <h3 class="heading"><a href="#" th:value="${brand.brandname}" th:text="${brand.brandname}"></a></h3>
               </div>
             </div>
           </div>
@@ -388,7 +421,7 @@
                 <li><a href="" class="py-1 d-block">Home</a></li>
                 <li><a href="/#about" class="py-1 d-block">About</a></li>
                 <li><a href="/user/add-recipe" class="py-1 d-block">Add Recipe</a></li>
-                <li><a href="/Contact" class="py-1 d-block">Contact</a></li>
+                <li><a href="/contact" class="py-1 d-block">Contact</a></li>
               </ul>
               
             </div>

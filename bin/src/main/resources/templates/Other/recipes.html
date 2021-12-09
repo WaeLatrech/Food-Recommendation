@@ -62,15 +62,16 @@
 	       
 		      <div class="collapse navbar-collapse" id="ftco-nav">
 		        <ul class="navbar-nav mr-auto">
-						<li class="nav-item "><a href="" class="nav-link">Home</a></li>
+						<li class="nav-item "><a href="/" class="nav-link">Home</a></li>
 						<li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="/brands" class="nav-link">Brands</a></li>
 						<li class="nav-item dropdown">
-		        	<a href="/brands" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Brands</a>
+		        	<a href="/restos/cat" class="nav-link"  id="dropdowncol" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Our Collections</a>
 		        	<div class="dropdown-menu" aria-labelledby="dropdowncol">
-			           <a    class="dropdown-item" th:href="@{/Brands/{brandname}(brandname=${brand.brandname})}" th:each="brand : ${brands}" th:value="${brand.brandname}"  th:text="${brand.brandname}"></a>
+			           <a    class="dropdown-item" th:href="@{/restos/cat/{placecategory}(placecategory=${category.placecategory})}" th:each="category : ${categories}" th:value="${category.placecategory}"  th:text="${category.placecategory}"></a>
 	           		</div>
+	           		
 		        	</li>
-						<li class="nav-item "><a href="/ourcollections" class="nav-link">Our Collections</a></li>
 						<li class="nav-item active"><a href="/recipes" class="nav-link">Our Recipes</a></li>
 						<li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>						
 					</ul>
@@ -88,6 +89,7 @@
 	          </div>
 	        </div>
 	      </div>
+	      
 	    </div>
 		</section>
 
@@ -100,17 +102,25 @@
                           <h2 class="mb-4">Our Recipes</h2>
                     </div>
                  </div>
+                 <div class="row">
+            <div class="col-md-3">
+            <div class="tabulation mt-4 ftco-animate">
+                 <form class="search" action="/searchRecipe">
+                        <input type="search" class="form-control" placeholder="Entrez votre recherche" name="search" required>     <!-- barre de recherche -->
+                        <input type="submit" class="btn btn-primary sign-up"  >     <!-- bouton de validation -->
+           </form>
+           </div></div></div>
         <div class="row">
             <div class="col-md-3">
             <div class="tabulation mt-4 ftco-animate">
               
                 <ul class="nav nav-pills nav-fill d-md-flex d-block flex-column">
                    <li class="nav-item text-left">
-                    <a class="nav-link py-4"><strong> <i class="fa fa-align-justify mr-3" aria-hidden="true"></i>Categories</strong></a>
+                    <a class="nav-link py-4"><strong> <i class="fa fa-align-justify mr-3" aria-hidden="true"></i>Recipe Category</strong></a>
                   </li>
                   <li class="nav-item text-left">
 
-                <a class="nav-link active py-4" th:href="@{/Products/{title}(title=${category.Title})}" th:each="category : ${categories}" th:value="${category.Title}"  th:text="${category.Title}"><span class="fa fa-mobile mr-3" aria-hidden="true"></span> </a>
+                <a class="nav-link active py-4" th:href="@{/recipes/{dishcategory}(dishcategory=${category.dishcategory})}" th:each="category : ${dishcategories}" th:value="${category.dishcategory}"  th:text="${category.dishcategory}"><span class="fa fa-mobile mr-3" aria-hidden="true"></span> </a>
                   </li>
                 </ul>
               </div>
@@ -127,7 +137,8 @@
           <div class="col-md-4 d-flex ftco-animate" th:each="recipe : ${recipes}">
             <div class="blog-entry align-self-stretch">
               <a th:href="@{/recipe/{id}(id=${recipe.idrecipe})}"> 
-              <img alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+              <img th:if="${recipe.imgRecipe} != null" alt="" th:src="*{'data:img/png;base64,'+{recipe.imgRecipe}}" style="width: 280px; height: 250px; ">
+	          <img th:if="${recipe.imgRecipe} == null" src="../../static/images/recipe.jpg" alt="" style="width: 280px; height: 250px; ">
               </a>
               <div class="text p-3">
               	<div class="posted mb-3 d-flex">
@@ -146,7 +157,7 @@
                   <!-- 
                    <small   th:text="${product.avisss.size}" ></small> 
                     -->
-                   <small>reviews</small>
+                   <small th:text="${#lists.size(recipe.reviews)}"></small><small> review(s)</small>
                    </div>
                 </h3>
                	 <!-- 

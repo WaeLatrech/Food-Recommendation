@@ -41,6 +41,14 @@
 			                            </select><br/>		            				
 		                          	</div>  
 		                        </div>
+		                        <div class="row">
+		                        	<div class="col-md-12">                          		
+			            				<select class="form-control" name="catplace" >
+				                            <option value="0">select category Place</option>
+				                            <option th:each="catp : ${categories}" th:value="${catp.idcategory}" th:text="${catp.placecategory}"></option>
+			                            </select><br/>		            				
+		                          	</div>  
+		                        </div>
 		                        <div class="col-md-12">
 		                          <div class="form-group">
 		                        	<input type="text" class="form-control" th:field="*{restoname}" name="restoname" id="restoname" placeholder="Name of resto">

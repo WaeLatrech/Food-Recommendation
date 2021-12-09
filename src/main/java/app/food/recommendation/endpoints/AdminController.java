@@ -343,12 +343,14 @@ public class AdminController {
 		model.addAttribute("brands",brands);
 		Brand brand = new Brand();
 		model.addAttribute("brand",brand);
+		List <Category> categories = catRepo.findAll();
+		model.addAttribute("categories",categories);
 	    return "admin/addrestoadmin";
 	}
 	
 	@PostMapping("/addresto")
-	public String registerSuccessresto(RedirectAttributes redirAttrs,Model model, @RequestParam ("brandname") String brandname , @RequestParam ("restoname") String restoname, @RequestParam ("location") String location) {
-		service.createResto(brandname,restoname,location);
+	public String registerSuccessresto(RedirectAttributes redirAttrs,Model model, @RequestParam ("catplace") Category catplace , @RequestParam ("brandname") String brandname , @RequestParam ("restoname") String restoname, @RequestParam ("location") String location) {
+		service.createResto(brandname,restoname,location,catplace);
 		redirAttrs.addFlashAttribute("success", "Resto Created Successfully");
 		return  "redirect:/admin/restolist";
 	}

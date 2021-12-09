@@ -428,11 +428,12 @@ return null;
 	}
 
 	@Override
-	public Restaurant createResto(String brandname, String restoname, String location) {
+	public Restaurant createResto(String brandname, String restoname, String location,Category catplace) {
 		Restaurant resto = new Restaurant ();
 		resto.setRestoname(restoname);
 		resto.setLocation(location);
 		resto.setBrandname(brandname);
+		resto.setPlacecategory(catplace);
 		List<Brand> l = this.getAllBrands();
         for(Brand c : l)
         {
